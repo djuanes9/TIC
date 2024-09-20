@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     // Conectar al broker MQTT con autenticación
-    const mqttClient = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
+    const mqttClient = mqtt.connect('tls://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8883', {
       username: 'djuanes9',   // Reemplaza por tu usuario
       password: 'Jeagdrose1125', // Reemplaza por tu contraseña
       reconnectPeriod: 1000,      // Intentar reconectar cada segundo si falla la conexión
