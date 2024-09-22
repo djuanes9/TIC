@@ -8,7 +8,7 @@ const MQTTClient = () => {
   useEffect(() => {
     const client = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
       username: 'djuanes9', // Reemplaza con tu nombre de usuario
-      password: 'Jeagdrose1125', // Reemplaza con tu contraseña
+      password: 'Jeagdrose1124', // Reemplaza con tu contraseña
       reconnectPeriod: 1000, // Reconecta automáticamente después de 1 segundo si se desconecta
       clean: true, // Mantén la sesión limpia
       connectTimeout: 30 * 1000, // Tiempo de espera de conexión
