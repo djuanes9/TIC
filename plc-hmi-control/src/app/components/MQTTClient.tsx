@@ -45,11 +45,9 @@ const MQTTClient = () => {
     });
 
  // Manejar la recepción de mensajes
- client.on('message', (topics, message) => {
-  console.log('Message received from ${topics}: ${message.toString()}');
-  // Aquí puedes manejar cada mensaje según el tópico
+ client.on('message', (_topic, _message) => {
+  // Puedes manejar los mensajes aquí si lo necesitas en el futuro.
 });
-
 
     return () => {
       if (client) client.end();
