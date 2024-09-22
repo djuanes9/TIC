@@ -74,6 +74,7 @@ const MQTTClient = () => {
             borderRadius: '4px',
             width: '300px', // Ajusta el ancho según necesites
             marginRight: '10px',
+            color: 'black', // Color del texto
           }}
         />
         <button onClick={subscribeToTopic}>Subscribe</button>
