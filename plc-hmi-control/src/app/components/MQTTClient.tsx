@@ -1,6 +1,7 @@
-"use client";
+"use client"; // Asegúrate de que este componente se ejecute en el cliente
+
 import React, { useEffect, useState } from 'react';
-import mqtt from 'mqtt';
+import mqtt, { IClientOptions } from 'mqtt';
 
 interface Message {
   topic: string;
@@ -11,54 +12,47 @@ const MQTTClient = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [topic, setTopic] = useState('');
+  const [client, setClient] = useState<any>(null);
 
   useEffect(() => {
-    const client = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
+    const mqttClient = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
       username: 'djuanes9', // Reemplaza con tu nombre de usuario
       password: 'Jeagdrose1125', // Reemplaza con tu contraseña
       reconnectPeriod: 1000,
       clean: true,
       connectTimeout: 30 * 1000,
-    });
+    } as IClientOptions);
 
-    client.on('connect', () => {
+    mqttClient.on('connect', () => {
       console.log('Connected to broker');
       setIsConnected(true);
     });
 
-    client.on('error', (err) => {
+    mqttClient.on('error', (err: Error) => {
       console.error('Connection error: ', err);
-      client.end();
+      mqttClient.end();
     });
 
-    client.on('message', (topic, message) => {
+    mqttClient.on('message', (topic: string, message: Buffer) => {
       console.log(`Message received from ${topic}: ${message.toString()}`);
       setMessages(prevMessages => [...prevMessages, { topic, message: message.toString() }]);
     });
 
+    setClient(mqttClient); // Guarda el cliente para usarlo más tarde
+
     return () => {
-      if (client) client.end();
+      mqttClient.end();
     };
   }, []);
 
   const subscribeToTopic = () => {
-    if (topic) {
-      const client = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
-        username: 'djuanes9', // Reemplaza con tu nombre de usuario
-        password: 'Jeagdrose1125', // Reemplaza con tu contraseña
-        reconnectPeriod: 1000,
-        clean: true,
-        connectTimeout: 30 * 1000,
-      });
-
-      client.on('connect', () => {
-        client.subscribe(topic, (err) => {
-          if (!err) {
-            console.log(`Subscribed to ${topic}`);
-          } else {
-            console.error('Subscription error: ', err);
-          }
-        });
+    if (client && topic) {
+      client.subscribe(topic, (err?: Error) => {
+        if (!err) {
+          console.log(`Subscribed to ${topic}`);
+        } else {
+          console.error('Subscription error: ', err);
+        }
       });
     }
   };
