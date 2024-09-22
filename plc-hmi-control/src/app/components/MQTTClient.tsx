@@ -11,13 +11,16 @@ interface Message {
 const MQTTClient = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [topic, setTopic] = useState('');
-  const [client, setClient] = useState<MqttClient | null>(null); // Cambiado a MqttClient
+  const [client, setClient] = useState<MqttClient | null>(null); // Cliente MQTT
+
+  // Lista de tópicos a los que nos suscribiremos automáticamente
+  const topics = ['valv1', 'motor1', 'motor2', 'mill', 'nivel'];
 
   useEffect(() => {
+    // Conectar al broker MQTT con las credenciales
     const mqttClient = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
       username: 'djuanes9', // Reemplaza con tu nombre de usuario
-      password: 'Jeagdrose1125', // Reemplaza con tu contraseña
+      password: 'Jeagdrose1125', // Reemplaza con tu contraseña
       reconnectPeriod: 1000,
       clean: true,
       connectTimeout: 30 * 1000,
@@ -26,32 +29,44 @@ const MQTTClient = () => {
     mqttClient.on('connect', () => {
       console.log('Connected to broker');
       setIsConnected(true);
+
+      // Suscribirse a los tópicos automáticamente
+      topics.forEach((topic) => {
+        mqttClient.subscribe(topic, (err) => {
+          if (err) {
+            console.error(`Error al suscribirse a ${topic}:`, err);
+          } else {
+            console.log(`Suscrito a ${topic}`);
+          }
+        });
+      });
     });
 
     mqttClient.on('error', (err: Error) => {
-      console.error('Connection error: ', err);
+      console.error('Error de conexión:', err);
       mqttClient.end();
     });
 
     mqttClient.on('message', (topic: string, message: Buffer) => {
-      console.log(`Message received from ${topic}: ${message.toString()}`);
-      setMessages(prevMessages => [...prevMessages, { topic, message: message.toString() }]);
+      console.log(`Mensaje recibido de ${topic}: ${message.toString()}`);
+      setMessages((prevMessages) => [...prevMessages, { topic, message: message.toString() }]);
     });
 
-    setClient(mqttClient); // Guarda el cliente para usarlo más tarde
+    setClient(mqttClient); // Guardar el cliente para futuras publicaciones
 
     return () => {
       mqttClient.end();
     };
   }, []);
 
-  const subscribeToTopic = () => {
-    if (client && topic) {
-      client.subscribe(topic, (err) => {
+  // Función para publicar mensajes en los tópicos
+  const publishMessage = (topic: string, message: string) => {
+    if (client && isConnected) {
+      client.publish(topic, message, { qos: 1 }, (err) => {
         if (err) {
-          console.error('Subscription error: ', err);
+          console.error(`Error al publicar en ${topic}:`, err);
         } else {
-          console.log(`Subscribed to ${topic}`);
+          console.log(`Mensaje publicado en ${topic}: ${message}`);
         }
       });
     }
@@ -61,24 +76,13 @@ const MQTTClient = () => {
     <div>
       <h2>MQTT Client</h2>
       <p>Status: {isConnected ? 'Connected' : 'Disconnected'}</p>
+
       <div>
-        <input
-          type="text"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          placeholder="Enter topic to subscribe"
-          style={{
-            padding: '10px',
-            fontSize: '16px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            width: '300px', // Ajusta el ancho según necesites
-            marginRight: '10px',
-            color: 'black', // Color del texto
-          }}
-        />
-        <button onClick={subscribeToTopic}>Subscribe</button>
+        {/* Botones para publicar en los tópicos "start" y "stop" */}
+        <button onClick={() => publishMessage('start', 'true')}>Start</button>
+        <button onClick={() => publishMessage('stop', 'true')}>Stop</button>
       </div>
+
       <h3>Messages:</h3>
       <ul>
         {messages.map((msg, index) => (
