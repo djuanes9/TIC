@@ -27,26 +27,29 @@ const MQTTClient = () => {
       console.log('Connected to broker');
       setIsConnected(true);
 
-      // Suscribirse a los tópicos
-      const topics = ['valvula', 'motor1', 'molino', 'motor2'];
-      client.subscribe(topics, (err) => {
-        if (!err) {
-          console.log("Subscribed to topics:", topics);
-        } else {
-          console.error('Subscription error: ', err);
-        }
-      });
-    });
+     // Suscribirse a los tópicos
+     const topics = ['valvula', 'motor1', 'molino', 'motor2'];
+     client.subscribe(topics, (err) => {
+       if (!err) {
+         console.log('Subscribed to topics: ${topics.join(', ')}');
+       } else {
+         console.error('Subscription error: ', err);
+       }
+     });
+   });
+
 
     client.on('error', (err) => {
       console.error('Connection error: ', err);
       client.end();
     });
 
-  //  client.on('message', (topics, message) => {
-   //   console.log("Message received from",topics: ${message.toString()});
-      // Aquí puedes manejar cada mensaje según el tópico
-   // });
+ // Manejar la recepción de mensajes
+ client.on('message', (topic, message) => {
+  console.log('Message received from ${topic}: ${message.toString()}');
+  // Aquí puedes manejar cada mensaje según el tópico
+});
+
 
     return () => {
       if (client) client.end();
