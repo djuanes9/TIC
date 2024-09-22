@@ -67,6 +67,14 @@ const MQTTClient = () => {
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           placeholder="Enter topic to subscribe"
+          style={{
+            padding: '10px',
+            fontSize: '16px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            width: '300px', // Ajusta el ancho según necesites
+            marginRight: '10px',
+          }}
         />
         <button onClick={subscribeToTopic}>Subscribe</button>
       </div>
