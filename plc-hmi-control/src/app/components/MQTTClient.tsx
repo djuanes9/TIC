@@ -1,7 +1,7 @@
 "use client"; // Asegúrate de que este componente se ejecute en el cliente
 
 import React, { useEffect, useState } from 'react';
-import mqtt, { IClientOptions } from 'mqtt';
+import mqtt, { MqttClient } from 'mqtt';
 
 interface Message {
   topic: string;
@@ -12,7 +12,7 @@ const MQTTClient = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [topic, setTopic] = useState('');
-  const [client, setClient] = useState<any>(null);
+  const [client, setClient] = useState<MqttClient | null>(null); // Cambiado a MqttClient
 
   useEffect(() => {
     const mqttClient = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
@@ -21,7 +21,7 @@ const MQTTClient = () => {
       reconnectPeriod: 1000,
       clean: true,
       connectTimeout: 30 * 1000,
-    } as IClientOptions);
+    });
 
     mqttClient.on('connect', () => {
       console.log('Connected to broker');
@@ -47,11 +47,11 @@ const MQTTClient = () => {
 
   const subscribeToTopic = () => {
     if (client && topic) {
-      client.subscribe(topic, (err?: Error) => {
-        if (!err) {
-          console.log(`Subscribed to ${topic}`);
-        } else {
+      client.subscribe(topic, (err) => {
+        if (err) {
           console.error('Subscription error: ', err);
+        } else {
+          console.log(`Subscribed to ${topic}`);
         }
       });
     }
