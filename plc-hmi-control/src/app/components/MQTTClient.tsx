@@ -31,7 +31,7 @@ const MQTTClient = () => {
       const topics = ['valvula', 'motor1', 'molino', 'motor2'];
       client.subscribe(topics, (err) => {
         if (!err) {
-       //   console.log(Subscribed to topics: ${topics.join(', ')});
+          console.log("Subscribed to topics:", topics);
         } else {
           console.error('Subscription error: ', err);
         }
@@ -43,7 +43,10 @@ const MQTTClient = () => {
       client.end();
     });
 
- 
+  //  client.on('message', (topics, message) => {
+   //   console.log("Message received from",topics: ${message.toString()});
+      // Aquí puedes manejar cada mensaje según el tópico
+   // });
 
     return () => {
       if (client) client.end();
