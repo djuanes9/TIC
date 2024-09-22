@@ -8,8 +8,8 @@ const MQTTClient = () => {
   // Definimos que clientRef puede ser de tipo MqttClient o null
   const clientRef = useRef<MqttClient  | null>(null);
 
-  const topic: string = "valv";
-  const mqttBrokerUrl = 'wss://myipaddress:8080/mqtt'; 
+ // const topic: string = "valv";
+  
 
 
   useEffect(() => {
@@ -24,16 +24,20 @@ const MQTTClient = () => {
     clientRef.current = client; // Almacenamos el cliente en la referencia
 
 
-    client.on("connect", () => {
-      console.log("Connected to MQTT broker");
-      client.subscribe(topic, (err) => {
-        if (err) {
-          console.error(`Error subscribing to topic "${topic}": ${err}`);
+    client.on('connect', () => {
+      console.log('Connected to broker');
+      setIsConnected(true);
+  
+      const topics = ['valvula', 'motor1', 'molino', 'motor2'];
+      client.subscribe(topics, (err) => {
+        if (!err) {
+          console.log('Subscribed to topics: ${topics.join(', ')}');
         } else {
-          console.log(`Subscribed to topic "${topic}"`);
+          console.error('Subscription error: ', err);
         }
       });
     });
+  
 
 
     client.on('error', (err) => {
