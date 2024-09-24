@@ -68,20 +68,20 @@ const MQTTClient = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Grain Milling Process Control</h1>
+      <h1 className="text-2xl font-bold text-black mb-4">Grain Milling Process Control</h1>
       <p>Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
 
       {/* Mostrar los estados de los tópicos */}
       <div className="mt-4 grid grid-cols-2 gap-4">
         {/* SILO-101 */}
         <div className="p-4 border rounded">
-          <h3 className="text-xl font-semibold">SILO-101</h3>
+          <h3 className="text-xl font-semibold text-black">SILO-101</h3>
           <p>Nivel: {statuses["SILO-101"]}%</p>
         </div>
 
         {/* CNVR-101 */}
         <div className="p-4 border rounded">
-          <h3 className="text-xl font-semibold">CNVR-101</h3>
+          <h3 className="text-xl font-semibold text-black">CNVR-101</h3>
           <p className={statuses["CNVR-101"] === "ON" ? "text-red-500" : "text-green-500"}>
             Estado: {statuses["CNVR-101"]}
           </p>
