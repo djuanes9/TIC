@@ -76,7 +76,7 @@ const MQTTClient = () => {
         {/* SILO-101 */}
         <div className="p-4 border rounded">
           <h3 className="text-xl font-semibold text-black">SILO-101</h3>
-          <p>Nivel: {statuses["SILO-101"]}%</p>
+          <p className="text-black">Nivel: {statuses["SILO-101"]}%</p>
         </div>
 
         {/* CNVR-101 */}
@@ -89,7 +89,7 @@ const MQTTClient = () => {
 
         {/* MILL-101 */}
         <div className="p-4 border rounded">
-          <h3 className="text-xl font-semibold">MILL-101</h3>
+          <h3 className="text-xl font-semibold text-black">MILL-101</h3>
           <p className={statuses["MILL-101"] === "ON" ? "text-red-500" : "text-green-500"}>
             Estado: {statuses["MILL-101"]}
           </p>
@@ -97,7 +97,7 @@ const MQTTClient = () => {
 
         {/* CNVR-102 */}
         <div className="p-4 border rounded">
-          <h3 className="text-xl font-semibold">CNVR-102</h3>
+          <h3 className="text-xl font-semibold text-black">CNVR-102</h3>
           <p className={statuses["CNVR-102"] === "ON" ? "text-red-500" : "text-green-500"}>
             Estado: {statuses["CNVR-102"]}
           </p>
@@ -105,7 +105,7 @@ const MQTTClient = () => {
 
         {/* NIVEL */}
         <div className="p-4 border rounded">
-          <h3 className="text-xl font-semibold">NIVEL</h3>
+          <h3 className="text-xl font-semibold text-black">NIVEL</h3>
           <p className={statuses["NIVEL"] === "ON" ? "text-red-500" : "text-green-500"}>
             Estado: {statuses["NIVEL"]}
           </p>
