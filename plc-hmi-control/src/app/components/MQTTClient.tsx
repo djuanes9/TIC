@@ -68,8 +68,8 @@ const MQTTClient = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold text-black mb-4">Grain Milling Process Control</h1>
-      <p>Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
+      <h1 className="text-2xl font-bold text-black mb-4">Subproceso 2: Molienda de Granos</h1>
+      <p className="text-black"> Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
 
       {/* Mostrar los estados de los tópicos */}
       <div className="mt-4 grid grid-cols-2 gap-4">
