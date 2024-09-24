@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import mqtt, { MqttClient } from "mqtt";
 
 // Importa tus imágenes SVG
-import SiloSvg from "/silo.svg";  // Ruta al SVG del Silo
-import ConveyorSvg from "/conveyor.svg";  // Ruta al SVG del Conveyor
-import MillSvg from "/mill.svg";  // Ruta al SVG del Molino
+import SiloSvg from "../public/silo.svg";  
+import ConveyorSvg from "../public/conveyor.svg";
+import MillSvg from "../public/mill.svg";
 
 interface Message {
   topic: string;
