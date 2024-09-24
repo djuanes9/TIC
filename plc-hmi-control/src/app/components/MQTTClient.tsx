@@ -3,10 +3,6 @@
 import React, { useEffect, useState } from "react";
 import mqtt, { MqttClient } from "mqtt";
 
-// Importa tus imágenes SVG
-import SiloSvg from ".../public/silo.svg";  
-import ConveyorSvg from ".../public/conveyor.svg";
-import MillSvg from ".../public/mill.svg";
 
 interface Message {
   topic: string;
@@ -99,7 +95,7 @@ const MQTTClient = () => {
           <strong>SILO-101</strong>
           <p>Nivel: {statuses["SILO-101"]}%</p>
           <img
-            src={SiloSvg}
+            src="/silo.svg"
             alt="Silo"
             className={`w-32 h-32 ${statuses["SILO-101"] > 0 ? "opacity-100" : "opacity-50"}`}
             style={{
@@ -115,7 +111,7 @@ const MQTTClient = () => {
             Estado: {statuses["CNVR-101"]}
           </p>
           <img
-            src={ConveyorSvg}
+            src="/conveyor.svg"
             alt="Conveyor"
             className={`w-32 h-32 ${statuses["CNVR-101"] === "ON" ? "opacity-100" : "opacity-50"}`}
           />
@@ -128,7 +124,7 @@ const MQTTClient = () => {
             Estado: {statuses["MILL-101"]}
           </p>
           <img
-            src={MillSvg}
+            src="/mill.svg"
             alt="Mill"
             className={`w-32 h-32 ${statuses["MILL-101"] === "ON" ? "opacity-100" : "opacity-50"}`}
           />
@@ -141,7 +137,7 @@ const MQTTClient = () => {
             Estado: {statuses["CNVR-102"]}
           </p>
           <img
-            src={ConveyorSvg}
+            src="/conveyor.svg"
             alt="Conveyor"
             className={`w-32 h-32 ${statuses["CNVR-102"] === "ON" ? "opacity-100" : "opacity-50"}`}
           />
