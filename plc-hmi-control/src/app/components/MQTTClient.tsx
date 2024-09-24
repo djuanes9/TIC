@@ -12,13 +12,13 @@ const MQTTClient = () => {
     "CNVR-101": string;
     "MILL-101": string;
     "CNVR-102": string;
-    NIVEL: string;
+    VALV: string;
   }>({
     "SILO-101": 0,   // Inicializado en 0 (para un valor entre 0 y 100)
     "CNVR-101": "OFF",
     "MILL-101": "OFF",
     "CNVR-102": "OFF",
-    NIVEL: "OFF",
+    VALV: "OFF",
   });
 
   // Efecto para conectarse al broker MQTT
@@ -106,8 +106,8 @@ const MQTTClient = () => {
         {/* NIVEL */}
         <div className="p-4 border rounded">
           <h3 className="text-xl font-semibold text-black">NIVEL</h3>
-          <p className={statuses["NIVEL"] === "ON" ? "text-red-500" : "text-green-500"}>
-            Estado: {statuses["NIVEL"]}
+          <p className={statuses["VALV"] === "ON" ? "text-red-500" : "text-green-500"}>
+            Estado: {statuses["VALV"]}
           </p>
         </div>
       </div>
