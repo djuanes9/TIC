@@ -105,7 +105,7 @@ const MQTTClient = () => {
 
         {/* NIVEL */}
         <div className="p-4 border rounded">
-          <h3 className="text-xl font-semibold text-black">NIVEL</h3>
+          <h3 className="text-xl font-semibold text-black">VALV</h3>
           <p className={statuses["VALV"] === "ON" ? "text-red-500" : "text-green-500"}>
             Estado: {statuses["VALV"]}
           </p>
