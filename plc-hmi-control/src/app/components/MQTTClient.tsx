@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import mqtt, { MqttClient } from "mqtt";
+import mqtt from "mqtt";
 
 const MQTTClient = () => {
   const [isConnected, setIsConnected] = useState(false);
