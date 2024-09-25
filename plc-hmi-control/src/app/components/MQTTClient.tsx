@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import React, { useEffect, useState } from "react";
 import mqtt from "mqtt";
@@ -12,16 +13,16 @@ const MQTTClient = () => {
     "CNVR-101": string;
     "MILL-101": string;
     "CNVR-102": string;
-    VALV: string;
+    NIVEL: string;
   }>({
-    "SILO-101": 0,   // Inicializado en 0 (para un valor entre 0 y 100)
+    "SILO-101": 0,
     "CNVR-101": "OFF",
     "MILL-101": "OFF",
     "CNVR-102": "OFF",
-    VALV: "OFF",
+    NIVEL: "OFF",
   });
 
-  // Efecto para conectarse al broker MQTT
+  // Cliente MQTT
   useEffect(() => {
     const mqttClient = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
       username: 'djuanes9', // Reemplaza con tu nombre de usuario
@@ -32,7 +33,6 @@ const MQTTClient = () => {
       console.log("Conectado al broker MQTT");
       setIsConnected(true);
 
-      // Suscribirse a los tópicos relevantes
       mqttClient.subscribe(
         ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL"],
         (err) => {
@@ -45,14 +45,12 @@ const MQTTClient = () => {
       );
     });
 
-    // Recibir mensajes de los tópicos
     mqttClient.on("message", (topic: string, message: Buffer) => {
       const msg = message.toString();
       console.log(`Mensaje recibido de ${topic}: ${msg}`);
 
       setStatuses((prevStatuses) => ({
         ...prevStatuses,
-        // Para "SILO-101", guardamos un número, para los otros, "ON" o "OFF"
         [topic as keyof typeof statuses]: topic === "SILO-101" ? Number(msg) : (msg === "true" ? "ON" : "OFF"),
       }));
     });
@@ -66,50 +64,73 @@ const MQTTClient = () => {
     };
   }, []);
 
+  // Función para enviar mensajes a los tópicos
+  const sendMessage = (topic: string, message: string) => {
+    const mqttClient = mqtt.connect('wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt', {
+      username: 'djuanes9', // Reemplaza con tu nombre de usuario
+      password: 'Jeagdrose1125', // Reemplaza con tu contraseña
+    });
+
+    mqttClient.publish(topic, message, {}, (err) => {
+      if (err) {
+        console.error(`Error al publicar en el tópico ${topic}: `, err);
+      } else {
+        console.log(`Mensaje enviado a ${topic}: ${message}`);
+      }
+    });
+  };
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold text-black mb-4">Subproceso 2: Molienda de Granos</h1>
-      <p className="text-black"> Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
+      <h1 className="text-2xl font-bold text-black mb-4">Grain Milling Process Control</h1>
+      <p>Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
 
       {/* Mostrar los estados de los tópicos */}
       <div className="mt-4 grid grid-cols-2 gap-4">
-        {/* SILO-101 */}
         <div className="p-4 border rounded">
           <h3 className="text-xl font-semibold text-black">SILO-101</h3>
           <p className="text-black">Nivel: {statuses["SILO-101"]}%</p>
         </div>
-
-        {/* CNVR-101 */}
         <div className="p-4 border rounded">
           <h3 className="text-xl font-semibold text-black">CNVR-101</h3>
           <p className={statuses["CNVR-101"] === "ON" ? "text-red-500" : "text-green-500"}>
             Estado: {statuses["CNVR-101"]}
           </p>
         </div>
-
-        {/* MILL-101 */}
         <div className="p-4 border rounded">
           <h3 className="text-xl font-semibold text-black">MILL-101</h3>
           <p className={statuses["MILL-101"] === "ON" ? "text-red-500" : "text-green-500"}>
             Estado: {statuses["MILL-101"]}
           </p>
         </div>
-
-        {/* CNVR-102 */}
         <div className="p-4 border rounded">
           <h3 className="text-xl font-semibold text-black">CNVR-102</h3>
           <p className={statuses["CNVR-102"] === "ON" ? "text-red-500" : "text-green-500"}>
             Estado: {statuses["CNVR-102"]}
           </p>
         </div>
-
-        {/* NIVEL */}
         <div className="p-4 border rounded">
-          <h3 className="text-xl font-semibold text-black">VALV</h3>
-          <p className={statuses["VALV"] === "ON" ? "text-red-500" : "text-green-500"}>
-            Estado: {statuses["VALV"]}
+          <h3 className="text-xl font-semibold text-black">NIVEL</h3>
+          <p className={statuses["NIVEL"] === "ON" ? "text-red-500" : "text-green-500"}>
+            Estado: {statuses["NIVEL"]}
           </p>
         </div>
+      </div>
+
+      {/* Botones de Start y Stop */}
+      <div className="mt-8">
+        <button
+          onClick={() => sendMessage("start", "true")}
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+        >
+          Start
+        </button>
+        <button
+          onClick={() => sendMessage("stop", "true")}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Stop
+        </button>
       </div>
     </div>
   );
