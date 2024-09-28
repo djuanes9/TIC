@@ -1,11 +1,6 @@
-import MQTTClient from './components/MQTTClient';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import "./../public/styles.css";
 
-const Home = () => {
-  return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
-      <MQTTClient />
-    </div>
-  );
-};
-
-export default Home;
+ReactDOM.render(<App />, document.getElementById("root"));

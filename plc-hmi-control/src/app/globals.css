@@ -1,27 +1,231 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.heading {
+  color: rgba(21, 8, 193, 0.744);
+  font-family: "McLaren", cursive;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-
+html {
+  font-family: "Montserrat", sans-serif;
+}
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #eee;
+  padding: 0 16px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+header {
+  background-color: #3961ee;
+  margin: auto -16px;
+  padding: 10px 52px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  overflow-y: scroll;
+}
+
+header h1 {
+  color: #fff;
+  font-family: sans-serif, Times;
+  font-weight: bold;
+}
+
+header h2 {
+  color: #fff;
+  font-family: sans-serif;
+  font-weight: 150;
+}
+
+footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+footer p {
+  color: #ccc;
+}
+.note {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: 240px;
+  margin: 16px;
+  float: left;
+}
+.note h1 {
+  font-size: 1.1em;
+  margin-bottom: 6px;
+}
+.note p {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.header img {
+  margin: 10px 10px 90 0;
+  position: relative;
+  top: 120px;
+  left: 40px;
+}
+
+.circle-img {
+  width: 300px;
+  height: 70px;
+  margin-left: 1100px;
+  position: relative;
+  top: -50px;
+  left: 40px;
+}
+
+.StatusPanel {
+  height: 400px;
+  width: 350px; /* Aumenta el ancho para más espacio */
+  background-color: #bbc4c3;
+  position: sticky;
+  top: 10px;
+  text-align: center;
+  line-height: 1.6;
+  padding: 20px; /* Agrega espacio interno */
+  display: flex;
+  flex-direction: column; /* Alinea los hijos en columnas */
+  justify-content: space-between; /* Distribuye el contenido */
+}
+.StatusItem {
+  display: flex; /* Alinea el nombre y el LED en la misma línea */
+  justify-content: space-between; /* Coloca el nombre a la izquierda y el LED a la derecha */
+  align-items: center; /* Alinea verticalmente en el centro */
+  margin-bottom: 10px; /* Espacio entre cada ítem */
+  padding: 10px;
+  background-color: #dfe6e5;
+  border-radius: 8px;
+}
+
+.StatusItem h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.StatusItem img {
+  width: 25px; /* Ajusta el tamaño de los LEDs */
+  height: 25px;
+}
+
+.buttonPanel {
+  display: flex; /* Utilizamos flexbox para alinear los botones */
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 20px; /* Espacio entre los botones */
+  margin-top: 20px; /* Espacio adicional encima del panel */
+  padding: 10px; /* Agregamos un poco de espacio interno */
+}
+
+.buttonStart {
+  box-shadow: 3px 4px 0px 0px #3e7327;
+  background: linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+  background-color: #77b55a;
+  border-radius: 18px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 7px 25px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #5b8a3c;
+}
+.buttonStart:hover {
+  background: linear-gradient(to bottom, #2b6310 5%, #77b55a 100%);
+  background-color: #72b352;
+}
+.buttonStart:active {
+  position: relative;
+  top: 1px;
+}
+
+.buttonStop {
+  box-shadow: 3px 4px 0px 0px #8a2a21;
+  background: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+  background-color: #c62d1f;
+  border-radius: 18px;
+  border: 1px solid #d02718;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 7px 25px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #810e05;
+}
+.buttonStop:hover {
+  background: linear-gradient(to bottom, #751107 5%, #f24437 100%);
+  background-color: #72b352;
+}
+
+.buttonStop:active {
+  position: relative;
+  top: 1px;
+}
+
+.StateOn {
+  color: "red";
+}
+
+.StateOff {
+  color: "red";
+}
+
+/* Wrapper que contiene la imagen del silo y el rectángulo de llenado */
+.siloWrapper {
+  position: relative; /* Posiciona los elementos dentro de este contenedor */
+  width: 100px;
+  height: 180px;
+}
+
+/* Imagen del silo */
+.siloImage {
+  width: 180px; /* Ancho de la imagen del silo */
+  height: 290px; /* Alto de la imagen del silo */
+  object-fit: cover;
+}
+
+/* Barra de llenado del SILO */
+.siloFill {
+  position: absolute;
+  left: 30px;
+  bottom: 10px; /* Llenado comienza desde la parte inferior */
+  width: 100%;
+  background-color: #8b4513; /* Color del grano (marrón) */
+  transition: height 0.3s ease; /* Transición suave para el llenado */
+  z-index: 1; /* Asegura que el relleno esté sobre la imagen */
+}
+
+.HMI-container {
+  flex: 1; /* Ocupa la mayor parte de la pantalla a la izquierda */
+  margin-right: 20px; /* Espacio a la derecha para el panel */
+}
+
+.hmiSection {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.main-container {
+  display: flex;
+  justify-content: space-between; /* Espacio entre el HMI y el Panel */
+  align-items: flex-start; /* Alinearlos en la parte superior */
+  padding: 20px;
+}
+
+.valve-image {
+  position: absolute;
+  top: 250px; /* Ajusta según la posición deseada sobre el silo */
+  left: 60px; /* Ajusta la posición horizontal de la válvula */
+  width: 70px; /* Tamaño de la válvula */
+  height: 80px;
+  transform: rotate(90deg);
 }
