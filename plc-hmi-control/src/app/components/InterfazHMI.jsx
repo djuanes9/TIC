@@ -8,7 +8,7 @@ const HMI = () => {
   const siloFillLevel = statuses["SILO-101"] || 0;
 
   return (
-    <div className="main-container ">
+    <div>
       {/* Sección del SILO */}
       <div className="Silo-container">
         <h3>SILO-101</h3>

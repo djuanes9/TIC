@@ -10,7 +10,7 @@ function App() {
     <div>
       <Heading />
       <MQTTProvider>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="main-container " style={{ display: "flex", justifyContent: "space-between" }}>
           {/* Panel de gráficas a la izquierda */}
           <InterfazHMI />
           <PanelGraficas />
