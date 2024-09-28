@@ -1,4 +1,4 @@
-
+"use client";
 import "./globals.css";
 import ReactDOM from "react-dom/client";  // Cambia la importación a 'react-dom/client'
 import App from "./components/App";
