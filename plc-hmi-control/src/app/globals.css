@@ -257,8 +257,17 @@ footer p {
   }
 
   .StatusPanel {
-    width: 70%;
-    height: auto;
+    height: 400px;
+  width: 350px; /* Aumenta el ancho para más espacio */
+  background-color: #bbc4c3;
+  position: sticky;
+  top: 10px;
+  text-align: center;
+  line-height: 1.6;
+  padding: 20px; /* Agrega espacio interno */
+  display: flex;
+  flex-direction: column; /* Alinea los hijos en columnas */
+  justify-content: space-between; /* Distribuye el contenido */
   }
 
   .main-container {
