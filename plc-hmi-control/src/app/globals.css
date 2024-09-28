@@ -234,7 +234,7 @@ footer p {
 /* Estilos responsive para pantallas más pequeñas */
 @media screen and (max-width: 768px) {
   .header img {
-    width: 100px;
+    width: 50px;
     top: 50px;
     left: 20px;
   }
@@ -248,7 +248,7 @@ footer p {
   }
 
   .StatusPanel {
-    width: 100%;
+    width: 50%;
     height: auto;
   }
 
