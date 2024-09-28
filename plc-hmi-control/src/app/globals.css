@@ -230,3 +230,35 @@ footer p {
   height: 80px;
   transform: rotate(90deg);
 }
+
+/* Estilos responsive para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+  .header img {
+    width: 100px;
+    top: 50px;
+    left: 20px;
+  }
+
+  .circle-img {
+    width: 100px;
+    height: auto;
+    margin-left: 0;
+    top: 0;
+    left: 0;
+  }
+
+  .StatusPanel {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .buttonPanel {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
