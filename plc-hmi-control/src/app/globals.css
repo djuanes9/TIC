@@ -239,6 +239,7 @@ footer p {
     padding: 10px 52px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     overflow-y: scroll;
+    display: flex;
   }
 
   .header img {
@@ -261,8 +262,10 @@ footer p {
   }
 
   .main-container {
-    flex-direction: column;
-    padding: 10px;
+    display: flex;
+    justify-content: space-between; /* Espacio entre el HMI y el Panel */
+    align-items: flex-start; /* Alinearlos en la parte superior */
+    padding: 20px;
     overflow-y: scroll;
   }
 
