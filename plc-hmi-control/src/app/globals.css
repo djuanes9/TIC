@@ -94,6 +94,7 @@ footer p {
   display: flex;
   flex-direction: column; /* Alinea los hijos en columnas */
   justify-content: space-between; /* Distribuye el contenido */
+
 }
 .StatusItem {
   display: flex; /* Alinea el nombre y el LED en la misma línea */
