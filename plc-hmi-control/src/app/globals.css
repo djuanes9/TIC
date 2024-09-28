@@ -233,8 +233,16 @@ footer p {
 
 /* Estilos responsive para pantallas más pequeñas */
 @media screen and (max-width: 768px) {
+  header {
+    background-color: #3961ee;
+    margin: auto -16px;
+    padding: 10px 52px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    overflow-y: scroll;
+  }
+
   .header img {
-    width: 50px;
+    width: 80px;
     top: 50px;
     left: 20px;
   }
@@ -248,13 +256,14 @@ footer p {
   }
 
   .StatusPanel {
-    width: 50%;
+    width: 70%;
     height: auto;
   }
 
   .main-container {
     flex-direction: column;
     padding: 10px;
+    overflow-y: scroll;
   }
 
   .buttonPanel {
