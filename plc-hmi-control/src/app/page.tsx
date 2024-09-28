@@ -1,6 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/App";
-import "./globals.css";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import "./globals.css";
+import ReactDOM from "react-dom/client";  // Cambia la importación a 'react-dom/client'
+import App from "./components/App";
+
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement);  // Usa 'createRoot'
+root.render(<App />);  // Renderiza el componente usando 'root.render'
