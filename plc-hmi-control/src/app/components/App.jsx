@@ -10,7 +10,9 @@ function App() {
     <div>
       <Heading />
       <MQTTProvider>
-        <div className="main-container " style={{ display: "inline-block", justifyContent: "space-between" }}>
+   {/*     <div className="main-container " style={{ display: "inline-block", justifyContent: "space-between" }}>*/}
+   <div className="main-container">
+
           {/* Panel de gráficas a la izquierda */}
           <InterfazHMI />
           <PanelGraficas />
