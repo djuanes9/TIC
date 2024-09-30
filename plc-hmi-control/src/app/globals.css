@@ -227,6 +227,29 @@ footer p {
   transform: rotate(90deg);
 }
 
+@keyframes grainMovement {
+  0% {
+    top: 330px; /* Posición inicial */
+    transform: translateY(80%);
+  }
+  100% {
+    top: 199px; /* Posición final al subir */
+    transform: translateX(100%);
+  }
+}
+
+.grains {
+  position: absolute;
+  width: 170px; /* Ajusta según el tamaño de la imagen */
+  height: 50px;
+  background-image: url("/granos.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  bottom: 215px; /* Posición inicial */
+  left: 172px; /* Posición inicial */
+  animation: grainMovement 3s linear infinite; /* Animación cíclica */
+}
+
 @media (max-width: 600px) {
   header {
     flex-wrap: nowrap; /* Asegura que no se envuelva el contenido */
