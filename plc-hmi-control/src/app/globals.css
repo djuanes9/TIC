@@ -217,10 +217,10 @@ footer p {
 
 .valve-image {
   position: absolute;
-  top: 340px; /* Ajusta según la posición deseada sobre el silo */
-  left: 98px; /* Ajusta la posición horizontal de la válvula */
-  width: 50px; /* Tamaño de la válvula */
-  height: 50px;
+  top: 260px; /* Ajusta según la posición deseada sobre el silo */
+  left: 73px; /* Ajusta la posición horizontal de la válvula */
+  width: 40px; /* Tamaño de la válvula */
+  height: 40px;
   transform: rotate(90deg);
 }
 
