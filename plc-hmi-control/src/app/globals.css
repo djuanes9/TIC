@@ -10,11 +10,11 @@ html {
 
 body {
   background: #eee;
-  padding: 0 0px;
+  padding: 0 1px;
 }
 header {
   background-color: #3961ee;
-  padding: 10px 20px;
+  padding: 12px 20px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: space-between;
@@ -84,22 +84,25 @@ footer p {
   overflow-x: auto; /* Permite el scroll horizontal */
   white-space: nowrap; /* Evita que se envuelva el contenido */
   margin-top: 20px;
-  padding: 0 10px;
+  padding: 0 30px;
+  max-width: 1500px; /* Limitar el ancho máximo en pantallas grandes */
+  max-height: 900px;
   width: 100%;
-  height: 550px;
+  height: 600px;
   position: sticky;
 }
 
 .hmiSection {
   flex: 1; /* Hace que ambos elementos tomen el mismo ancho */
-  max-width: 750px; /* Ancho máximo para pantallas grandes */
+  max-width: 900px; /* Ancho máximo para pantallas grandes */
   background-color: #ccd4dc;
   border: 2px solid #ccc;
   padding: 10px;
   margin-right: 10px; /* Espacio entre los elementos */
   box-sizing: content-box;
-  height: 450px;
-  width: 800px; /* Asegura que el padding se incluya en el ancho total */
+  height: 550px;
+
+  width: 900px; /* Asegura que el padding se incluya en el ancho total */
 }
 
 .StatusPanel {
@@ -199,8 +202,8 @@ footer p {
 
 /* Imagen del silo */
 .siloImage {
-  width: 710px; /* Ancho de la imagen del silo */
-  height: 450px; /* Alto de la imagen del silo */
+  width: 810px; /* Ancho de la imagen del silo */
+  height: 550px; /* Alto de la imagen del silo */
   object-fit: fill;
 }
 
@@ -217,14 +220,14 @@ footer p {
 
 .valve-image {
   position: absolute;
-  top: 260px; /* Ajusta según la posición deseada sobre el silo */
-  left: 73px; /* Ajusta la posición horizontal de la válvula */
-  width: 40px; /* Tamaño de la válvula */
-  height: 40px;
+  top: 315px; /* Ajusta según la posición deseada sobre el silo */
+  left: 82px; /* Ajusta la posición horizontal de la válvula */
+  width: 45px; /* Tamaño de la válvula */
+  height: 45px;
   transform: rotate(90deg);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   header {
     flex-wrap: nowrap; /* Asegura que no se envuelva el contenido */
     overflow-x: scroll; /* Permite el scroll horizontal en pantallas pequeñas */
