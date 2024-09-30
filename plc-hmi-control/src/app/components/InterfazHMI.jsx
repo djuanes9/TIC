@@ -28,8 +28,6 @@ const HMI = () => {
           <Image
             src="/granos.png"
             alt="Granos"
-            width={170}
-            height={50} // Ajusta según el tamaño
           />
         </div>
       )}
