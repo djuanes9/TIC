@@ -1,48 +1,53 @@
-.heading {
-  color: rgba(21, 8, 193, 0.744);
-  font-family: "McLaren", cursive;
-}
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
+
 html {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Manrope", sans-serif;
 }
+
 body {
   background: #eee;
   padding: 0 16px;
 }
-
 header {
   background-color: #3961ee;
-  margin: auto -16px;
-  padding: 10px 52px;
+  padding: 10px 20px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  overflow-y: scroll;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: auto; /* Permite el scroll horizontal */
+  white-space: nowrap; /* Evita que los elementos se rompan en líneas */
+  position: sticky; /* Hace que el header se quede fijo al hacer scroll vertical */
+  top: 0; /* Mantiene el header fijo en la parte superior */
+  z-index: 1000; /* Para asegurarse de que el header esté por encima del resto del contenido */
 }
 
 header h1 {
   color: #fff;
-  font-family: sans-serif, Times;
+  font-family: "Manrope", sans-serif;
   font-weight: bold;
+  font-size: 1.5rem;
+  margin-right: 20px;
 }
 
 header h2 {
   color: #fff;
-  font-family: sans-serif;
-  font-weight: 150;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
 }
 
 footer {
-  position: relative;
+  position: absolute;
   text-align: center;
   bottom: 0;
   width: 100%;
   height: 2.5rem;
 }
-
 footer p {
   color: #ccc;
 }
@@ -66,36 +71,54 @@ footer p {
   word-wrap: break-word;
 }
 
-.header img {
-  margin: 10px 10px 90 0;
-  position: relative;
-  top: 120px;
-  left: 40px;
+.circle-img {
+  width: 300px; /* Ajusta el tamaño de la imagen */
+  height: auto; /* Mantén la proporción de la imagen */
+  margin-left: auto;
 }
 
-.circle-img {
-  width: 300px;
-  height: 70px;
-  margin-left: 1100px;
-  position: relative;
-  top: -50px;
-  left: 40px;
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow-x: auto; /* Permite el scroll horizontal */
+  white-space: nowrap; /* Evita que se envuelva el contenido */
+  margin-top: 20px;
+  padding: 0 10px;
+  width: 100%;
+  height: 500px;
+  position: sticky;
+}
+
+.hmiSection {
+  flex: 1; /* Hace que ambos elementos tomen el mismo ancho */
+  max-width: 750px; /* Ancho máximo para pantallas grandes */
+  background-color: #ccd4dc;
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin-right: 10px; /* Espacio entre los elementos */
+  box-sizing: content-box;
+  height: 450px;
+  width: 800px; /* Asegura que el padding se incluya en el ancho total */
 }
 
 .StatusPanel {
-  height: 400px;
-  width: 350px; /* Aumenta el ancho para más espacio */
+  flex: 1; /* Panel de control ocupa su propio espacio */
+  max-width: 350px; /* Ancho máximo para el panel de control */
   background-color: #bbc4c3;
-  position: sticky;
-  top: 10px;
+  padding: 20px;
+  border: 2px solid black;
   text-align: center;
   line-height: 1.6;
-  padding: 20px; /* Agrega espacio interno */
   display: flex;
-  flex-direction: column; /* Alinea los hijos en columnas */
-  justify-content: space-between; /* Distribuye el contenido */
-
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.StatusPanel h3 {
+  font-size: 1rem;
+}
+
 .StatusItem {
   display: flex; /* Alinea el nombre y el LED en la misma línea */
   justify-content: space-between; /* Coloca el nombre a la izquierda y el LED a la derecha */
@@ -104,11 +127,6 @@ footer p {
   padding: 10px;
   background-color: #dfe6e5;
   border-radius: 8px;
-}
-
-.StatusItem h3 {
-  font-size: 18px;
-  margin: 0;
 }
 
 .StatusItem img {
@@ -172,114 +190,67 @@ footer p {
   position: relative;
   top: 1px;
 }
-
-.StateOn {
-  color: "red";
-}
-
-.StateOff {
-  color: "red";
-}
-
 /* Wrapper que contiene la imagen del silo y el rectángulo de llenado */
 .siloWrapper {
   position: relative; /* Posiciona los elementos dentro de este contenedor */
   width: 100px;
-  height: 180px;
+  height: 120px;
 }
 
 /* Imagen del silo */
 .siloImage {
-  width: 180px; /* Ancho de la imagen del silo */
-  height: 290px; /* Alto de la imagen del silo */
-  object-fit: cover;
+  width: 710px; /* Ancho de la imagen del silo */
+  height: 450px; /* Alto de la imagen del silo */
+  object-fit: fill;
 }
 
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  left: 30px;
-  bottom: 10px; /* Llenado comienza desde la parte inferior */
-  width: 100%;
+  left: 70px;
+  bottom: -110px; /* Llenado comienza desde la parte inferior */
+  width: 80%;
   background-color: #8b4513; /* Color del grano (marrón) */
   transition: height 0.3s ease; /* Transición suave para el llenado */
   z-index: 1; /* Asegura que el relleno esté sobre la imagen */
 }
 
-.HMI-container {
-  flex: 1; /* Ocupa la mayor parte de la pantalla a la izquierda */
-  margin-right: 20px; /* Espacio a la derecha para el panel */
-}
-
-.hmiSection {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.main-container {
-  display: flex;
-  justify-content: space-between; /* Espacio entre el HMI y el Panel */
-  align-items: flex-start; /* Alinearlos en la parte superior */
-  padding: 20px;
-}
-
 .valve-image {
   position: absolute;
-  top: 250px; /* Ajusta según la posición deseada sobre el silo */
-  left: 60px; /* Ajusta la posición horizontal de la válvula */
-  width: 70px; /* Tamaño de la válvula */
-  height: 80px;
+  top: 340px; /* Ajusta según la posición deseada sobre el silo */
+  left: 98px; /* Ajusta la posición horizontal de la válvula */
+  width: 50px; /* Tamaño de la válvula */
+  height: 50px;
   transform: rotate(90deg);
 }
 
-/* Estilos responsive para pantallas más pequeñas */
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   header {
-    background-color: #3961ee;
-    margin: auto -16px;
-    padding: 10px 52px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-    overflow-y: scroll;
-    display: flex;
-  }
-
-  .header img {
-    width: 80px;
-    top: 50px;
-    left: 20px;
-  }
-
-  .circle-img {
-    width: 100px;
-    height: auto;
-    margin-left: 0;
-    top: 0;
-    left: 0;
-  }
-
-  .StatusPanel {
-    height: 400px;
-  width: 350px; /* Aumenta el ancho para más espacio */
-  background-color: #bbc4c3;
-  position: sticky;
-  top: 10px;
-  text-align: center;
-  line-height: 1.6;
-  padding: 20px; /* Agrega espacio interno */
-  display: flex;
-  flex-direction: column; /* Alinea los hijos en columnas */
-  justify-content: space-between; /* Distribuye el contenido */
+    flex-wrap: nowrap; /* Asegura que no se envuelva el contenido */
+    overflow-x: scroll; /* Permite el scroll horizontal en pantallas pequeñas */
   }
 
   .main-container {
-    display: flex;
-    justify-content: space-between; /* Espacio entre el HMI y el Panel */
-    align-items: flex-start; /* Alinearlos en la parte superior */
-    padding: 20px;
-    overflow-y: scroll;
+    flex-wrap: nowrap; /* Asegura que no se envuelva el contenido */
+    overflow-x: scroll; /* Permite el scroll horizontal en pantallas pequeñas */
   }
 
-  .buttonPanel {
-    flex-direction: column;
-    gap: 10px;
+  .circle-img {
+    width: 180px; /* Tamaño más pequeño de la imagen en pantallas pequeñas */
+  }
+
+  header h1 {
+    font-size: 1.2rem; /* Reduce el tamaño de la fuente */
+  }
+
+  header h2 {
+    font-size: 1rem; /* Reduce el tamaño de la fuente */
+  }
+  .hmiSection,
+  .StatusPanel {
+    overflow-x: scroll;
+    flex: 0 0 100%; /* Ocupa el 90% del ancho de la pantalla */
+    margin-right: 10px; /* Espacio entre elementos */
+    font-size: 1rem;
   }
 }

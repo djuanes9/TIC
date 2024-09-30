@@ -8,7 +8,7 @@ const PanelGraficas = () => {
     <div>
       <p>Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
 
-      <div className="StatusPanel">
+      <div>
         <div className="StatusItem">
           <h3>SILO-101</h3>
           <p>{statuses["SILO-101"]}%</p>

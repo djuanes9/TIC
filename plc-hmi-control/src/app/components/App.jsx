@@ -10,14 +10,16 @@ function App() {
     <div>
       <Heading />
       <MQTTProvider>
-   {/*     <div className="main-container " style={{ display: "inline-block", justifyContent: "space-between" }}>*/}
-   <div className="main-container">
-
+        <div className="main-container">
           {/* Panel de gráficas a la izquierda */}
-          <InterfazHMI />
-          <PanelGraficas />
+          <div className="hmiSection">
+            <InterfazHMI />
+          </div>
+          <div className="StatusPanel">
+            <PanelGraficas />
 
-          {/* HMI a la derecha */}
+            {/* HMI a la derecha */}
+          </div>
         </div>
       </MQTTProvider>
       <Footer />
@@ -26,3 +28,4 @@ function App() {
 }
 
 export default App;
+
