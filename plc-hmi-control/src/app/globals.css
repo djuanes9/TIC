@@ -197,7 +197,7 @@ footer p {
 .siloWrapper {
   position: relative; /* Posiciona los elementos dentro de este contenedor */
   width: 100px;
-  height: 120px;
+  height: 125px;
 }
 
 /* Imagen del silo */
@@ -210,8 +210,8 @@ footer p {
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  left: 70px;
-  bottom: -110px; /* Llenado comienza desde la parte inferior */
+  left: 55px;
+  bottom: -105px; /* Llenado comienza desde la parte inferior */
   width: 80%;
   background-color: #8b4513; /* Color del grano (marrón) */
   transition: height 0.3s ease; /* Transición suave para el llenado */
