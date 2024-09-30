@@ -11,7 +11,7 @@ const HMI = () => {
     <div>
       {/* Sección del SILO */}
       <div className="Silo-container">
-        <h3>SILO-101</h3>
+
         <div className="siloWrapper">
           <img src="/HMI.png" alt="SILO-101" className="siloImage" />
           <div
@@ -28,7 +28,7 @@ const HMI = () => {
             <img src="/ValvOff.png" alt="LED apagado" className="valve-image" />
           )}
         </div>
-        <p>{siloFillLevel}% Lleno</p> {/* Mostrar porcentaje debajo */}
+        <p>{siloFillLevel}%</p> {/* Mostrar porcentaje debajo */}
       </div>
 
       {/* Aquí irían las demás secciones de HMI (CNVR, MILL, VALV, etc.) */}
