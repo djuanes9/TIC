@@ -210,7 +210,7 @@ footer p {
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  left: 55px;
+  left: 45px;
   bottom: -105px; /* Llenado comienza desde la parte inferior */
   width: 80%;
   background-color: #8b4513; /* Color del grano (marrón) */
