@@ -13,7 +13,7 @@ const HMI = () => {
       <div className="Silo-container">
         <h3>SILO-101</h3>
         <div className="siloWrapper">
-          <img src="/Silo.png" alt="SILO-101" className="siloImage" />
+          <img src="/HMI.png" alt="SILO-101" className="siloImage" />
           <div
             className="siloFill"
             style={{ height: `${siloFillLevel}%` }} // Llenado dinámico
