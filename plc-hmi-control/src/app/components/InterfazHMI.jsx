@@ -3,6 +3,8 @@ import { MQTTContext } from "./MQTTCliente"; // Importar el contexto global de M
 
 const HMI = () => {
   const { statuses } = useContext(MQTTContext); // Extraer los estados de los tópicos desde el contexto
+  const isConveyorActive = statuses["CNVR-101"] === "ON"; // Verificar si está en "ON"
+
 
   // Obtener el porcentaje de llenado del silo (de 0 a 100)
   const siloFillLevel = statuses["SILO-101"] || 0;
@@ -18,6 +20,7 @@ const HMI = () => {
             className="siloFill"
             style={{ height: `${siloFillLevel}%` }} // Llenado dinámico
           ></div>
+           {isConveyorActive && <div className="grains"></div>}
           {statuses["VALV-101"] === "ON" ? (
             <img
               src="/ValvOn.png"
