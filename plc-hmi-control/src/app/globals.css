@@ -242,7 +242,7 @@ footer p {
   position: absolute;
   width: 170px; /* Ajusta según el tamaño de la imagen */
   height: 50px;
-  background-image: url('/granos.png');
+  background-image: url('../../public/granos.png');
   background-size: contain;
   background-repeat: no-repeat;
   bottom: 215px; /* Posición inicial */
