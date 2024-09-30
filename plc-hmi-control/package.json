@@ -12,7 +12,8 @@
     "mqtt": "^5.10.1",
     "next": "14.2.13",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "url": "0.11.4"
   },
   "devDependencies": {
     "@types/node": "^20",
