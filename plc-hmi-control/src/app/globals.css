@@ -86,7 +86,7 @@ footer p {
   margin-top: 20px;
   padding: 0 10px;
   width: 100%;
-  height: 500px;
+  height: 550px;
   position: sticky;
 }
 
@@ -104,7 +104,7 @@ footer p {
 
 .StatusPanel {
   flex: 1; /* Panel de control ocupa su propio espacio */
-  max-width: 350px; /* Ancho máximo para el panel de control */
+  max-width: 300px; /* Ancho máximo para el panel de control */
   background-color: #bbc4c3;
   padding: 20px;
   border: 2px solid black;
