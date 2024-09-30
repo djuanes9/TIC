@@ -21,7 +21,7 @@ const HMI = () => {
             style={{ height: `${siloFillLevel}%` }} // Llenado dinámico
           ></div>
                {isConveyorActive && (
-            <div className="relative">
+            <div>
               <div className="absolute left-[182px] top-[315px] animate-move-grains">
                 {/* Creación de los 4 círculos que representan los granos */}
                 <div className="grano bg-yellow-500 w-4 h-4 rounded-full mb-2"></div>
