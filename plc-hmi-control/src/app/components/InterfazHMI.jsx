@@ -20,7 +20,17 @@ const HMI = () => {
             className="siloFill"
             style={{ height: `${siloFillLevel}%` }} // Llenado dinámico
           ></div>
-           {isConveyorActive && <div className="grains"></div>}
+               {isConveyorActive && (
+            <div className="relative">
+              <div className="absolute left-[182px] top-[315px] animate-move-grains">
+                {/* Creación de los 4 círculos que representan los granos */}
+                <div className="grano bg-yellow-500 w-4 h-4 rounded-full mb-2"></div>
+                <div className="grano bg-yellow-500 w-4 h-4 rounded-full mb-2"></div>
+                <div className="grano bg-yellow-500 w-4 h-4 rounded-full mb-2"></div>
+                <div className="grano bg-yellow-500 w-4 h-4 rounded-full mb-2"></div>
+              </div>
+            </div>
+          )}
           {statuses["VALV-101"] === "ON" ? (
             <img
               src="/ValvOn.png"
