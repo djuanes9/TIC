@@ -210,9 +210,9 @@ footer p {
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  left: 57px;
+  left: 59px;
   bottom: -105px; /* Llenado comienza desde la parte inferior */
-  width: 70%;
+  width: 74%;
   background-color: #8b4513; /* Color del grano (marrón) */
   transition: height 0.3s ease; /* Transición suave para el llenado */
   z-index: 1; /* Asegura que el relleno esté sobre la imagen */
@@ -233,7 +233,7 @@ footer p {
     transform: translateY(80%);
   }
   100% {
-    top: 210px; /* Posición final al subir */
+    top: 150px; /* Posición final al subir */
     transform: translateX(100%);
   }
 }
