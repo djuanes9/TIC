@@ -211,7 +211,7 @@ footer p {
 .siloFill {
   position: absolute;
   left: 59px;
-  bottom: -100px; /* Llenado comienza desde la parte inferior */
+  bottom: -110px; /* Llenado comienza desde la parte inferior */
   width: 74%;
   background-color: #8b4513; /* Color del grano (marrón) */
   transition: height 0.3s ease; /* Transición suave para el llenado */
