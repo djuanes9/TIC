@@ -24,8 +24,9 @@ const HMI = () => {
           ></div>
 
 {isConveyorActive && (
-        <div className="grains">
+        <div>
           <Image
+          className="grains"
             src="/granos.png"
             alt="Granos"
           />
