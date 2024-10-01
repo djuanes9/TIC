@@ -240,8 +240,8 @@ footer p {
 
 .grains {
   position: absolute;
-  width: 110px; /* Ajusta según el tamaño de la imagen */
-  height: 40px;
+  width: 100px; /* Ajusta según el tamaño de la imagen */
+  height: 45px;
   background-size: contain;
   background-repeat: no-repeat;
   bottom: 215px; /* Posición inicial */
