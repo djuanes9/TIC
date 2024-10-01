@@ -211,7 +211,7 @@ footer p {
 .siloFill {
   position: absolute;
   left: 59px;
-  bottom: -105px; /* Llenado comienza desde la parte inferior */
+  bottom: -100px; /* Llenado comienza desde la parte inferior */
   width: 74%;
   background-color: #8b4513; /* Color del grano (marrón) */
   transition: height 0.3s ease; /* Transición suave para el llenado */
@@ -229,15 +229,14 @@ footer p {
 
 @keyframes grainMovement {
   0% {
-    top: 330px; /* Posición inicial */
-    transform: translateY(80%);
+    top: 300px; /* Posición inicial */
+    transform: translateY(120%);
   }
   100% {
-    top: 150px; /* Posición final al subir */
-    transform: translateX(100%);
+    top: 250px; /* Posición final al subir */
+    transform: translateX(120%);
   }
 }
-
 .grains {
   position: absolute;
   width: 80px; /* Ajusta según el tamaño de la imagen */
@@ -245,8 +244,8 @@ footer p {
   background-size: contain;
   background-repeat: no-repeat;
   bottom: 215px; /* Posición inicial */
-  left: 172px; /* Posición inicial */
-  animation: grainMovement 3s linear infinite; /* Animación cíclica */
+  left: 182px; /* Posición inicial */
+  animation: grainMovement 2.5s linear infinite; /* Animación cíclica */
 }
 
 @media (max-width: 600px) {
