@@ -210,7 +210,7 @@ footer p {
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  left: 45px;
+  left: 55px;
   bottom: -105px; /* Llenado comienza desde la parte inferior */
   width: 70%;
   background-color: #8b4513; /* Color del grano (marrón) */
@@ -240,8 +240,8 @@ footer p {
 
 .grains {
   position: absolute;
-  width: 140px; /* Ajusta según el tamaño de la imagen */
-  height: 50px;
+  width: 110px; /* Ajusta según el tamaño de la imagen */
+  height: 40px;
   background-size: contain;
   background-repeat: no-repeat;
   bottom: 215px; /* Posición inicial */
