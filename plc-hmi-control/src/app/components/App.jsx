@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Heading from "./Heading";
 import { MQTTProvider } from "./MQTTCliente"; // Asegúrate de que MQTTCliente esté exportando el contexto correctamente
 import Footer from "./Footer";
