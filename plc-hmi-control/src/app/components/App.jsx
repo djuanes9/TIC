@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import Heading from "./Heading";
 import { MQTTProvider } from "./MQTTCliente"; // Asegúrate de que MQTTCliente esté exportando el contexto correctamente
 import Footer from "./Footer";
@@ -13,7 +13,7 @@ function App() {
   const toggleView = () => {
     setIsHMIVisible(!isHMIVisible);
   };
-  
+
   return (
     <div>
       <Heading />
