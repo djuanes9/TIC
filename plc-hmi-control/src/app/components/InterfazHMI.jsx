@@ -41,6 +41,29 @@ const HMI = () => {
           ) : (
             <img src="/ValvOff.png" alt="LED apagado" className="valve-image" />
           )}
+
+{statuses["CNVR-101"] === "ON" ? (
+            <img src="/M1on.png" alt="LED encendido" className="M1-image" />
+          ) : (
+            <img src="/M1off.png" alt="LED apagado" className="M1-image" />
+          )}
+
+{statuses["MILL-101"] === "ON" ? (
+            <img src="/MillOn.png" alt="LED encendido" className="Mill-image" />
+          ) : (
+            <img src="/MillOff.png" alt="LED apagado" className="Mill-image" />
+          )}
+
+
+
+
+          {statuses["CNVR-102"] === "ON" ? (
+            <img src="/screwOn.png" alt="LED encendido" className="M2-image" />
+          ) : (
+            <img src="/screwOff.png" alt="LED apagado" className="M2-image" />
+          )}
+
+          
         </div>
         <p>{siloFillLevel}%</p> {/* Mostrar porcentaje debajo */}
       </div>

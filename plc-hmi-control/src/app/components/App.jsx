@@ -4,6 +4,7 @@ import { MQTTProvider } from "./MQTTCliente"; // Asegúrate de que MQTTCliente e
 import Footer from "./Footer";
 import PanelGraficas from "./PanelGraficas";
 import InterfazHMI from "./InterfazHMI";
+import Histograma from "./Histograma";
 
 function App() {
   return (
@@ -12,8 +13,12 @@ function App() {
       <MQTTProvider>
         <div className="main-container">
           {/* Panel de gráficas a la izquierda */}
+          <button onClick={toggleView}>
+            {isHMIVisible ? "Ver Histograma" : "Ver HMI"}
+          </button>
+
           <div className="hmiSection">
-            <InterfazHMI />
+          {isHMIVisible ? <InterfazHMI /> : <Histograma />}
           </div>
           <div className="StatusPanel">
             <PanelGraficas />
