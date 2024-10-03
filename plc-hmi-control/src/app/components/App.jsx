@@ -7,6 +7,13 @@ import InterfazHMI from "./InterfazHMI";
 import Histograma from "./Histograma";
 
 function App() {
+
+  const [isHMIVisible, setIsHMIVisible] = useState(true); // Estado para alternar entre HMI e Histograma
+
+  const toggleView = () => {
+    setIsHMIVisible(!isHMIVisible);
+  };
+  
   return (
     <div>
       <Heading />
