@@ -57,14 +57,20 @@ export const MQTTProvider = ({ children }) => {
         console.log(`Mensaje recibido de ${topic}: ${msg}`);
 
         setStatuses((prevStatuses) => {
-          // Si el tópico es 'histograma/nivel', intentamos parsear el JSON
+          // Si el tópico es 'histograma/nivel', intentamos verificar si es JSON
           if (topic === "histograma/nivel") {
             try {
-              const parsedMsg = JSON.parse(msg);  // Intentamos parsear el mensaje como JSON
-              return {
-                ...prevStatuses,
-                [topic]: parsedMsg,  // Asignar el objeto parseado al estado
-              };
+              // Verificamos si el mensaje es un JSON válido o un objeto mal serializado
+              if (msg.startsWith("{") || msg.startsWith("[")) {
+                const parsedMsg = JSON.parse(msg);  // Intentamos parsear el mensaje como JSON
+                return {
+                  ...prevStatuses,
+                  [topic]: parsedMsg,  // Asignar el objeto parseado al estado
+                };
+              } else {
+                console.error(`El mensaje en ${topic} no es un JSON válido:`, msg);
+                return prevStatuses;  // Si no es JSON, no actualizar el estado
+              }
             } catch (error) {
               console.error(`Error al parsear el mensaje en ${topic}:`, error);
               return prevStatuses;  // Si falla, no modificar el estado
