@@ -22,9 +22,9 @@ const Histograma = () => {
 
   // Suscribirse a los datos JSON desde MQTT y procesarlos para el histograma
   useEffect(() => {
-    if (statuses["TOPICO-HISTOGRAMA"]) {
+    if (statuses["histograma/nivel"]) {
       try {
-        const data = JSON.parse(statuses["TOPICO-HISTOGRAMA"]); // Supongamos que el tópico MQTT manda un JSON
+        const data = JSON.parse(statuses["histograma/nivel"]); // Supongamos que el tópico MQTT manda un JSON
         setHistogramData(data);
       } catch (error) {
         console.error("Error al parsear el JSON del histograma:", error);
