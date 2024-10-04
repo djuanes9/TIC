@@ -58,7 +58,7 @@ const PanelGraficas = () => {
           START
         </button>
         <button
-          onClick={() => sendMessage("stop", "true")}
+          onClick={() => sendMessage("stop", "false")}
           className="buttonStop"
         >
           STOP
