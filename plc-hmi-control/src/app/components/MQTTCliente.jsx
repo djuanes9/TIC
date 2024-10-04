@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import React, { createContext, useState, useEffect } from "react";
 import mqtt from "mqtt";
 
@@ -6,7 +6,7 @@ import mqtt from "mqtt";
 export const MQTTContext = createContext();
 
 export const MQTTProvider = ({ children }) => {
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(false); // Estado de conexión
   const [statuses, setStatuses] = useState({
     "SILO-101": 0,
     "CNVR-101": "OFF",
@@ -16,28 +16,30 @@ export const MQTTProvider = ({ children }) => {
     NIVEL: "OFF",
     "status/node-red": null,
   });
+  
+  const [mqttClient, setMqttClient] = useState(null); // Estado para almacenar el cliente MQTT
+  const [lastPing, setLastPing] = useState(null); // Estado para almacenar el último "ping" de Node-RED
+  const [isNodeRedConnected, setIsNodeRedConnected] = useState(false); // Estado de conexión de Node-RED
 
-  const [lastPing, setLastPing] = useState(null);  // Estado para almacenar el último "ping" de Node-RED
-  const [isNodeRedConnected, setIsNodeRedConnected] = useState(false);  // Estado de conexión de Node-RED
-
-  let mqttClient = null; // Definir la variable de conexión MQTT fuera del useEffect
-
-  // Función para inicializar la conexión MQTT una sola vez
+  // Función para inicializar la conexión MQTT
   const initializeMQTTConnection = () => {
     if (!mqttClient) {
-      mqttClient = mqtt.connect(
-        "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
-      {
-        username: "djuanes7",
-        password: "Jeagdrose9",
-      }
-    );
+      console.log("Intentando conectar al broker MQTT...");
+      const client = mqtt.connect( "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
+        {
+          username: "djuanes7",
+          password: "Jeagdrose9", // Actualiza con los credenciales correctos
+        reconnectPeriod: 5000, // Intentar reconectar cada 5 segundos si se pierde la conexión
+        connectTimeout: 30 * 1000, // Tiempo de espera para la conexión
+      });
 
-      mqttClient.on("connect", () => {
+      setMqttClient(client);
+
+      client.on("connect", () => {
         console.log("Conectado al broker MQTT");
         setIsConnected(true);
-
-        mqttClient.subscribe(
+        
+        client.subscribe(
           ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101", "status/node-red"],
           (err) => {
             if (err) {
@@ -49,7 +51,7 @@ export const MQTTProvider = ({ children }) => {
         );
       });
 
-      mqttClient.on("message", (topic, message) => {
+      client.on("message", (topic, message) => {
         const msg = message.toString();
         console.log(`Mensaje recibido de ${topic}: ${msg}`);
 
@@ -64,12 +66,21 @@ export const MQTTProvider = ({ children }) => {
         // Si el mensaje proviene de "status/node-red", actualizamos el tiempo del último ping
         if (topic === "status/node-red") {
           setLastPing(Date.now());
-          setIsNodeRedConnected(true);  // Node-RED está conectado si recibimos el ping
+          setIsNodeRedConnected(true); // Node-RED está conectado si recibimos el ping
         }
       });
 
-      mqttClient.on("error", (err) => {
+      client.on("error", (err) => {
         console.error("Error en MQTT: ", err);
+      });
+
+      client.on("reconnect", () => {
+        console.log("Intentando reconectar al broker MQTT...");
+      });
+
+      client.on("offline", () => {
+        console.log("El cliente MQTT está desconectado.");
+        setIsConnected(false);
       });
     }
   };
@@ -79,19 +90,21 @@ export const MQTTProvider = ({ children }) => {
     initializeMQTTConnection(); // Iniciar la conexión una vez
 
     return () => {
-      if (mqttClient) mqttClient.end(); // Cierra la conexión cuando el componente se desmonte
+      if (mqttClient) {
+        mqttClient.end(); // Cierra la conexión cuando el componente se desmonte
+      }
     };
-  }, []);
+  }, [mqttClient]);
 
   // Verificar si Node-RED ha dejado de enviar pings
   useEffect(() => {
     const interval = setInterval(() => {
-      if (lastPing && Date.now() - lastPing > 10000) {  // Si han pasado más de 10 segundos sin recibir un ping
-        setIsNodeRedConnected(false);  // Node-RED está desconectado
+      if (lastPing && Date.now() - lastPing > 10000) { // Si han pasado más de 10 segundos sin recibir un ping
+        setIsNodeRedConnected(false); // Node-RED está desconectado
       }
-    }, 5000);  // Verificar cada 5 segundos
+    }, 5000); // Verificar cada 5 segundos
 
-    return () => clearInterval(interval);  // Limpiar el intervalo cuando el componente se desmonte
+    return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
   }, [lastPing]);
 
   // Función para enviar mensajes usando la misma conexión MQTT abierta
