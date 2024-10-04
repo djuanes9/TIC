@@ -1,14 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { MQTTContext } from "./MQTTCliente"; // Importar el contexto MQTT
 
 const Histograma = () => {
@@ -45,7 +36,11 @@ const Histograma = () => {
     <div>
       {/* Selector de fecha */}
       <div>
-        <input type="date" value={selectedDate} onChange={handleDateChange} />
+        <input 
+          type="date" 
+          value={selectedDate} 
+          onChange={handleDateChange} 
+        />
         <button onClick={sendDateToNodeRed}>Consultar datos</button>
       </div>
 
