@@ -1,4 +1,3 @@
-"use client";
 import React, { createContext, useState, useEffect } from "react";
 import mqtt from "mqtt";
 
@@ -13,16 +12,15 @@ export const MQTTProvider = ({ children }) => {
     "MILL-101": "OFF",
     "CNVR-102": "OFF",
     "VALV-101": "OFF",
-    NIVEL: "OFF",
-    "status/node-red": null,
+    "NIVEL": "OFF",
+    "status/node-red": null,  // Para el estado de Node-RED
   });
 
-  const [lastPing, setLastPing] = useState(null);  // Estado para almacenar el último "ping" de Node-RED
-  const [isNodeRedConnected, setIsNodeRedConnected] = useState(false);  // Estado de conexión de Node-RED
-
+  let mqttClient; // Definir el cliente de MQTT fuera del useEffect
 
   useEffect(() => {
-    const mqttClient = mqtt.connect(
+    // Conectar una única vez al broker MQTT
+    mqttClient = mqtt.connect(
       "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
       {
         username: "djuanes7",
@@ -34,8 +32,9 @@ export const MQTTProvider = ({ children }) => {
       console.log("Conectado al broker MQTT");
       setIsConnected(true);
 
+      // Suscribirse a todos los tópicos necesarios
       mqttClient.subscribe(
-        ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101","status/node-red"],
+        ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101", "status/node-red"],
         (err) => {
           if (err) {
             console.error("Error de suscripción: ", err);
@@ -54,15 +53,9 @@ export const MQTTProvider = ({ children }) => {
         ...prevStatuses,
         [topic]:
           topic === "SILO-101" ? Number(msg) :
-          topic === "status/node-red" ? msg :  // Almacenar el ping recibido de Node-RED
+          topic === "status/node-red" ? msg :
           msg === "true" ? "ON" : "OFF",
       }));
-
-      // Si el mensaje proviene de "status/node-red", actualizamos el tiempo del último ping
-      if (topic === "status/node-red") {
-        setLastPing(Date.now());
-        setIsNodeRedConnected(true);  // Node-RED está conectado si recibimos el ping
-      }
     });
 
     mqttClient.on("error", (err) => {
@@ -74,39 +67,23 @@ export const MQTTProvider = ({ children }) => {
     };
   }, []);
 
-
-  // Verificar si Node-RED ha dejado de enviar pings
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (lastPing && Date.now() - lastPing > 10000) {  // Si han pasado más de 10 segundos sin recibir un ping
-        setIsNodeRedConnected(false);  // Node-RED está desconectado
-      }
-    }, 5000);  // Verificar cada 5 segundos
-
-    return () => clearInterval(interval);  // Limpiar el intervalo cuando el componente se desmonte
-  }, [lastPing]);
-
-  // Función para enviar mensajes
+  // Función para enviar mensajes usando la misma conexión MQTT abierta
   const sendMessage = (topic, message) => {
-    const mqttClient = mqtt.connect(
-      "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
-      {
-        username: "djuanes7",
-        password: "Jeagdrose9",
-      }
-    );
-
-    mqttClient.publish(topic, message, {}, (err) => {
-      if (err) {
-        console.error(`Error al publicar en el tópico ${topic}: `, err);
-      } else {
-        console.log(`Mensaje enviado a ${topic}: ${message}`);
-      }
-    });
+    if (mqttClient && isConnected) {
+      mqttClient.publish(topic, message, {}, (err) => {
+        if (err) {
+          console.error(`Error al publicar en el tópico ${topic}: `, err);
+        } else {
+          console.log(`Mensaje enviado a ${topic}: ${message}`);
+        }
+      });
+    } else {
+      console.error("No hay conexión MQTT activa para enviar mensajes.");
+    }
   };
 
   return (
-    <MQTTContext.Provider value={{ statuses, isConnected, sendMessage, isNodeRedConnected }}>
+    <MQTTContext.Provider value={{ statuses, isConnected, sendMessage }}>
       {children}
     </MQTTContext.Provider>
   );
