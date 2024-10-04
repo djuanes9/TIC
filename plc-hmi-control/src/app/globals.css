@@ -267,8 +267,8 @@ footer p {
   height: 45px;
   background-size: contain;
   background-repeat: no-repeat;
-  bottom: 215px; /* Posición inicial */
-  left: 182px; /* Posición inicial */
+  bottom: 205px; /* Posición inicial 215*/
+  left: 175px; /* Posición inicial */
   animation: grainMovement 2.5s linear infinite; /* Animación cíclica */
 }
 
