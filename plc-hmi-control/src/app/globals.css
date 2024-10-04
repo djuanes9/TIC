@@ -202,17 +202,17 @@ footer p {
 
 /* Imagen del silo */
 .siloImage {
-  width: 930px; /* Ancho de la imagen del silo */
-  height: 550px; /* Alto de la imagen del silo */
+  width: 910px; /* Ancho de la imagen del silo */
+  height: 510px; /* Alto de la imagen del silo */
   object-fit: fill;
 }
 
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  left: 59px;
+  left: 55px;
   bottom: -110px; /* Llenado comienza desde la parte inferior */
-  width: 72%;
+  width: 80%;
   background-color: #8b4513; /* Color del grano (marrón) */
   transition: height 0.3s ease; /* Transición suave para el llenado */
   z-index: 1; /* Asegura que el relleno esté sobre la imagen */
@@ -220,8 +220,8 @@ footer p {
 
 .valve-image {
   position: absolute;
-  top: 315px; /* Ajusta según la posición deseada sobre el silo */
-  left: 82px; /* Ajusta la posición horizontal de la válvula */
+  top: 320px; /* Ajusta según la posición deseada sobre el silo */
+  left: 76px; /* Ajusta la posición horizontal de la válvula */
   width: 45px; /* Tamaño de la válvula */
   height: 45px;
   transform: rotate(90deg);
@@ -229,8 +229,8 @@ footer p {
 
 .M1-image {
   position: absolute;
-  top: 385px; /* Ajusta según la posición deseada sobre el silo */
-  left: 217px; /* Ajusta la posición horizontal de la válvula */
+  top: 395px; /* Ajusta según la posición deseada sobre el silo */
+  left: 224px; /* Ajusta la posición horizontal de la válvula */
   width: 8rem; /* Tamaño de la válvula */
   height: 4rem;
 }
@@ -238,7 +238,7 @@ footer p {
 .M2-image {
   position: absolute;
   top: 355px; /* Ajusta según la posición deseada sobre el silo */
-  left: 540px; /* Ajusta la posición horizontal de la válvula */
+  left: 580px; /* Ajusta la posición horizontal de la válvula */
   width: 24rem; /* Tamaño de la válvula */
   height: 10rem;
 }
@@ -246,7 +246,7 @@ footer p {
 .Mill-image {
   position: absolute;
   top: 235px; /* Ajusta según la posición deseada sobre el silo */
-  left: 400px; /* Ajusta la posición horizontal de la válvula */
+  left: 440px; /* Ajusta la posición horizontal de la válvula */
   width: 15rem; /* Tamaño de la válvula */
   height: 14rem;
 }
