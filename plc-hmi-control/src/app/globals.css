@@ -210,8 +210,8 @@ footer p {
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  left: 50px;
-  bottom: -105px; /* Llenado comienza desde la parte inferior */
+  left: 49px;
+  bottom: -108px; /* Llenado comienza desde la parte inferior */
   width: 80%;
   background-color: #8b4513; /* Color del grano (marrón) */
   transition: height 0.3s ease; /* Transición suave para el llenado */
@@ -253,7 +253,7 @@ footer p {
 
 @keyframes grainMovement {
   0% {
-    top: 300px; /* Posición inicial */
+    top: 320px; /* Posición inicial 300*/
     transform: translateY(120%);
   }
   100% {
@@ -268,7 +268,7 @@ footer p {
   background-size: contain;
   background-repeat: no-repeat;
   bottom: 215px; /* Posición inicial */
-  left: 182px; /* Posición inicial */
+  left: 188px; /* Posición inicial */
   animation: grainMovement 2.5s linear infinite; /* Animación cíclica */
 }
 
