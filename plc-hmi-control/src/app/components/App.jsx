@@ -20,7 +20,7 @@ function App() {
       <MQTTProvider>
         <div className="main-container">
           {/* Panel de gráficas a la izquierda */}
-          <button onClick={toggleView}>
+          <button onClick={toggleView} className="ButHisto">
             {isHMIVisible ? "Ver Histograma" : "Ver HMI"}
           </button>
 
