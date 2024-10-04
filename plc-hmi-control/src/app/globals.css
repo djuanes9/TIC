@@ -253,12 +253,12 @@ footer p {
 
 @keyframes grainMovement {
   0% {
-    top: 320px; /* Posición inicial 300*/
-    transform: translateY(120%);
+    top: 300px; /* Posición inicial 300*/
+    transform: translateY(180%);
   }
   100% {
     top: 250px; /* Posición final al subir */
-    transform: translateX(120%);
+    transform: translateX(160%);
   }
 }
 .grains {
@@ -268,7 +268,7 @@ footer p {
   background-size: contain;
   background-repeat: no-repeat;
   bottom: 215px; /* Posición inicial */
-  left: 188px; /* Posición inicial */
+  left: 182px; /* Posición inicial */
   animation: grainMovement 2.5s linear infinite; /* Animación cíclica */
 }
 
