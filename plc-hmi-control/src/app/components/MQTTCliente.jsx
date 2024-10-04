@@ -18,10 +18,10 @@ export const MQTTProvider = ({ children }) => {
 
   useEffect(() => {
     const mqttClient = mqtt.connect(
-      "wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt",
+      "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
       {
-        username: "djuanes9",
-        password: "Jeagdrose1125",
+        username: "djuanes7",
+        password: "Jeagdrose9",
       }
     );
 
@@ -64,10 +64,10 @@ export const MQTTProvider = ({ children }) => {
   // Función para enviar mensajes
   const sendMessage = (topic, message) => {
     const mqttClient = mqtt.connect(
-      "wss://260739b4dbf540efbb87cd6f024aa9f0.s1.eu.hivemq.cloud:8884/mqtt",
+      "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
       {
-        username: "djuanes9",
-        password: "Jeagdrose1125",
+        username: "djuanes7",
+        password: "Jeagdrose9",
       }
     );
 
