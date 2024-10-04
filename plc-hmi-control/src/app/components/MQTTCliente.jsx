@@ -20,59 +20,66 @@ export const MQTTProvider = ({ children }) => {
   const [lastPing, setLastPing] = useState(null);  // Estado para almacenar el último "ping" de Node-RED
   const [isNodeRedConnected, setIsNodeRedConnected] = useState(false);  // Estado de conexión de Node-RED
 
-  let mqttClient = null; // Variable global para mantener la conexión abierta
+  let mqttClient = null; // Definir la variable de conexión MQTT fuera del useEffect
 
-  useEffect(() => {
-    // Conectar al broker MQTT una sola vez y mantener la conexión
-    mqttClient = mqtt.connect(
-      "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
+  // Función para inicializar la conexión MQTT una sola vez
+  const initializeMQTTConnection = () => {
+    if (!mqttClient) {
+      mqttClient = mqtt.connect(
+        "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
       {
         username: "djuanes7",
         password: "Jeagdrose9",
       }
     );
 
-    mqttClient.on("connect", () => {
-      console.log("Conectado al broker MQTT");
-      setIsConnected(true);
+      mqttClient.on("connect", () => {
+        console.log("Conectado al broker MQTT");
+        setIsConnected(true);
 
-      mqttClient.subscribe(
-        ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101", "status/node-red"],
-        (err) => {
-          if (err) {
-            console.error("Error de suscripción: ", err);
-          } else {
-            console.log("Suscrito a los tópicos.");
+        mqttClient.subscribe(
+          ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101", "status/node-red"],
+          (err) => {
+            if (err) {
+              console.error("Error de suscripción: ", err);
+            } else {
+              console.log("Suscrito a los tópicos.");
+            }
           }
+        );
+      });
+
+      mqttClient.on("message", (topic, message) => {
+        const msg = message.toString();
+        console.log(`Mensaje recibido de ${topic}: ${msg}`);
+
+        setStatuses((prevStatuses) => ({
+          ...prevStatuses,
+          [topic]:
+            topic === "SILO-101" ? Number(msg) :
+            topic === "status/node-red" ? msg :
+            msg === "true" ? "ON" : "OFF",
+        }));
+
+        // Si el mensaje proviene de "status/node-red", actualizamos el tiempo del último ping
+        if (topic === "status/node-red") {
+          setLastPing(Date.now());
+          setIsNodeRedConnected(true);  // Node-RED está conectado si recibimos el ping
         }
-      );
-    });
+      });
 
-    mqttClient.on("message", (topic, message) => {
-      const msg = message.toString();
-      console.log(`Mensaje recibido de ${topic}: ${msg}`);
+      mqttClient.on("error", (err) => {
+        console.error("Error en MQTT: ", err);
+      });
+    }
+  };
 
-      setStatuses((prevStatuses) => ({
-        ...prevStatuses,
-        [topic]:
-          topic === "SILO-101" ? Number(msg) :
-          topic === "status/node-red" ? msg :
-          msg === "true" ? "ON" : "OFF",
-      }));
-
-      // Si el mensaje proviene de "status/node-red", actualizamos el tiempo del último ping
-      if (topic === "status/node-red") {
-        setLastPing(Date.now());
-        setIsNodeRedConnected(true);  // Node-RED está conectado si recibimos el ping
-      }
-    });
-
-    mqttClient.on("error", (err) => {
-      console.error("Error en MQTT: ", err);
-    });
+  // Inicializar la conexión MQTT al cargar el componente
+  useEffect(() => {
+    initializeMQTTConnection(); // Iniciar la conexión una vez
 
     return () => {
-      mqttClient.end(); // Cierra la conexión cuando el componente se desmonte
+      if (mqttClient) mqttClient.end(); // Cierra la conexión cuando el componente se desmonte
     };
   }, []);
 
@@ -87,7 +94,7 @@ export const MQTTProvider = ({ children }) => {
     return () => clearInterval(interval);  // Limpiar el intervalo cuando el componente se desmonte
   }, [lastPing]);
 
-  // Función para enviar mensajes reutilizando la misma conexión
+  // Función para enviar mensajes usando la misma conexión MQTT abierta
   const sendMessage = (topic, message) => {
     if (mqttClient && isConnected) {
       mqttClient.publish(topic, message, {}, (err) => {
