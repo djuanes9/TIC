@@ -56,13 +56,30 @@ export const MQTTProvider = ({ children }) => {
         const msg = message.toString();
         console.log(`Mensaje recibido de ${topic}: ${msg}`);
 
-        setStatuses((prevStatuses) => ({
-          ...prevStatuses,
-          [topic]:
-            topic === "SILO-101" ? Number(msg) :
-            topic === "status/node-red" ? msg :
-            msg === "true" ? "ON" : "OFF",
-        }));
+        setStatuses((prevStatuses) => {
+          // Si el tópico es 'histograma/nivel', intentamos parsear el JSON
+          if (topic === "histograma/nivel") {
+            try {
+              const parsedMsg = JSON.parse(msg);  // Intentamos parsear el mensaje como JSON
+              return {
+                ...prevStatuses,
+                [topic]: parsedMsg,  // Asignar el objeto parseado al estado
+              };
+            } catch (error) {
+              console.error(`Error al parsear el mensaje en ${topic}:`, error);
+              return prevStatuses;  // Si falla, no modificar el estado
+            }
+          }
+      
+          // Para otros tópicos, tratarlos como valores simples
+          return {
+            ...prevStatuses,
+            [topic]:
+              topic === "SILO-101" ? Number(msg) :  // Para "SILO-101", convertir a número
+              topic === "status/node-red" ? msg :   // Dejar texto para "status/node-red"
+              msg === "true" ? "ON" : "OFF",        // Asignar "ON" o "OFF" para booleanos
+          };
+        });
 
         // Si el mensaje proviene de "status/node-red", actualizamos el tiempo del último ping
         if (topic === "status/node-red") {
