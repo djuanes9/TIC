@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import { MQTTContext } from "./MQTTCliente"; // Importamos el contexto
 
 const PanelGraficas = () => {
-  const { statuses, isConnected, sendMessage } = useContext(MQTTContext); // Usamos los valores globales
+  const { statuses, isConnected, sendMessage, isNodeRedConnected } = useContext(MQTTContext); // Usamos los valores globales
 
   return (
     <div>
       <p>Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
+      {/* Mostrar estado de Node-RED */}
+      <p>Status de Node-RED: {isNodeRedConnected ? "Conectado" : "Desconectado"}</p>
 
       <div>
         <div className="StatusItem">

@@ -14,7 +14,12 @@ export const MQTTProvider = ({ children }) => {
     "CNVR-102": "OFF",
     "VALV-101": "OFF",
     NIVEL: "OFF",
+    "status/node-red": null,
   });
+
+  const [lastPing, setLastPing] = useState(null);  // Estado para almacenar el último "ping" de Node-RED
+  const [isNodeRedConnected, setIsNodeRedConnected] = useState(false);  // Estado de conexión de Node-RED
+
 
   useEffect(() => {
     const mqttClient = mqtt.connect(
@@ -30,7 +35,7 @@ export const MQTTProvider = ({ children }) => {
       setIsConnected(true);
 
       mqttClient.subscribe(
-        ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101"],
+        ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101","status/node-red"],
         (err) => {
           if (err) {
             console.error("Error de suscripción: ", err);
@@ -48,8 +53,16 @@ export const MQTTProvider = ({ children }) => {
       setStatuses((prevStatuses) => ({
         ...prevStatuses,
         [topic]:
-          topic === "SILO-101" ? Number(msg) : msg === "true" ? "ON" : "OFF",
+          topic === "SILO-101" ? Number(msg) :
+          topic === "status/node-red" ? msg :  // Almacenar el ping recibido de Node-RED
+          msg === "true" ? "ON" : "OFF",
       }));
+
+      // Si el mensaje proviene de "status/node-red", actualizamos el tiempo del último ping
+      if (topic === "status/node-red") {
+        setLastPing(Date.now());
+        setIsNodeRedConnected(true);  // Node-RED está conectado si recibimos el ping
+      }
     });
 
     mqttClient.on("error", (err) => {
@@ -60,6 +73,18 @@ export const MQTTProvider = ({ children }) => {
       mqttClient.end(); // Cierra la conexión cuando el componente se desmonte
     };
   }, []);
+
+
+  // Verificar si Node-RED ha dejado de enviar pings
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (lastPing && Date.now() - lastPing > 10000) {  // Si han pasado más de 10 segundos sin recibir un ping
+        setIsNodeRedConnected(false);  // Node-RED está desconectado
+      }
+    }, 5000);  // Verificar cada 5 segundos
+
+    return () => clearInterval(interval);  // Limpiar el intervalo cuando el componente se desmonte
+  }, [lastPing]);
 
   // Función para enviar mensajes
   const sendMessage = (topic, message) => {
@@ -81,7 +106,7 @@ export const MQTTProvider = ({ children }) => {
   };
 
   return (
-    <MQTTContext.Provider value={{ statuses, isConnected, sendMessage }}>
+    <MQTTContext.Provider value={{ statuses, isConnected, sendMessage, isNodeRedConnected }}>
       {children}
     </MQTTContext.Provider>
   );
