@@ -25,7 +25,16 @@ const Histograma = () => {
     if (statuses["histograma/nivel"]) {
       try {
         const data = JSON.parse(statuses["histograma/nivel"]); // Supongamos que el tópico MQTT manda un JSON
-        setHistogramData(data);
+        
+        // Transformar los datos recibidos para que coincidan con los ejes X y Y
+        const transformedData = data.map((entry) => ({
+          x: new Date(entry.Fecha * 1000).toLocaleDateString(),  // Convertir la fecha (timestamp) a formato legible
+          y: entry.Dato  // Usar el dato recibido como valor en Y
+        }));
+        
+        // Actualizar el estado con los datos transformados
+        setHistogramData(transformedData);
+
       } catch (error) {
         console.error("Error al parsear el JSON del histograma:", error);
       }
@@ -49,11 +58,13 @@ const Histograma = () => {
         <ResponsiveContainer>
           <BarChart data={histogramData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            {/* Cambiar "name" a "x" para usar las fechas transformadas */}
+            <XAxis dataKey="x" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="value" fill="#8884d8" />
+            {/* Cambiar "value" a "y" para usar los datos recibidos */}
+            <Bar dataKey="y" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
       </div>
