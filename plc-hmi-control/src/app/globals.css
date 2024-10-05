@@ -274,28 +274,30 @@ footer p {
 
 
 .ButHisto {
-	box-shadow:inset 0px -14px 15px 3px #23395e;
-	background:linear-gradient(to bottom, #2e466e 5%, #415989 100%);
-	background-color:#2e466e;
-	border-radius:9px;
-	border:2px solid #1f2f47;
-	display:block;
+	box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	background:linear-gradient(to bottom, #3960ee 5%, #346ca1 100%);
+	background-color:#3960ee;
+	border-radius:6px;
+	border:1px solid #3866a3;
+	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
 	font-size:15px;
-	padding:14px 5px;
+	font-weight:bold;
+	padding:12px 43px; /* modificar tamaño */
 	text-decoration:none;
-	text-shadow:0px 1px 0px #263666;
+	text-shadow:0px 1px 0px #7cacde;
 }
 .ButHisto:hover {
-	background:linear-gradient(to bottom, #415989 5%, #2e466e 100%);
-	background-color:#415989;
+	background:linear-gradient(to bottom, #346ca1 5%, #3960ee 100%);
+	background-color:#346ca1;
 }
 .ButHisto:active {
 	position:relative;
 	top:1px;
 }
+
 
         
 .button-container {
