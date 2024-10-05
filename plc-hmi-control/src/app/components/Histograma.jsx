@@ -81,7 +81,7 @@ const Histograma = () => {
 
       {/* Histograma con datos de la base de datos */}
       <div style={{ width: "100%", height: "100%", maxWidth: "100%", overflow: "hidden"  }}>
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height="50%">
           <LineChart data={histogramData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="x" /> {/* Cambiamos la dataKey a 'x' */}
@@ -101,8 +101,8 @@ const Histograma = () => {
       </div>
 
       {/* Histograma en tiempo real */}
-      <div style={{ width: "100%", height: 300 }}>
-        <ResponsiveContainer>
+      <div style={{ width: "100%", height: "100%", maxWidth: "100%", overflow: "hidden"  }}>
+        <ResponsiveContainer width="100%" height="50%">
           <LineChart data={realTimeData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="x" /> {/* Eje X: Tiempo */}
