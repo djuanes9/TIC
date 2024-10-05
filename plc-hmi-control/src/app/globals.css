@@ -303,7 +303,7 @@ footer p {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Alinea los botones a la izquierda */
-  margin-left: -10px; /* Añade un margen debajo del contenedor de botones */
+  margin-left: -25px; /* Añade un margen debajo del contenedor de botones */
 }
 
 @media (max-width: 600px) {

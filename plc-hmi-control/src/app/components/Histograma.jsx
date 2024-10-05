@@ -65,7 +65,7 @@ const Histograma = () => {
         {hasData ? (
           <h3>Nivel del día: {selectedDate}</h3>
         ) : (
-          <h3>No existen registros para la fecha seleccionada</h3>
+          <h4>No existen registros para la fecha seleccionada</h4>
         )}
       </div>
 

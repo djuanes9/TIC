@@ -37,7 +37,7 @@ function App() {
             {/* Mostrar el botón de alternar Chart/Histograma solo cuando estamos viendo gráficos */}
             {!isHMIVisible && (
               <button onClick={toggleView2} className="ButHisto">
-                {isHistoVisible ? "Ver Histograma" : "Ver Chart"}
+                {isHistoVisible ? "Histograma" : "Chart"}
               </button>
             )}
           </div>
