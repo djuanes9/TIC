@@ -273,7 +273,7 @@ footer p {
 }
 
 .ButHisto {
-  box-shadow: inset 0px 1px 0px 0px #bee2f9;
+  box-shadow: inset 1px 1px 0px 0px #bee2f9;
   background: linear-gradient(to bottom, #3960ee 5%, #346ca1 100%);
   background-color: #3960ee;
   border-radius: 6px;
@@ -334,7 +334,7 @@ footer p {
     margin-right: 10px; /* Espacio entre elementos */
     font-size: 1rem;
     margin-left: 10px;
-    max-height: 400px;
+    height: 420px;
   }
 
   .siloImage {
@@ -416,7 +416,7 @@ footer p {
   .ButHisto {
     font-size: 14px;
     font-weight: 400;
-    padding: 11px 10px; /* modificar tamaño */
+    padding: 11px 11px; /* modificar tamaño */
     width: 100px;
   }
 }
