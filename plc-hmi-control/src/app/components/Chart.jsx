@@ -53,7 +53,7 @@ const Chart = () => {
  
       {/* Botón para activar datos en tiempo real */}
       <div>
-    <h1>Gráfico Tiempo Real</h1>
+    <h3>Gráfico Tiempo Real</h3>
       </div>
 
       {/* Histograma en tiempo real */}
