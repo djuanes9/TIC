@@ -3,17 +3,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { MQTTContext } from "./MQTTCliente"; // Importar el contexto MQTT
 
 const Chart = () => {
-  const { statuses, sendMessage } = useContext(MQTTContext); // Extraer los estados y la función para enviar mensajes MQTT
+  const { statuses} = useContext(MQTTContext); // Extraer los estados y la función para enviar mensajes MQTT
   const [setHistogramData] = useState([]);
   const [realTimeData, setRealTimeData] = useState([]); // Estado para datos en tiempo real
 
 
-
-  // Manejar la suscripción a datos en tiempo real
-  const subscribeToRealTimeData = () => {
-    sendMessage("nuevo/topico/realtime", "start"); // Suscribirse al tópico en tiempo real
-    console.log("Suscrito al tópico en tiempo real");
-  };
 
   // Suscribirse a los datos JSON desde MQTT y procesarlos para el histograma
   useEffect(() => {
@@ -59,11 +53,11 @@ const Chart = () => {
  
       {/* Botón para activar datos en tiempo real */}
       <div>
-        <button onClick={subscribeToRealTimeData}>Ver datos en tiempo real</button>
+    <h1>Gráfico Tiempo Real</h1>
       </div>
 
       {/* Histograma en tiempo real */}
-      <div style={{ width: "100%", height: 300 }}>
+      <div style={{ width: "100%", height: 400 }}>
         <ResponsiveContainer>
           <LineChart data={realTimeData}>
             <CartesianGrid strokeDasharray="3 3" />
