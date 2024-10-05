@@ -4,15 +4,18 @@ import { MQTTContext } from "./MQTTCliente"; // Importar el contexto MQTT
 
 const Histograma = () => {
   const { statuses, sendMessage } = useContext(MQTTContext); // Extraer los estados y la función para enviar mensajes MQTT
-  const [histogramData, setHistogramData] = useState([]);
+  const [histogramData, setHistogramData] = useState([]); // Datos de la base de datos
+  const [realTimeData, setRealTimeData] = useState([]); // Datos en tiempo real
+  const [chartData, setChartData] = useState([]); // Datos que mostrarás en el chart (base de datos o tiempo real)
   const [selectedDate, setSelectedDate] = useState(""); // Estado para la fecha seleccionada
-  const [realTimeData, setRealTimeData] = useState([]); // Estado para datos en tiempo real
+  const [viewMode, setViewMode] = useState("historical"); // "historical" o "realTime"
 
   // Función para enviar la fecha seleccionada a Node-RED vía MQTT
   const sendDateToNodeRed = () => {
     if (selectedDate) {
-      sendMessage("fecha/seleccionada", selectedDate); // Tópico que enviaremos
-      console.log("Fecha enviada:", selectedDate);
+      const formattedDate = new Date(selectedDate).toISOString(); // Ajustar formato si es necesario
+      sendMessage("fecha/seleccionada", formattedDate); // Enviar fecha al tópico correspondiente
+      console.log("Fecha enviada:", formattedDate);
     }
   };
 
@@ -25,53 +28,65 @@ const Histograma = () => {
   const subscribeToRealTimeData = () => {
     sendMessage("nivel/actual", "start"); // Suscribirse al tópico en tiempo real
     console.log("Suscrito al tópico en tiempo real");
+    setViewMode("realTime"); // Cambiar el modo de visualización a tiempo real
   };
 
-  // Suscribirse a los datos JSON desde MQTT y procesarlos para el histograma
+  // Función para mostrar datos históricos
+  const displayHistoricalData = () => {
+    setViewMode("historical"); // Cambiar el modo de visualización a histórico
+  };
+
+  // Procesar datos recibidos por MQTT
   useEffect(() => {
+    // Datos del histograma (base de datos)
     if (statuses["histograma/nivel"]) {
       try {
-        const data = statuses["histograma/nivel"]; // Datos del histograma (base de datos)
-        console.log("BASE DE DATOS: ", data);
-        setHistogramData(data); // Setear los datos al gráfico
+        const data = statuses["histograma/nivel"];
+        console.log("BASE DE DATOS:", data);
+        setHistogramData(data); // Guardar datos del histograma
+        if (viewMode === "historical") {
+          setChartData(data); // Si estamos en modo histórico, actualizar los datos del chart
+        }
       } catch (error) {
-        console.error("Error al parsear el JSON del histograma:", error);
+        console.error("Error al procesar los datos del histograma:", error);
       }
     }
 
+    // Datos en tiempo real
     if (statuses["nivel/actual"]) {
       try {
-        const realTimeValue = statuses["nivel/actual"]; // Aquí recibes solo el número
-        console.log("TIEMPO REAL: ", realTimeValue);
-  
-        // Generar un nuevo punto con el número recibido y una marca de tiempo (x)
-        const newPoint = {
-          x: new Date().toLocaleTimeString(), // Usamos la hora actual como 'x'
-          y: realTimeValue                   // El valor numérico es 'y'
-        };
-  
-        setRealTimeData((prevData) => {
-          const updatedData = [...prevData, newPoint]; // Añadir el nuevo dato
-          
-          // Limitar a 100 entradas
-          if (updatedData.length > 100) {
-            updatedData.shift(); // Eliminar el primer elemento si excede los 100
-          }
+        const realTimeValue = statuses["nivel/actual"];
+        console.log("TIEMPO REAL:", realTimeValue);
 
+        const newPoint = {
+          x: new Date().toLocaleTimeString(),
+          y: realTimeValue
+        };
+
+        setRealTimeData((prevData) => {
+          const updatedData = [...prevData, newPoint];
+          if (updatedData.length > 100) {
+            updatedData.shift(); // Eliminar el primer dato si hay más de 100
+          }
+          if (viewMode === "realTime") {
+            setChartData(updatedData); // Si estamos en modo realTime, actualizar los datos del chart
+          }
           return updatedData;
         });
       } catch (error) {
-        console.error("Error al parsear el dato en tiempo real:", error);
+        console.error("Error al procesar los datos en tiempo real:", error);
       }
     }
-  }, [statuses]);
+  }, [statuses, viewMode]); // Escuchar por cambios en los datos y el modo de visualización
 
   return (
     <div>
       {/* Selector de fecha */}
       <div>
         <input type="date" value={selectedDate} onChange={handleDateChange} />
-        <button onClick={sendDateToNodeRed}>Consultar datos</button>
+        <button onClick={() => { sendDateToNodeRed(); displayHistoricalData(); }}>
+          Consultar datos
+        </button>
       </div>
 
       {/* Botón para activar datos en tiempo real */}
@@ -79,43 +94,22 @@ const Histograma = () => {
         <button onClick={subscribeToRealTimeData}>Ver datos en tiempo real</button>
       </div>
 
-      {/* Histograma con datos de la base de datos */}
-      <div style={{ width: "100%", height: "100%", maxWidth: "100%", overflow: "hidden"  }}>
-        <ResponsiveContainer width="100%" height="50%">
-          <LineChart data={histogramData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="x" /> {/* Cambiamos la dataKey a 'x' */}
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            {/* Personalizar color y grosor de la línea */}
-            <Line 
-              type="monotone" 
-              dataKey="y" 
-              stroke="#8884d8" // Color personalizado
-              strokeWidth={2}  // Grosor de la línea
-              dot={false}      // Eliminar los puntos de la gráfica
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Histograma en tiempo real */}
-      <div style={{ width: "100%", height: "100%", maxWidth: "100%", overflow: "hidden"  }}>
-        <ResponsiveContainer width="100%" height="50%">
-          <LineChart data={realTimeData}>
+      {/* Un solo gráfico que cambia entre datos históricos y en tiempo real */}
+      <div style={{ width: "100%", height: 300 }}>
+        <ResponsiveContainer>
+          <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="x" /> {/* Eje X: Tiempo */}
             <YAxis />
             <Tooltip />
             <Legend />
-            {/* Línea para datos en tiempo real */}
+            {/* Línea para los datos seleccionados */}
             <Line 
               type="monotone" 
               dataKey="y" 
-              stroke="#82ca9d" // Color personalizado
+              stroke={viewMode === "historical" ? "#8884d8" : "#82ca9d"} // Color cambia según el modo
               strokeWidth={3}  // Grosor de la línea
-              dot={false}      // Quitar los puntos en los datos
+              dot={false}      // Sin puntos en los datos
               animationDuration={500} // Duración de la animación
             />
           </LineChart>
