@@ -25,15 +25,16 @@ const Histograma = () => {
   useEffect(() => {
     const data = statuses["histograma/nivel"];
     
-    // Verificar si el payload es undefined o está vacío
-    if (data === undefined || !data || data.length === 0) {
-      console.log("No hay datos para la fecha seleccionada o el payload es undefined.");
+    // Verificar si el payload es "vacio"
+    if (data === "vacio") {
+      console.log("No hay datos para la fecha seleccionada.");
       setHistogramData([]); // Vaciar los datos del gráfico
       setHasData(false); // Marcar que no hay datos
-    } else {
+    } else if (data) {
       try {
         console.log("BASE DE DATOS: ", data);
-        setHistogramData(data); // Setear los datos al gráfico
+        const parsedData = JSON.parse(data); // Asegurarse de que los datos se puedan parsear como JSON
+        setHistogramData(parsedData); // Setear los datos al gráfico
         setHasData(true); // Marcar que hay datos
       } catch (error) {
         console.error("Error al procesar los datos del histograma:", error);
