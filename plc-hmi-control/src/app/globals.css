@@ -330,10 +330,11 @@ footer p {
   .hmiSection,
   .StatusPanel {
     overflow-x: scroll;
-    flex: 0 0 75%; /* Ocupa el 90% del ancho de la pantalla */
+    flex: 0 0 85%; /* Ocupa el 90% del ancho de la pantalla */
     margin-right: 10px; /* Espacio entre elementos */
     font-size: 1rem;
     margin-left: 10px;
+    max-height: 710px;
   }
 
   .siloImage {
