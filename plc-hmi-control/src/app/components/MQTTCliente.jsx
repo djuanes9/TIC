@@ -16,6 +16,7 @@ export const MQTTProvider = ({ children }) => {
     NIVEL: "OFF",
     "status/node-red": null,
     "histograma/nivel": null,
+    "nivel/actual":0,
   });
   
   const [mqttClient, setMqttClient] = useState(null); // Estado para almacenar el cliente MQTT
@@ -41,7 +42,7 @@ export const MQTTProvider = ({ children }) => {
         setIsConnected(true);
         
         client.subscribe(
-          ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101", "status/node-red", "histograma/nivel"],
+          ["SILO-101", "CNVR-101", "MILL-101", "CNVR-102", "NIVEL", "VALV-101", "status/node-red", "histograma/nivel","nivel/actual"],
           (err) => {
             if (err) {
               console.error("Error de suscripción: ", err);
@@ -77,6 +78,7 @@ export const MQTTProvider = ({ children }) => {
             ...prevStatuses,
             [topic]:
               topic === "SILO-101" ? Number(msg) :  // Para "SILO-101", convertir a número
+              topic === "nivel/actual" ? Number(msg) :  // Para "SILO-101", convertir a número
               topic === "status/node-red" ? msg :   // Dejar texto para "status/node-red"
               msg === "true" ? "ON" : "OFF",        // Asignar "ON" o "OFF" para booleanos
           };
