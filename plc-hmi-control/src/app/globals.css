@@ -285,7 +285,8 @@ footer p {
 	font-family:Arial;
 	font-size:15px;
 	font-weight:bold;
-	padding:12px 43px; /* modificar tamaño */
+	padding:12px 13px; /* modificar tamaño */
+  width: 100px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #7cacde;
 }
