@@ -29,7 +29,7 @@ const Chart = () => {
         // Generar un nuevo punto con el número recibido y una marca de tiempo (x)
         const newPoint = {
           x: new Date().toLocaleTimeString(), // Usamos la hora actual como 'x'
-          y: realTimeValue                   // El valor numérico es 'y'
+          Nivel: realTimeValue                   // El valor numérico es 'y'
         };
   
         setRealTimeData((prevData) => {
@@ -68,7 +68,7 @@ const Chart = () => {
             {/* Línea para datos en tiempo real */}
             <Line 
               type="monotone" 
-              dataKey="Nivel Actual" 
+              dataKey="Nivel" 
               stroke="#82ca9d" // Color personalizado
               strokeWidth={3}  // Grosor de la línea
               dot={false}      // Quitar los puntos en los datos
