@@ -282,11 +282,11 @@ footer p {
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
+	font-family:"Manrope", sans-serif;
 	font-size:15px;
 	font-weight:bold;
 	padding:12px 13px; /* modificar tamaño */
-  width: 100px;
+  width: 140px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #7cacde;
 }
