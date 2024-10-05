@@ -28,7 +28,7 @@ function App() {
       <MQTTProvider>
         <div className="main-container">
           {/* Panel de botones a la izquierda */}
-          <div>
+          <div className="button-container">
             {/* Botón para alternar entre HMI y Gráficos */}
             <button onClick={toggleView} className="ButHisto">
               {isHMIVisible ? "Ver Gráficos" : "Ver HMI"}
