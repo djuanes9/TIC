@@ -101,7 +101,7 @@ footer p {
   margin-right: 10px; /* Espacio entre los elementos */
   box-sizing: content-box;
   height: 540px;
-
+  overflow-x: scroll;
   width: 930px; /* Asegura que el padding se incluya en el ancho total */
 }
 
