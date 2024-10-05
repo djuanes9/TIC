@@ -23,7 +23,7 @@ const Histograma = () => {
 
   // Manejar la suscripción a datos en tiempo real
   const subscribeToRealTimeData = () => {
-    sendMessage("nuevo/topico/realtime", "start"); // Suscribirse al tópico en tiempo real
+    sendMessage("nivel/actual", "start"); // Suscribirse al tópico en tiempo real
     console.log("Suscrito al tópico en tiempo real");
   };
 
@@ -50,7 +50,16 @@ const Histograma = () => {
           y: realTimeValue                   // El valor numérico es 'y'
         };
   
-        setRealTimeData(prevData => [...prevData, newPoint]); // Agregar el nuevo punto al gráfico
+        setRealTimeData((prevData) => {
+          const updatedData = [...prevData, newPoint]; // Añadir el nuevo dato
+          
+          // Limitar a 100 entradas
+          if (updatedData.length > 100) {
+            updatedData.shift(); // Eliminar el primer elemento si excede los 100
+          }
+
+          return updatedData;
+        });
       } catch (error) {
         console.error("Error al parsear el dato en tiempo real:", error);
       }
@@ -85,6 +94,7 @@ const Histograma = () => {
               dataKey="y" 
               stroke="#8884d8" // Color personalizado
               strokeWidth={2}  // Grosor de la línea
+              dot={false}      // Eliminar los puntos de la gráfica
             />
           </LineChart>
         </ResponsiveContainer>
@@ -106,6 +116,7 @@ const Histograma = () => {
               stroke="#82ca9d" // Color personalizado
               strokeWidth={3}  // Grosor de la línea
               dot={false}      // Quitar los puntos en los datos
+              animationDuration={500} // Duración de la animación
             />
           </LineChart>
         </ResponsiveContainer>
