@@ -34,7 +34,7 @@ const Histograma = () => {
     if (statuses["histograma/nivel"]) {
       try {
         const data = statuses["histograma/nivel"]; // Supongamos que el tópico MQTT manda un JSON
-        
+        console.log("BASE DE DATOS: ", data);
         // Asegurarte que el formato que llega es de [{x: ..., y: ...}, ...]
         setHistogramData(data); // Setear los datos al gráfico
       } catch (error) {
