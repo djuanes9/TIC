@@ -10,10 +10,14 @@ import Chart from "./Chart"
 function App() {
 
   const [isHMIVisible, setIsHMIVisible] = useState(true); // Estado para alternar entre HMI e Histograma
-  const [isHistoVisible] = useState(true); // Estado para alternar entre HMI e Histograma
+  const [isHistoVisible,  setIsHistoVisible] = useState(true); // Estado para alternar entre HMI e Histograma
 
   const toggleView = () => {
     setIsHMIVisible(!isHMIVisible);
+  };
+
+  const toggleView2 = () => {
+    setIsHistoVisible(!isHistoVisible);
   };
 
   return (
@@ -26,7 +30,7 @@ function App() {
           <button onClick={toggleView} className="ButHisto">
             {isHMIVisible ? "Ver Histograma" : "Ver HMI"}
           </button>
-          <button onClick={toggleView} className="ButHisto">
+          <button onClick={toggleView2} className="ButHisto">
             {isHistoVisible ? "Ver Chart" : "Ver HMI"}
           </button>
           </div>
