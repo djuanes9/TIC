@@ -334,7 +334,7 @@ footer p {
     margin-right: 10px; /* Espacio entre elementos */
     font-size: 1rem;
     margin-left: 10px;
-    max-height: 710px;
+    max-height: 400px;
   }
 
   .siloImage {
@@ -412,5 +412,11 @@ footer p {
     bottom: 153.75px; /* Posición inicial 215*/
     left: 131.25px; /* Posición inicial */
     animation: grainMovement 2.5s linear infinite; /* Animación cíclica */
+  }
+  .ButHisto {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 11px 10px; /* modificar tamaño */
+    width: 100px;
   }
 }
