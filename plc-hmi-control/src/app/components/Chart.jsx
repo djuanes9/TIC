@@ -8,13 +8,6 @@ const Chart = () => {
   const [selectedDate, setSelectedDate] = useState(""); // Estado para la fecha seleccionada
   const [realTimeData, setRealTimeData] = useState([]); // Estado para datos en tiempo real
 
-  // Función para enviar la fecha seleccionada a Node-RED vía MQTT
-  const sendDateToNodeRed = () => {
-    if (selectedDate) {
-      sendMessage("fecha/seleccionada", selectedDate); // Tópico que enviaremos
-      console.log("Fecha enviada:", selectedDate);
-    }
-  };
 
   // Manejar el cambio de la fecha seleccionada
   const handleDateChange = (event) => {
@@ -68,36 +61,10 @@ const Chart = () => {
 
   return (
     <div>
-      {/* Selector de fecha */}
-      <div>
-        <input type="date" value={selectedDate} onChange={handleDateChange} />
-        <button onClick={sendDateToNodeRed}>Consultar datos</button>
-      </div>
-
+ 
       {/* Botón para activar datos en tiempo real */}
       <div>
         <button onClick={subscribeToRealTimeData}>Ver datos en tiempo real</button>
-      </div>
-
-      {/* Histograma con datos de la base de datos */}
-      <div style={{ width: "100%", height: 300 }}>
-        <ResponsiveContainer>
-          <LineChart data={histogramData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="x" /> {/* Cambiamos la dataKey a 'x' */}
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            {/* Personalizar color y grosor de la línea */}
-            <Line 
-              type="monotone" 
-              dataKey="y" 
-              stroke="#8884d8" // Color personalizado
-              strokeWidth={2}  // Grosor de la línea
-              dot={false}      // Eliminar los puntos de la gráfica
-            />
-          </LineChart>
-        </ResponsiveContainer>
       </div>
 
       {/* Histograma en tiempo real */}
@@ -116,7 +83,7 @@ const Chart = () => {
               stroke="#82ca9d" // Color personalizado
               strokeWidth={3}  // Grosor de la línea
               dot={false}      // Quitar los puntos en los datos
-              animationDuration={500} // Duración de la animación
+              animationDuration={5} // Duración de la animación
             />
           </LineChart>
         </ResponsiveContainer>

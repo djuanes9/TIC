@@ -28,10 +28,10 @@ function App() {
           {/* Panel de gráficas a la izquierda */}
           <div>
           <button onClick={toggleView} className="ButHisto">
-            {isHMIVisible ? "Ver Histograma" : "Ver HMI"}
+            {isHMIVisible ? "Ver Gráficos" : "Ver HMI"}
           </button>
           <button onClick={toggleView2} className="ButHisto">
-            {isHistoVisible ? "Ver Chart" : "Ver HMI"}
+            {isHistoVisible ? "Ver Chart" : "Ver Histograma"}
           </button>
           </div>
           
