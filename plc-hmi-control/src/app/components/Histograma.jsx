@@ -51,7 +51,7 @@ const Histograma = () => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line dataKey="y" fill="#8884d8" /> {/* Cambiamos la dataKey a 'y' */}
+            <Line dataKey="Nivel" fill="#8884d8" /> {/* Cambiamos la dataKey a 'y' */}
           </ LineChart>
         </ResponsiveContainer>
       </div>

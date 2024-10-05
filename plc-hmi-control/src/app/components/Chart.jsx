@@ -68,7 +68,7 @@ const Chart = () => {
             {/* Línea para datos en tiempo real */}
             <Line 
               type="monotone" 
-              dataKey="y" 
+              dataKey="Nivel Actual" 
               stroke="#82ca9d" // Color personalizado
               strokeWidth={3}  // Grosor de la línea
               dot={false}      // Quitar los puntos en los datos
