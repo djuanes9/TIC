@@ -30,8 +30,8 @@ function App() {
           <button onClick={toggleView} className="ButHisto">
             {isHMIVisible ? "Ver Gráficos" : "Ver HMI"}
           </button>
-          <button onClick={toggleView2} className="ButHisto">
-            {isHistoVisible ? "Ver Chart" : "Ver Histograma"}
+          <button onClick={toggleView2} className="ButHisto" visibility={isHMIVisible ? "visible" : "hidden"}>
+            {isHistoVisible ? "Ver Histograma" : "Ver Chart"}
           </button>
           </div>
           
