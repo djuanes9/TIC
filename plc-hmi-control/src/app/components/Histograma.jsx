@@ -40,8 +40,12 @@ const Histograma = () => {
         setHistogramData([]); // En caso de error, vaciar los datos
         setHasData(false); // Marcar que no hay datos
       }
+    } else {
+      // Si no hay datos en el estado 'statuses', vaciar el gráfico
+      setHistogramData([]);
+      setHasData(false);
     }
-  }, [statuses]);
+  }, [statuses, selectedDate]); // Asegurarse de que se ejecute también cuando cambie la fecha seleccionada
 
   return (
     <div>
