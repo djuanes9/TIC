@@ -33,7 +33,7 @@ const Histograma = () => {
   useEffect(() => {
     if (statuses["histograma/nivel"]) {
       try {
-        const data = JSON.parse(statuses["histograma/nivel"]); // Supongamos que el tópico MQTT manda un JSON
+        const data = statuses["histograma/nivel"]; // Supongamos que el tópico MQTT manda un JSON
         
         // Asegurarte que el formato que llega es de [{x: ..., y: ...}, ...]
         setHistogramData(data); // Setear los datos al gráfico
