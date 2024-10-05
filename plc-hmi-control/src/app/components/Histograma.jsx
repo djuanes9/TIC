@@ -80,8 +80,8 @@ const Histograma = () => {
       </div>
 
       {/* Histograma con datos de la base de datos */}
-      <div style={{ width: "100%", height: 300 }}>
-        <ResponsiveContainer>
+      <div style={{ width: "100%", height: "300px", maxWidth: "100%", overflow: "hidden"  }}>
+        <ResponsiveContainer width="100%" height="100%">
           <LineChart data={histogramData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="x" /> {/* Cambiamos la dataKey a 'x' */}
