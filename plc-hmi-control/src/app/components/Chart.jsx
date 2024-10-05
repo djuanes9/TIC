@@ -4,8 +4,8 @@ import { MQTTContext } from "./MQTTCliente"; // Importar el contexto MQTT
 
 const Chart = () => {
   const { statuses, sendMessage } = useContext(MQTTContext); // Extraer los estados y la función para enviar mensajes MQTT
-  const [histogramData, setHistogramData] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(""); // Estado para la fecha seleccionada
+  const [setHistogramData] = useState([]);
+  const [setSelectedDate] = useState(""); // Estado para la fecha seleccionada
   const [realTimeData, setRealTimeData] = useState([]); // Estado para datos en tiempo real
 
 
