@@ -32,8 +32,16 @@ const Histograma = () => {
       setHasData(false); // Marcar que no hay datos
     } else if (data) {
       try {
-        console.log("BASE DE DATOS: ", data);
-        const parsedData = JSON.parse(data); // Asegurarse de que los datos se puedan parsear como JSON
+        let parsedData;
+
+        // Verificar si 'data' ya es un objeto y evitar el uso de JSON.parse en ese caso
+        if (typeof data === 'object') {
+          parsedData = data; // Si es un objeto, no lo parseamos
+        } else {
+          parsedData = JSON.parse(data); // Si es una cadena JSON, la parseamos
+        }
+
+        console.log("BASE DE DATOS: ", parsedData);
         setHistogramData(parsedData); // Setear los datos al gráfico
         setHasData(true); // Marcar que hay datos
       } catch (error) {
