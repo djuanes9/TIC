@@ -25,8 +25,8 @@ const Histograma = () => {
   useEffect(() => {
     const data = statuses["histograma/nivel"];
     
-    // Verificar si el payload es "vacio" y evitar el uso de JSON.parse
-    if (data === "vacio") {
+    // Verificar si el payload es un array vacío
+    if (Array.isArray(data) && data.length === 0) {
       console.log("No hay datos para la fecha seleccionada.");
       setHistogramData([]); // Vaciar los datos del gráfico
       setHasData(false); // Marcar que no hay datos
@@ -34,9 +34,9 @@ const Histograma = () => {
       try {
         let parsedData;
 
-        // Verificar si 'data' ya es un objeto y evitar el uso de JSON.parse en ese caso
+        // Verificar si 'data' ya es un objeto o cadena y evitar el uso de JSON.parse si ya es un objeto
         if (typeof data === 'object') {
-          parsedData = data; // Si es un objeto, no lo parseamos
+          parsedData = data; // Si es un objeto, lo usamos directamente
         } else {
           parsedData = JSON.parse(data); // Si es una cadena JSON, la parseamos
         }
