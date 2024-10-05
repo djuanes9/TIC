@@ -372,18 +372,24 @@ footer p {
     position: absolute;
     top: 18rem; /* Ajusta según la posición deseada sobre el silo */
     left: 10.4rem; /* Ajusta la posición horizontal de la válvula */
+    width: 6rem; /* Tamaño de la válvula */
+    height: 3rem;
   }
 
   .M2-image {
     position: absolute;
-    top: 355px; /* Ajusta según la posición deseada sobre el silo */
-    left: 580px; /* Ajusta la posición horizontal de la válvula */
+    top: 266.25px; /* Ajusta según la posición deseada sobre el silo */
+    left: 435px; /* Ajusta la posición horizontal de la válvula */
+    width: 18rem; /* Tamaño de la válvula */
+    height: 7.5rem;
   }
 
   .Mill-image {
     position: absolute;
     top: 196.25px; /* Ajusta según la posición deseada sobre el silo */
     left: 330px; /* Ajusta la posición horizontal de la válvula */
+    width: 11.25rem; /* Tamaño de la válvula */
+    height: 10.5rem;
   }
 
   @keyframes grainMovement {
