@@ -6,6 +6,7 @@ const Histograma = () => {
   const { statuses, sendMessage } = useContext(MQTTContext); // Extraer los estados y la función para enviar mensajes MQTT
   const [histogramData, setHistogramData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(""); // Estado para la fecha seleccionada
+  const [hasData, setHasData] = useState(false); // Estado para controlar si hay datos o no
 
   // Función para enviar la fecha seleccionada a Node-RED vía MQTT
   const sendDateToNodeRed = () => {
@@ -26,10 +27,18 @@ const Histograma = () => {
       try {
         const data = statuses["histograma/nivel"]; // Supongamos que el tópico MQTT manda un JSON
         console.log("BASE DE DATOS: ", data);
-        // Asegurarte que el formato que llega es de [{x: ..., y: ...}, ...]
-        setHistogramData(data); // Setear los datos al gráfico
+        
+        if (data && data.length > 0) {
+          setHistogramData(data); // Setear los datos al gráfico
+          setHasData(true); // Marcar que hay datos
+        } else {
+          setHistogramData([]); // Vaciar los datos del gráfico si no hay resultados
+          setHasData(false); // Marcar que no hay datos
+        }
       } catch (error) {
         console.error("Error al parsear el JSON del histograma:", error);
+        setHistogramData([]); // En caso de error, vaciar los datos
+        setHasData(false); // Marcar que no hay datos
       }
     }
   }, [statuses]);
@@ -42,17 +51,32 @@ const Histograma = () => {
         <button onClick={sendDateToNodeRed}>Consultar datos</button>
       </div>
 
-      {/* Histograma */}
+      {/* Mostrar mensaje dependiendo de si hay o no datos */}
+      <div>
+        {hasData ? (
+          <h3>Nivel del día: {selectedDate}</h3>
+        ) : (
+          <h3>No existen registros para la fecha seleccionada</h3>
+        )}
+      </div>
+
+      {/* Histograma (se muestra vacío si no hay datos) */}
       <div style={{ width: "100%", height: 300 }}>
         <ResponsiveContainer>
-          < LineChart data={histogramData}>
+          <LineChart data={histogramData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="x" /> {/* Cambiamos la dataKey a 'x' */}
+            <XAxis dataKey="x" /> {/* Eje X de los datos */}
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line dataKey="Nivel" fill="#8884d8" /> {/* Cambiamos la dataKey a 'y' */}
-          </ LineChart>
+            <Line 
+              dataKey="Nivel" 
+              fill="#8884d8" 
+              stroke="#8884d8" 
+              strokeWidth={2} 
+              dot={false}
+            /> {/* Línea del gráfico */}
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </div>
