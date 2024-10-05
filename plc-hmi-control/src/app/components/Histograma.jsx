@@ -1,14 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { MQTTContext } from "./MQTTCliente"; // Importar el contexto MQTT
 
 const Histograma = () => {
@@ -54,14 +45,14 @@ const Histograma = () => {
       {/* Histograma */}
       <div style={{ width: "100%", height: 300 }}>
         <ResponsiveContainer>
-          <BarChart data={histogramData}>
+          < LineChart data={histogramData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="x" /> {/* Cambiamos la dataKey a 'x' */}
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="y" fill="#8884d8" /> {/* Cambiamos la dataKey a 'y' */}
-          </BarChart>
+            <Line dataKey="y" fill="#8884d8" /> {/* Cambiamos la dataKey a 'y' */}
+          </ LineChart>
         </ResponsiveContainer>
       </div>
     </div>
