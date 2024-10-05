@@ -23,27 +23,23 @@ const Histograma = () => {
 
   // Suscribirse a los datos JSON desde MQTT y procesarlos para el histograma
   useEffect(() => {
-    if (statuses["histograma/nivel"]) {
+    const data = statuses["histograma/nivel"];
+    
+    // Verificar si el payload es undefined o está vacío
+    if (data === undefined || !data || data.length === 0) {
+      console.log("No hay datos para la fecha seleccionada o el payload es undefined.");
+      setHistogramData([]); // Vaciar los datos del gráfico
+      setHasData(false); // Marcar que no hay datos
+    } else {
       try {
-        const data = statuses["histograma/nivel"]; // Supongamos que el tópico MQTT manda un JSON
         console.log("BASE DE DATOS: ", data);
-        
-        if (data && data.length > 0) {
-          setHistogramData(data); // Setear los datos al gráfico
-          setHasData(true); // Marcar que hay datos
-        } else {
-          setHistogramData([]); // Vaciar los datos del gráfico si no hay resultados
-          setHasData(false); // Marcar que no hay datos
-        }
+        setHistogramData(data); // Setear los datos al gráfico
+        setHasData(true); // Marcar que hay datos
       } catch (error) {
-        console.error("Error al parsear el JSON del histograma:", error);
-        setHistogramData([]); // En caso de error, vaciar los datos
+        console.error("Error al procesar los datos del histograma:", error);
+        setHistogramData([]); // Vaciar los datos del gráfico en caso de error
         setHasData(false); // Marcar que no hay datos
       }
-    } else {
-      // Si no hay datos en el estado 'statuses', vaciar el gráfico
-      setHistogramData([]);
-      setHasData(false);
     }
   }, [statuses, selectedDate]); // Asegurarse de que se ejecute también cuando cambie la fecha seleccionada
 
