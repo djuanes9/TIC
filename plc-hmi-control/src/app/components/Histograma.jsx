@@ -25,7 +25,7 @@ const Histograma = () => {
   useEffect(() => {
     const data = statuses["histograma/nivel"];
     
-    // Verificar si el payload es "vacio"
+    // Verificar si el payload es "vacio" y evitar el uso de JSON.parse
     if (data === "vacio") {
       console.log("No hay datos para la fecha seleccionada.");
       setHistogramData([]); // Vaciar los datos del gráfico
