@@ -81,7 +81,7 @@ footer p {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  overflow-x: auto; /* Permite el scroll horizontal */
+  overflow-x: scroll; /* Permite el scroll horizontal */
   white-space: nowrap; /* Evita que se envuelva el contenido */
   margin-top: 20px;
   padding: 0 30px;
