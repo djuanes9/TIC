@@ -94,13 +94,14 @@ footer p {
 
 .hmiSection {
   flex: 1; /* Hace que ambos elementos tomen el mismo ancho */
-  max-width: 930px; /* Ancho máximo para pantallas grandes */
+  max-width: 970px; /* Ancho máximo para pantallas grandes */
   background-color: #ccd4dc;
   border: 2px solid #ccc;
   padding: 10px;
   margin-right: 10px; /* Espacio entre los elementos */
   box-sizing: content-box;
   height: 540px;
+  flex: 0 0 80%;
   overflow-x: scroll;
   width: 930px; /* Asegura que el padding se incluya en el ancho total */
 }
