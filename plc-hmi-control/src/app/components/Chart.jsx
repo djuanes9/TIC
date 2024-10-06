@@ -57,7 +57,7 @@ const Chart = () => {
       </div>
 
       {/* Histograma en tiempo real */}
-      <div style={{ width: "100%", height: 400 }}>
+      <div className="chart-container">
         <ResponsiveContainer>
           <LineChart data={realTimeData}>
             <CartesianGrid strokeDasharray="3 3" />

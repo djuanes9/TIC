@@ -53,7 +53,7 @@ const Histograma = () => {
   }, [statuses, selectedDate]); // Asegurarse de que se ejecute también cuando cambie la fecha seleccionada
 
   return (
-    <div>
+    <div className="histogram-container">
       {/* Selector de fecha */}
       <div>
         <input type="date" value={selectedDate} onChange={handleDateChange} />

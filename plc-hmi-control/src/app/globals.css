@@ -252,6 +252,25 @@ footer p {
   height: 14rem;
 }
 
+.histogram-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px; /* Añade espacio alrededor */
+}
+
+.chart-container {
+  width: 100%;
+  height: 300px; /* Altura fija para asegurar que se renderice correctamente */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  padding: 20px; /* Espacio alrededor del gráfico */
+}
+
 @keyframes grainMovement {
   0% {
     top: 300px; /* Posición inicial 300*/
