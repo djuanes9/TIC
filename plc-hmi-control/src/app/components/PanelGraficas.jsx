@@ -4,6 +4,16 @@ import { MQTTContext } from "./MQTTCliente"; // Importamos el contexto
 const PanelGraficas = () => {
   const { statuses, isConnected, sendMessage, isNodeRedConnected } = useContext(MQTTContext); // Usamos los valores globales
 
+  const handleButtonPress = (topic) => {
+    // Publicar el valor "true" o "ON" en el tópico MQTT
+    sendMessage(topic, "true");
+
+    // Después de 1 segundo, publicar el valor "false" o "OFF"
+    setTimeout(() => {
+      sendMessage(topic, "false");
+    }, 1000); // 1000 ms = 1 segundo
+  };
+
   return (
     <div>
       <p>Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
@@ -54,13 +64,13 @@ const PanelGraficas = () => {
 
       <div className="buttonPanel">
         <button
-          onClick={() => sendMessage("start", "true")}
+          onClick={() => handleButtonPress("start")}
           className="buttonStart"
         >
           START
         </button>
         <button
-          onClick={() => sendMessage("stop", "false")}
+          onClick={() => handleButtonPress("stop")}
           className="buttonStop"
         >
           STOP
