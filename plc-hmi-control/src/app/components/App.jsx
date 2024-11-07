@@ -5,51 +5,37 @@ import Footer from "./Footer";
 import PanelGraficas from "./PanelGraficas";
 import InterfazHMI from "./InterfazHMI";
 import Histograma from "./Histograma";
-import Chart from "./Chart"
+import Chart from "./Chart";
+import TabsBar from "./TabsBar";
 
 function App() {
+  const [selectedTab, setSelectedTab] = useState("HMI"); // Estado para la pestaña seleccionada
 
-  const [isHMIVisible, setIsHMIVisible] = useState(true); // Estado para alternar entre HMI e Histograma
-  const [isHistoVisible, setIsHistoVisible] = useState(true); // Estado para alternar entre Chart e Histograma
-
-  // Toggle para HMI o Gráficos
-  const toggleView = () => {
-    setIsHMIVisible(!isHMIVisible);
-  };
-
-  // Toggle entre Chart e Histograma
-  const toggleView2 = () => {
-    setIsHistoVisible(!isHistoVisible);
+  // Función para manejar el cambio de pestaña
+  const handleTabSelect = (tab) => {
+    setSelectedTab(tab);
   };
 
   return (
     <div>
       <Heading />
       <MQTTProvider>
+        <TabsBar
+          tabs={["HMI", "Gráficos", "Histograma", "Análisis"]}
+          onSelect={handleTabSelect}
+        />
+
         <div className="main-container">
-          {/* Panel de botones a la izquierda */}
           <div className="button-container">
-            {/* Botón para alternar entre HMI y Gráficos */}
-            <button onClick={toggleView} className="ButHisto">
-              {isHMIVisible ? "Ver Gráficos" : "Ver HMI"}
-            </button>
-
-            {/* Mostrar el botón de alternar Chart/Histograma solo cuando estamos viendo gráficos */}
-            {!isHMIVisible && (
-              <button onClick={toggleView2} className="ButHisto">
-                {isHistoVisible ? "Histograma" : "Chart"}
-              </button>
-            )}
+            {/* Opcional: Puedes colocar otros botones si necesitas acciones adicionales */}
           </div>
 
-          {/* Sección principal que alterna entre HMI y Gráficos */}
-          <div className="hmiSection">
-            {isHMIVisible ? <InterfazHMI /> : isHistoVisible ? <Chart /> : <Histograma />}
-          </div>
-
-          {/* Panel de estado */}
-          <div className="StatusPanel">
-            <PanelGraficas />
+          {/* Sección principal que muestra el contenido según la pestaña seleccionada */}
+          <div className="hmi-nuevo">
+            {selectedTab === "HMI" && <InterfazHMI />}
+            {selectedTab === "Gráficos" && <Chart />}
+            {selectedTab === "Histograma" && <Histograma />}
+            {selectedTab === "Análisis" && <PanelGraficas />}
           </div>
         </div>
       </MQTTProvider>

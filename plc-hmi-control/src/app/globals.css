@@ -42,7 +42,7 @@ header h2 {
 }
 
 footer {
-  position: absolute;
+  position: relative;
   text-align: center;
   bottom: 0;
   width: 100%;
@@ -79,12 +79,12 @@ footer p {
 
 .main-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: flex-start;
   overflow-x: scroll; /* Permite el scroll horizontal */
   white-space: nowrap; /* Evita que se envuelva el contenido */
   margin-top: 20px;
-  padding: 0 30px;
+  padding: 0 20px;
   max-width: 1500px; /* Limitar el ancho máximo en pantallas grandes */
   max-height: 900px;
   width: 100%;
@@ -94,7 +94,7 @@ footer p {
 
 .hmiSection {
   flex: 1; /* Hace que ambos elementos tomen el mismo ancho */
-  max-width: 970px; /* Ancho máximo para pantallas grandes */
+  max-width: 1080px; /* Ancho máximo para pantallas grandes */
   background-color: #ccd4dc;
   border: 2px solid #ccc;
   padding: 10px;
@@ -102,13 +102,42 @@ footer p {
   box-sizing: content-box;
   height: 540px;
   flex: 0 0 80%;
-  overflow-x: scroll;
-  width: 930px; /* Asegura que el padding se incluya en el ancho total */
+  overflow-x: auto;
+  width: 970px; /* Asegura que el padding se incluya en el ancho total */
+}
+
+.hmi-container {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+
+/* Sección izquierda del HMI */
+.hmi-left {
+  flex: 2; /* Ocupa más espacio para el HMI principal */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  position: relative; /* Para el llenado del silo */
+}
+
+.hmi-right {
+  flex: 1; /* Ocupa menos espacio para el panel de estado */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  max-width: 300px;
+  overflow-y: auto;
 }
 
 .StatusPanel {
-  flex: 1; /* Panel de control ocupa su propio espacio */
-  max-width: 300px; /* Ancho máximo para el panel de control */
+  max-width: 290px; /* Ancho máximo para el panel de control */
   background-color: #bbc4c3;
   padding: 20px;
   border: 2px solid black;
@@ -143,13 +172,10 @@ footer p {
   border-radius: 8px;
 }
 
-
 .StatusItem img {
   width: 25px; /* Ajusta el tamaño de los LEDs */
   height: 25px;
 }
-
-
 
 .buttonPanel {
   display: flex; /* Utilizamos flexbox para alinear los botones */
@@ -208,10 +234,14 @@ footer p {
   top: 1px;
 }
 /* Wrapper que contiene la imagen del silo y el rectángulo de llenado */
+/* Contenedor del silo y otros elementos visuales */
 .siloWrapper {
-  position: relative; /* Posiciona los elementos dentro de este contenedor */
-  width: 100px;
-  height: 125px;
+  position: relative;
+  width: 100%;
+  height: 500px; /* Ajusta según sea necesario */
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 /* Imagen del silo */
@@ -265,25 +295,6 @@ footer p {
   height: 14rem;
 }
 
-.histogram-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 20px; /* Añade espacio alrededor */
-}
-
-.chart-container {
-  width: 100%;
-  height: 300px; /* Altura fija para asegurar que se renderice correctamente */
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  padding: 20px; /* Espacio alrededor del gráfico */
-}
-
 @keyframes grainMovement {
   0% {
     top: 300px; /* Posición inicial 300*/
@@ -317,9 +328,9 @@ footer p {
   font-family: "Manrope", sans-serif;
   font-size: 15px;
   font-weight: 400;
-  margin: 4px;
   padding: 12px 13px; /* modificar tamaño */
   width: 140px;
+  margin: 4px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #7cacde;
 }
@@ -336,7 +347,8 @@ footer p {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Alinea los botones a la izquierda */
-  margin-left: -25px; /* Añade un margen debajo del contenedor de botones */
+  margin-left: -10px; /* Añade un margen debajo del contenedor de botones */
+  margin-right: -10px;
 }
 
 @media (max-width: 600px) {
@@ -358,17 +370,20 @@ footer p {
     font-size: 1.2rem; /* Reduce el tamaño de la fuente */
   }
 
+  hmiSection h1 {
+    font-size: 1rem; /* Reduce el tamaño de la fuente */
+  }
+
   header h2 {
     font-size: 1rem; /* Reduce el tamaño de la fuente */
   }
   .hmiSection,
   .StatusPanel {
     overflow-x: scroll;
-    flex: 0 0 85%; /* Ocupa el 90% del ancho de la pantalla */
+    flex: 0 0 75%; /* Ocupa el 90% del ancho de la pantalla */
     margin-right: 10px; /* Espacio entre elementos */
     font-size: 1rem;
     margin-left: 10px;
-    height: 420px;
   }
 
   .siloImage {
@@ -407,24 +422,18 @@ footer p {
     position: absolute;
     top: 18rem; /* Ajusta según la posición deseada sobre el silo */
     left: 10.4rem; /* Ajusta la posición horizontal de la válvula */
-    width: 6rem; /* Tamaño de la válvula */
-    height: 3rem;
   }
 
   .M2-image {
     position: absolute;
-    top: 266.25px; /* Ajusta según la posición deseada sobre el silo */
-    left: 435px; /* Ajusta la posición horizontal de la válvula */
-    width: 18rem; /* Tamaño de la válvula */
-    height: 7.5rem;
+    top: 355px; /* Ajusta según la posición deseada sobre el silo */
+    left: 580px; /* Ajusta la posición horizontal de la válvula */
   }
 
   .Mill-image {
     position: absolute;
     top: 196.25px; /* Ajusta según la posición deseada sobre el silo */
     left: 330px; /* Ajusta la posición horizontal de la válvula */
-    width: 11.25rem; /* Tamaño de la válvula */
-    height: 10.5rem;
   }
 
   @keyframes grainMovement {
@@ -446,11 +455,5 @@ footer p {
     bottom: 153.75px; /* Posición inicial 215*/
     left: 131.25px; /* Posición inicial */
     animation: grainMovement 2.5s linear infinite; /* Animación cíclica */
-  }
-  .ButHisto {
-    font-size: 14px;
-    font-weight: 400;
-    padding: 11px 12px; /* modificar tamaño */
-    width: 100px;
   }
 }
