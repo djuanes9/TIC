@@ -86,9 +86,9 @@ footer p {
   margin-top: 20px;
   padding: 0 20px;
   max-width: 1500px; /* Limitar el ancho máximo en pantallas grandes */
-  max-height: 900px;
+  max-height: 1200px;
   width: 100%;
-  height: 600px;
+  height: 100%x;
   position: sticky;
 }
 
@@ -114,12 +114,14 @@ footer p {
 
 /* Sección izquierda del HMI */
 .hmi-left {
-  flex: 2; /* Ocupa más espacio para el HMI principal */
+  flex: 1; /* Ocupa más espacio para el HMI principal */
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
   padding: 20px;
-  border-radius: 8px;
+  height: 550px;
+  width: 1100px;
+  border-radius: 4px;
   background-color: #f9f9f9;
   position: relative; /* Para el llenado del silo */
 }
@@ -129,27 +131,18 @@ footer p {
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
+  width: 400px;
   background-color: #f1f1f1;
-  max-width: 300px;
   overflow-y: auto;
-}
-
-.StatusPanel {
-  max-width: 290px; /* Ancho máximo para el panel de control */
-  background-color: #bbc4c3;
-  padding: 20px;
-  border: 2px solid black;
-  text-align: center;
   line-height: 1.6;
-  display: flex;
-  flex-direction: column;
+  text-align: center;
   justify-content: space-between;
 }
 
-.StatusPanel h3 {
-  font-size: 1rem;
+.hmi-right h3 {
+  font-size: 1.2rem;
 }
 
 .StatusItem {
@@ -254,12 +247,21 @@ footer p {
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  left: 49px;
-  bottom: -108px; /* Llenado comienza desde la parte inferior */
-  width: 80%;
-  background-color: #8b4513; /* Color del grano (marrón) */
-  transition: height 0.3s ease; /* Transición suave para el llenado */
-  z-index: 1; /* Asegura que el relleno esté sobre la imagen */
+  bottom: 20px; /* Llenado desde la parte inferior */
+  width: 80px; /* Ocupa todo el ancho del contenedor */
+  background-color: brown; /* Color del llenado */
+  transition: height 0.3s ease; /* Transición suave */
+  /* Contenedor para el llenado específico */
+}
+
+.siloFillContainer {
+  position: absolute;
+  bottom: 268px; /* Ajusta según el espacio que quieres desde la parte inferior */
+  left: 49px; /* Ajusta según la posición horizontal deseada */
+  width: 80px; /* Ajusta para que abarque el ancho deseado dentro del silo */
+  height: 130px; /* Ajusta para que abarque solo la parte específica del silo */
+  background-color: white; /* Puede ser transparente para no bloquear la imagen */
+  overflow: hidden; /* Esconde cualquier desbordamiento del llenado */
 }
 
 .valve-image {
@@ -350,6 +352,45 @@ footer p {
   margin-left: -10px; /* Añade un margen debajo del contenedor de botones */
   margin-right: -10px;
 }
+
+/* Estilos de Analisis */
+.analisis-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sección de KPIs */
+.kpi-section-left {
+  width: 300px; /* Ancho fijo para la columna de KPIs */
+  background-color: #cf7c7c; /* Fondo gris */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gauge-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espacio entre cada Gauge */
+}
+
+.gauge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Sección de gráficos */
+.chart-section {
+  flex: 1; /* El gráfico toma el espacio restante */
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+  width: 400px;
+}
+
+/* === Fin de los estilos para analisis.jsx === */
 
 @media (max-width: 600px) {
   header {

@@ -1,0 +1,59 @@
+/* Dashboard.css */
+.dashboard-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Estilos para la columna de KPIs */
+  .kpis-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 20%; /* Ajustar el ancho para que sea menor */
+  }
+  
+  .kpis-column .gauge-item {
+    height: 100px;
+  }
+  
+  /* Columna de gráficos en tiempo real */
+  .charts-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 40%; /* Ajustar el ancho */
+  }
+  
+  .chart-item {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 220px; /* Altura ajustada */
+  }
+  
+  /* Columna de histograma */
+  .histogram-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #ffffff;
+    width: 40%; /* Ajustar el ancho */
+  }
+  
+  .histogram-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .histogram-item {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 300px; /* Altura ajustada */
+  }
+  

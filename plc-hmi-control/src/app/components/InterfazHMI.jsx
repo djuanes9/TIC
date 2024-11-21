@@ -16,11 +16,13 @@ const HMI = () => {
       <div className="hmi-left">
         <div className="siloWrapper">
           <img src="/HMI.png" alt="SILO-101" className="siloImage" />
-          <div
-            className="siloFill"
-            style={{ height: `${siloFillLevel}%` }} // Llenado dinámico
-          ></div>
-          <div>
+          {/* Contenedor específico para el llenado */}
+          <div className="siloFillContainer">
+            <div
+              className="siloFill"
+              style={{ height: `${siloFillLevel}%` }} // Llenado dinámico
+            ></div>
+            <div></div>
             {/* Solo aplicar la clase 'grains' cuando el conveyor está activo */}
             {isConveyorActive && <div className="grains"></div>}
           </div>

@@ -10,16 +10,17 @@
   },
   "dependencies": {
     "mqtt": "^5.10.1",
-    "next": "14.2.13",
-    "react": "^18",
-    "react-dom": "^18",
+    "next": "^14.2.13",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-gauge-chart": "^0.5.1",
     "recharts": "^2.12.7",
     "url": "0.11.4"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",

@@ -32,7 +32,10 @@ const PanelGraficas = () => {
     setBandaValue(event.target.value); // Actualizar el estado con el valor del slider
   };
 
-
+  // Función para enviar el valor de SP_banda
+  const handleSendBandaValue = () => {
+    sendMessage("SP_banda", bandaValue); // Enviar el valor actual de bandaValue al tópico SP_banda
+  };
 
   return (
     <div>
@@ -40,7 +43,7 @@ const PanelGraficas = () => {
       <p>
         Status de Node-RED: {isNodeRedConnected ? "Conectado" : "Desconectado"}
       </p>
-
+      <br />
       <div>
         <div className="StatusItem">
           <h3>SILO-101</h3>
@@ -112,7 +115,6 @@ const PanelGraficas = () => {
           className="w-full"
         />
         <span>{bandaValue}</span> {/* Mostrar el valor actual */}
-       
       </div>
     </div>
   );

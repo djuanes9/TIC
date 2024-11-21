@@ -11,59 +11,67 @@ import {
 } from "recharts";
 import { MQTTContext } from "./MQTTCliente"; // Importar el contexto MQTT
 
-const Chart = () => {
+const Chart = ({ title, topic, ylabel }) => {
   const { statuses } = useContext(MQTTContext); // Extraer los estados del contexto MQTT
   const [realTimeData, setRealTimeData] = useState([]); // Estado para datos en tiempo real
 
+  // Suscribirse a los datos desde MQTT y procesarlos en tiempo real según el tópico
   useEffect(() => {
-    if (statuses["nivel/actual"] !== undefined) {
+    if (statuses[topic]) {
+      // Chequea el tópico que llega como prop
       try {
-        const realTimeValue = parseFloat(statuses["nivel/actual"]); // Asegúrate de que el dato es numérico
-        if (!isNaN(realTimeValue)) {
-          console.log("TIEMPO REAL: ", realTimeValue);
+        const realTimeValue = statuses[topic]; // Datos en tiempo real para el tópico
+        console.log(`TIEMPO REAL (${topic}):`, realTimeValue);
 
-          // Generar un nuevo punto con el número recibido y una marca de tiempo (x)
-          const newPoint = {
-            x: new Date().toLocaleTimeString(), // Usamos la hora actual como 'x'
-            Nivel: realTimeValue, // El valor numérico es 'y'
-          };
+        // Generar un nuevo punto con el dato recibido y una marca de tiempo
+        const newPoint = {
+          x: new Date().toLocaleTimeString(),
+          value: realTimeValue,
+        };
 
-          setRealTimeData((prevData) => {
-            const updatedData = [...prevData, newPoint]; // Añadir el nuevo dato
-
-            // Limitar a 100 entradas
-            if (updatedData.length > 100) {
-              updatedData.shift(); // Eliminar el primer elemento si excede los 100
-            }
-
-            return updatedData;
-          });
-        }
+        setRealTimeData((prevData) => {
+          const updatedData = [...prevData, newPoint];
+          if (updatedData.length > 100) {
+            updatedData.shift();
+          }
+          return updatedData;
+        });
       } catch (error) {
-        console.error("Error al procesar el dato en tiempo real:", error);
+        console.error(
+          `Error al procesar el dato en tiempo real (${topic}):`,
+          error
+        );
       }
     }
-  }, [statuses["nivel/actual"]]); // Escucha solo los cambios en 'nivel/actual'
+  }, [statuses, topic]);
 
   return (
     <div>
-      <h1>Gráfico Tiempo Real</h1>
-
-      <div style={{ width: "100%", height: 400 }}>
+      <h3>{title}</h3>
+      <div style={{ width: "100%", height: 220 }}>
         <ResponsiveContainer>
           <LineChart data={realTimeData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="x" /> {/* Eje X: Tiempo */}
-            <YAxis />
+            <XAxis
+              dataKey="x"
+              label={{
+                value: "Tiempo (hh:mm:ss)",
+                position: "insideBottomRight",
+                offset: -5,
+              }}
+            />
+            <YAxis
+              label={{ value: `${ylabel}`, angle: -90, position: "insideLeft" }}
+            />
             <Tooltip />
             <Legend />
             <Line
               type="monotone"
-              dataKey="Nivel"
-              stroke="#82ca9d" // Color personalizado
-              strokeWidth={3} // Grosor de la línea
-              dot={false} // Quitar los puntos en los datos
-              animationDuration={5} // Duración de la animación
+              dataKey="value"
+              stroke="#82ca9d"
+              strokeWidth={3}
+              dot={false}
+              animationDuration={5}
             />
           </LineChart>
         </ResponsiveContainer>
