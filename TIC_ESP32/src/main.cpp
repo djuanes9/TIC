@@ -1,93 +1,87 @@
 #include <Arduino.h>
-#include <ESP32_Servo.h>  // Usamos la biblioteca ESP32Servo
+#include <ESP32_Servo.h>
 
-// Configuración del servo motor
-const int pinServo = 18;         // Pin GPIO para el servo
-const int pinEntradaServo = 19;  // Pin de entrada digital para controlar el movimiento del servo
-Servo miServo;
+// Pines del sensor ultrasónico
+#define TRIG_PIN 5  // Pin TRIG del sensor ultrasónico
+#define ECHO_PIN 18 // Pin ECHO del sensor ultrasónico
 
-int posicionActual = 0;          // Posición inicial del servo
-int posicionFinal = 0;           // Posición objetivo del servo (0 o 180 grados)
-int incremento = 1;              // Grados a moverse en cada paso
-unsigned long intervaloMovimiento = 5; // Intervalo de tiempo entre movimientos, en milisegundos
-unsigned long ultimoMovimiento = 0;     // Almacena el último tiempo de movimiento del servo
+// Pines de los servomotores y sus controles
+#define SERVO1_PIN 19
+#define SERVO1_CONTROL_PIN 23
+#define SERVO2_PIN 21
+#define SERVO2_CONTROL_PIN 22
 
-// Configuración del motor DC
-const int pinMotorIN1 = 5;       // IN1 del puente H
-const int pinMotorIN2 = 17;      // IN2 del puente H
-const int pinPWMMotor = 15;      // Pin PWM para controlar la velocidad del motor
-const int pinEntradaMotor = 4;   // Pin de entrada digital para activar el motor
-const int pinPotenciometro = 2; // Pin analógico para el potenciómetro (control de velocidad PWM)
-int velocidadMotor = 0;          // Velocidad del motor en PWM (0-255)
-bool motorEncendido = false;     // Estado del motor
+// Configuración DAC
+#define DAC_PIN 25 // Salida DAC para señal analógica
 
-// Declaración de las funciones
-void movimientoServo();
-void controlarMotorDC();
+// Objetos para los servomotores
+Servo servo1; //Servo Tapa Silo
+Servo servo2; //Servo Tamizadora
 
+// Configuración inicial
 void setup() {
-  Serial.begin(9600);
+  // Configuración de pines ultrasónico
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
 
-  // Configurar el servo
-  miServo.attach(pinServo,500,2500);
-  pinMode(pinEntradaServo, INPUT);
-  miServo.write(posicionActual);
+  // Configuración de servomotores
+  servo1.attach(SERVO1_PIN);
+  servo2.attach(SERVO2_PIN);
 
-  // Configurar los pines del motor y PWM
-  pinMode(pinMotorIN1, OUTPUT);
-  pinMode(pinMotorIN2, OUTPUT);
-  pinMode(pinEntradaMotor, INPUT);
+  // Configuración de pines de control
+  pinMode(SERVO1_CONTROL_PIN, INPUT);
+  pinMode(SERVO2_CONTROL_PIN, INPUT);
 
-  //falta arreglar setup de pwm motordc
+  // Inicialización
+  servo1.write(0); // Servomotor 1 en posición inicial
+  servo2.write(0); // Servomotor 2 en posición inicial
+}
 
-  ledcSetup(2,500,8);
-  ledcAttachPin(pinPWMMotor,2);
+float readUltrasonicDistance() {
+  // Generar pulso TRIG
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  // Leer duración del pulso ECHO
+  long duration = pulseIn(ECHO_PIN, HIGH);
+
+  // Convertir a distancia en cm
+  float distance = duration * 0.034 / 2;
+  return distance;
+}
+
+void setAnalogOutput(float distance, float maxDistance) {
+  // Convertir distancia a rango de 0 a 3.3V (DAC admite 8 bits: 0 a 255)
+  int dacValue = map(distance, 0, maxDistance, 0, 255);
+  dacValue = constrain(dacValue, 0, 255); // Limitar a valores válidos
+  dacWrite(DAC_PIN, dacValue);
 }
 
 void loop() {
-  // Control del movimiento del servo
-  movimientoServo();
-
-  // Control del motor DC
-  controlarMotorDC();
-}
-
-// Función para mover el servo lentamente sin bloquear el código
-void movimientoServo() {
-  int estadoEntradaServo = digitalRead(pinEntradaServo);
-
-  if (estadoEntradaServo == HIGH) {
-    miServo.write(180);  // Mover el servo a 180 grados
-    Serial.println("Servo en posición 180");
+  // --- Control de servomotores ---
+  // Servomotor 1
+  if (digitalRead(SERVO1_CONTROL_PIN) == HIGH) {
+    servo1.write(180); // Activa el servo1 a 180°
   } else {
-    miServo.write(0);    // Mover el servo a 0 grados
-    Serial.println("Servo en posición 0");
+    servo1.write(0);   // Retorna a 0°
   }
-}
 
-// Función para controlar el motor DC con entrada digital y ajuste de velocidad PWM
-void controlarMotorDC() {
-  int estadoEntradaMotor = digitalRead(pinEntradaMotor);
-
-  if (estadoEntradaMotor == HIGH) {
-    if (!motorEncendido) {
-      motorEncendido = true;
-      digitalWrite(pinMotorIN1, HIGH);
-      digitalWrite(pinMotorIN2, LOW);
-      Serial.println("Motor activado");
-    }
-
-    // Control de la velocidad del motor mediante PWM
-    int valorPotenciometro = analogRead(pinPotenciometro);  // Leer la entrada analógica
-    velocidadMotor = map(valorPotenciometro, 0, 4095, 0, 255);  // Mapear a rango PWM (0-255)
-    ledcWrite(2, velocidadMotor);  // Ajustar la velocidad del motor con PWM
-    Serial.print("Velocidad del motor: ");
-    Serial.println(velocidadMotor);
-  } else if (motorEncendido) {
-    motorEncendido = false;
-    digitalWrite(pinMotorIN1, LOW);
-    digitalWrite(pinMotorIN2, LOW);
-    ledcWrite(2, 0);  // Detener el motor (PWM en 0)
-    Serial.println("Motor apagado");
+  // Servomotor 2
+  if (digitalRead(SERVO2_CONTROL_PIN) == HIGH) {
+    servo2.write(180); // Activa el servo2 a 180°
+  } else {
+    servo2.write(0);   // Retorna a 0°
   }
+
+  // --- Lectura del sensor ultrasónico ---
+  float distance = readUltrasonicDistance();
+  distance = constrain(distance, 0, 16.0); // Limitar a 16 cm
+
+  // --- Salida DAC proporcional a la distancia ---
+  setAnalogOutput(distance, 16.0);
+
+  delay(50); // Breve retraso para estabilidad
 }
