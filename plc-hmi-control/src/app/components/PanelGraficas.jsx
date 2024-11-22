@@ -32,11 +32,6 @@ const PanelGraficas = () => {
     setBandaValue(event.target.value); // Actualizar el estado con el valor del slider
   };
 
-  // Función para enviar el valor de SP_banda
-  const handleSendBandaValue = () => {
-    sendMessage("SP_banda", bandaValue); // Enviar el valor actual de bandaValue al tópico SP_banda
-  };
-
   return (
     <div>
       <p>Status de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
