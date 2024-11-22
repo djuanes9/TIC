@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Heading from "./Heading";
 import { MQTTProvider } from "./MQTTCliente"; // Asegúrate de que MQTTCliente esté exportando el contexto correctamente
 import Footer from "./Footer";
-import PanelGraficas from "./PanelGraficas";
 import InterfazHMI from "./InterfazHMI";
 import Histograma from "./Histograma";
-import Chart from "./Chart";
 import TabsBar from "./TabsBar";
+import Informacion from "./Informacion";
+import Dashboard from "./Dashboard";
+import Maquinaria from "./Maquinaria";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState("HMI"); // Estado para la pestaña seleccionada
@@ -21,22 +22,22 @@ function App() {
       <Heading />
       <MQTTProvider>
         <TabsBar
-          tabs={["HMI", "Gráficos", "Histograma", "Análisis"]}
+          tabs={[
+            "HMI",
+            "Información",
+            "Histograma",
+            "Máquinaria",
+            "Producción",
+          ]}
           onSelect={handleTabSelect}
         />
 
         <div className="main-container">
-          <div className="button-container">
-            {/* Opcional: Puedes colocar otros botones si necesitas acciones adicionales */}
-          </div>
-
-          {/* Sección principal que muestra el contenido según la pestaña seleccionada */}
-          <div className="hmi-nuevo">
-            {selectedTab === "HMI" && <InterfazHMI />}
-            {selectedTab === "Gráficos" && <Chart />}
-            {selectedTab === "Histograma" && <Histograma />}
-            {selectedTab === "Análisis" && <PanelGraficas />}
-          </div>
+          {selectedTab === "HMI" && <InterfazHMI />}
+          {selectedTab === "Información" && <Informacion />}
+          {selectedTab === "Histograma" && <Histograma />}
+          {selectedTab === "Máquinaria" && <Maquinaria />}
+          {selectedTab === "Producción" && <Dashboard />}
         </div>
       </MQTTProvider>
       <Footer />
