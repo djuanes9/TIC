@@ -80,7 +80,6 @@ function App() {
               tabs={[
                 "HMI",
                 "Información",
-                "Histograma",
                 "Máquinaria",
                 "Producción",
               ]}
