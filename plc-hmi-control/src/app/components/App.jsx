@@ -35,7 +35,6 @@ function App() {
         <div className="main-container">
           {selectedTab === "HMI" && <InterfazHMI />}
           {selectedTab === "Información" && <Informacion />}
-          {selectedTab === "Histograma" && <Histograma />}
           {selectedTab === "Máquinaria" && <Maquinaria />}
           {selectedTab === "Producción" && <Dashboard />}
         </div>
