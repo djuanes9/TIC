@@ -3,7 +3,6 @@ import Heading from "./Heading";
 import { MQTTProvider } from "./MQTTCliente"; // Asegúrate de que MQTTCliente esté exportando el contexto correctamente
 import Footer from "./Footer";
 import InterfazHMI from "./InterfazHMI";
-import Histograma from "./Histograma";
 import TabsBar from "./TabsBar";
 import Informacion from "./Informacion";
 import Dashboard from "./Dashboard";
