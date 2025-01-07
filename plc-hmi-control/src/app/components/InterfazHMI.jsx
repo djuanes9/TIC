@@ -40,7 +40,7 @@ const HMI = () => {
           {statuses["CNVR-101"] === "ON" ? (
             <img src="/screwOn.png" alt="LED encendido" className="M1-image" />
           ) : (
-            <img src="/ScrewOff.png" alt="Scew Off" className="M1-image" />
+            <img src="/screwOff.png" alt="Scew Off" className="M1-image" />
           )}
 
           {statuses["MILL-101"] === "ON" ? (
