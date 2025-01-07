@@ -38,9 +38,9 @@ const HMI = () => {
           )}
 
           {statuses["CNVR-101"] === "ON" ? (
-            <img src="/M1on.png" alt="LED encendido" className="M1-image" />
+            <img src="/screwOn.png" alt="LED encendido" className="M1-image" />
           ) : (
-            <img src="/M1off.png" alt="LED apagado" className="M1-image" />
+            <img src="/ScrewOff.png" alt="LED apagado" className="M1-image" />
           )}
 
           {statuses["MILL-101"] === "ON" ? (
@@ -49,10 +49,10 @@ const HMI = () => {
             <img src="/MillOff.png" alt="LED apagado" className="Mill-image" />
           )}
 
-          {statuses["CNVR-102"] === "ON" ? (
-            <img src="/screwOn.png" alt="LED encendido" className="M2-image" />
+          {statuses["SIV-101"] === "ON" ? (
+            <img src="/SivOn.png" alt="LED encendido" className="M2-image" />
           ) : (
-            <img src="/screwOff.png" alt="LED apagado" className="M2-image" />
+            <img src="/SivOff.png" alt="LED apagado" className="M2-image" />
           )}
         </div>
         <p>{siloFillLevel}%</p> {/* Mostrar porcentaje debajo */}

@@ -11,12 +11,14 @@ export const MQTTProvider = ({ children }) => {
     "SILO-101": 0,
     "CNVR-101": "OFF",
     "MILL-101": "OFF",
-    "CNVR-102": "OFF",
+    "SIV-101": "OFF",
     "VALV-101": "OFF",
     NIVEL: "OFF",
     "status/node-red": null,
     "histograma/nivel": null,
     "nivel/actual": 0,
+    "wt1/actual": 0,
+    "wt2/actual": 0,
     "peso/actual": null,
     "tiempos/actual": null,
     "calidad/actual": 0,
@@ -52,12 +54,14 @@ export const MQTTProvider = ({ children }) => {
             "SILO-101",
             "CNVR-101",
             "MILL-101",
-            "CNVR-102",
+            "SIV-101",
             "NIVEL",
             "VALV-101",
             "status/node-red",
             "histograma/nivel",
             "nivel/actual",
+            "wt1/actual",
+            "wt2/actual",
             "peso/actual",
             "calidad/actual",
             "tiempos/actual",
@@ -152,6 +156,10 @@ export const MQTTProvider = ({ children }) => {
               topic === "SILO-101"
                 ? Number(msg) // Para "SILO-101", convertir a número
                 : topic === "nivel/actual"
+                ? Number(msg) // Para "SILO-101", convertir a número
+                : topic === "wt1/actual"
+                ? Number(msg) // Para "SILO-101", convertir a número
+                : topic === "wt2/actual"
                 ? Number(msg) // Para "SILO-101", convertir a número
                 : topic === "calidad/actual"
                 ? Number(msg) // Para "SILO-101", convertir a número
