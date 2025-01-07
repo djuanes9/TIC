@@ -39,6 +39,7 @@ header h2 {
   font-family: "Manrope", sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
+  text-align: left;
 }
 
 footer {
@@ -112,47 +113,49 @@ footer p {
   height: 100%;
 }
 
-/* Sección izquierda del HMI */
-.hmi-left {
-  flex: 1; /* Ocupa más espacio para el HMI principal */
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  padding: 20px;
-  height: 550px;
-  width: 1100px;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-  position: relative; /* Para el llenado del silo */
-}
-
+/* Correcciones para el contenedor derecho */
 .hmi-right {
-  flex: 1; /* Ocupa menos espacio para el panel de estado */
-  display: flex;
-  flex-direction: column;
+  flex: 1; /* Ocupa el espacio restante */
+  display: grid; /* Cambiado de flex a grid */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(150px, 1fr)
+  ); /* Ajusta el número de columnas automáticamente */
+  gap: 15px; /* Espaciado entre elementos */
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 8px;
-  width: 400px;
   background-color: #f1f1f1;
   overflow-y: auto;
-  line-height: 1.6;
-  text-align: center;
-  justify-content: space-between;
+  max-height: 100%;
 }
-
 .hmi-right h3 {
   font-size: 1.2rem;
 }
 
+/* Correcciones para los ítems del panel */
 .StatusItem {
-  display: flex; /* Alinea el nombre y el LED en la misma línea */
-  justify-content: space-between; /* Coloca el nombre a la izquierda y el LED a la derecha */
-  align-items: center; /* Alinea verticalmente en el centro */
-  margin-bottom: 10px; /* Espacio entre cada ítem */
+  display: flex; /* Elementos en fila */
+  justify-content: space-between; /* Nombre a la izquierda, estado a la derecha */
+  align-items: center;
   padding: 10px;
   background-color: #dfe6e5;
   border-radius: 8px;
+  text-align: center;
+  height: 60px; /* Tamaño uniforme */
+}
+
+/* Ajustes para el HMI y la imagen */
+.hmi-left {
+  flex: 1; /* Ocupa más espacio que el panel derecho */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  height: 100%; /* Ajustado */
+  max-width: 950px; /* Limita el tamaño máximo */
+  border-radius: 4px;
+  background-color: #f9f9f9;
 }
 
 .Slider {
@@ -231,7 +234,7 @@ footer p {
 .siloWrapper {
   position: relative;
   width: 100%;
-  height: 500px; /* Ajusta según sea necesario */
+  height: 450px; /* Ajusta según sea necesario */
   background-color: #e0e0e0;
   border-radius: 10px;
   overflow: hidden;
@@ -240,7 +243,7 @@ footer p {
 /* Imagen del silo */
 .siloImage {
   width: 910px; /* Ancho de la imagen del silo */
-  height: 510px; /* Alto de la imagen del silo */
+  height: 450px; /* Alto de la imagen del silo */
   object-fit: fill;
 }
 
@@ -256,18 +259,18 @@ footer p {
 
 .siloFillContainer {
   position: absolute;
-  bottom: 268px; /* Ajusta según el espacio que quieres desde la parte inferior */
-  left: 49px; /* Ajusta según la posición horizontal deseada */
-  width: 80px; /* Ajusta para que abarque el ancho deseado dentro del silo */
-  height: 130px; /* Ajusta para que abarque solo la parte específica del silo */
+  bottom: 188px; /* Ajusta según el espacio que quieres desde la parte inferior */
+  left: 61px; /* Ajusta según la posición horizontal deseada */
+  width: 70px; /* Ajusta para que abarque el ancho deseado dentro del silo */
+  height: 100px; /* Ajusta para que abarque solo la parte específica del silo */
   background-color: white; /* Puede ser transparente para no bloquear la imagen */
   overflow: hidden; /* Esconde cualquier desbordamiento del llenado */
 }
 
 .valve-image {
   position: absolute;
-  top: 320px; /* Ajusta según la posición deseada sobre el silo */
-  left: 76px; /* Ajusta la posición horizontal de la válvula */
+  top: 333px; /* Ajusta según la posición deseada sobre el silo */
+  left: 83px; /* Ajusta la posición horizontal de la válvula */
   width: 45px; /* Tamaño de la válvula */
   height: 45px;
   transform: rotate(90deg);
@@ -275,26 +278,132 @@ footer p {
 
 .M1-image {
   position: absolute;
-  top: 395px; /* Ajusta según la posición deseada sobre el silo */
-  left: 224px; /* Ajusta la posición horizontal de la válvula */
-  width: 8rem; /* Tamaño de la válvula */
-  height: 4rem;
+  top: 265px; /* Ajusta según la posición deseada sobre el silo */
+  left: 218px; /* Ajusta la posición horizontal de la válvula */
+  width: 20.5rem; /* Tamaño de la válvula */
+  height: 2.5rem;
+  rotate: -38deg;
 }
 
 .M2-image {
   position: absolute;
-  top: 355px; /* Ajusta según la posición deseada sobre el silo */
-  left: 580px; /* Ajusta la posición horizontal de la válvula */
-  width: 24rem; /* Tamaño de la válvula */
-  height: 10rem;
+  top: 319px; /* Ajusta según la posición deseada sobre el silo */
+  left: 566px; /* Ajusta la posición horizontal de la válvula */
+  width: 4rem; /* Tamaño de la válvula */
+  height: 3.8rem;
 }
 
 .Mill-image {
   position: absolute;
-  top: 235px; /* Ajusta según la posición deseada sobre el silo */
-  left: 440px; /* Ajusta la posición horizontal de la válvula */
-  width: 15rem; /* Tamaño de la válvula */
-  height: 14rem;
+  top: 282px; /* Ajusta según la posición deseada sobre el silo */
+  left: 652px; /* Ajusta la posición horizontal de la válvula */
+  width: 6rem; /* Tamaño de la válvula */
+  height: 3rem;
+} /* Panel derecho */
+/* Panel derecho */
+.hmi-right {
+  display: grid; /* Usamos grid para la estructura */
+  grid-template-rows: auto 1fr auto; /* Tres filas: status, columnas y botones */
+  gap: 15px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+/* Texto de estado de conexión */
+.connection-status {
+  background-color: #eaf4fc;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* Contenedor de las columnas */
+.columns-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+  gap: 15px; /* Espacio entre columnas */
+}
+
+/* Estilo de las secciones dentro del panel */
+.transmitter-section,
+.lsl-lsh-section,
+.digital-section,
+.machine-status-section {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Elementos de la sección */
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #e6f2f8;
+  border-radius: 6px;
+}
+
+.status-item h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.status-item p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.status-item img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Botones START y STOP */
+.button-section {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.button-section button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.button-start {
+  background-color: #4caf50;
+}
+
+.button-start:hover {
+  background-color: #45a049;
+}
+
+.button-stop {
+  background-color: #f44336;
+}
+
+.button-stop:hover {
+  background-color: #d32f2f;
 }
 
 @keyframes grainMovement {
