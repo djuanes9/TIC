@@ -4,7 +4,7 @@ import { MQTTContext } from "./MQTTCliente";
 const PanelGraficas = () => {
   const { statuses, isConnected, sendMessage, isNodeRedConnected } =
     useContext(MQTTContext);
-  const [bandaValue, setBandaValue] = useState(50);
+  const [bandaValue] = useState(50);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
