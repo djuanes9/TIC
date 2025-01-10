@@ -4,7 +4,7 @@ import { MQTTContext } from "./MQTTCliente";
 const PanelGraficas = () => {
   const { statuses, isConnected, sendMessage, isNodeRedConnected } =
     useContext(MQTTContext);
-  const [bandaValue] = useState(50);
+  const [bandaValue, setBandaValue] = useState(50);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -38,8 +38,16 @@ const PanelGraficas = () => {
           <h4>Estados Maquinaria</h4>
           <div className="column-items">
             <div className="status-item">
+              <h3>VALV-101</h3>
+              {statuses["VALV-101"] === "ON" ? (
+                <img src="/LedOn.png" alt="Encendido" />
+              ) : (
+                <img src="/LedOff.png" alt="Apagado" />
+              )}
+            </div>
+            <div className="status-item">
               <h3>SCRW-101</h3>
-              {statuses["SCRW-101"] === "ON" ? (
+              {statuses["CNVR-101"] === "ON" ? (
                 <img src="/LedOn.png" alt="Encendido" />
               ) : (
                 <img src="/LedOff.png" alt="Apagado" />
@@ -54,8 +62,24 @@ const PanelGraficas = () => {
               )}
             </div>
             <div className="status-item">
-              <h3>CNVR-102</h3>
-              {statuses["CNVR-102"] === "ON" ? (
+              <h3>SIV-101</h3>
+              {statuses["SIV-101"] === "ON" ? (
+                <img src="/LedOn.png" alt="Encendido" />
+              ) : (
+                <img src="/LedOff.png" alt="Apagado" />
+              )}
+            </div>
+            <div className="status-item">
+              <h3>SRV-102</h3>
+              {statuses["SRV-102"] === "ON" ? (
+                <img src="/LedOn.png" alt="Encendido" />
+              ) : (
+                <img src="/LedOff.png" alt="Apagado" />
+              )}
+            </div>
+            <div className="status-item">
+              <h3>SRV-103</h3>
+              {statuses["SRV-103"] === "ON" ? (
                 <img src="/LedOn.png" alt="Encendido" />
               ) : (
                 <img src="/LedOff.png" alt="Apagado" />
@@ -70,11 +94,15 @@ const PanelGraficas = () => {
           <div className="column-items">
             <div className="status-item">
               <h3>LT-101</h3>
-              <p>{statuses["LT-101"] || 0}%</p>
+              <p>{statuses["SILO-101"] || 0}%</p>
             </div>
             <div className="status-item">
               <h3>WT-101</h3>
-              <p>{statuses["WT-101"] || 0}%</p>
+              <p>{statuses["wt1/actual"] || 0} gr</p>
+            </div>
+            <div className="status-item">
+              <h3>WT-102</h3>
+              <p>{statuses["wt2/actual"] || 0} gr</p>
             </div>
             <h4>Alarmas</h4>
             <div className="status-item">

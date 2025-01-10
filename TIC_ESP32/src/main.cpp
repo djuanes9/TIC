@@ -25,7 +25,7 @@ void setup() {
   pinMode(ECHO_PIN, INPUT);
 
   // Configuración de servomotores
-  servo1.attach(SERVO1_PIN,500,2500);
+  servo1.attach(SERVO1_PIN,500,1800);
   servo2.attach(SERVO2_PIN);
 
   // Configuración de pines de control

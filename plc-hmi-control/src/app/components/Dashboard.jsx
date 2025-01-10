@@ -24,8 +24,8 @@ const Dashboard = () => {
       <div className="charts-column">
         <Chart
           title="Gráfico Tiempo Real - Nivel"
-          topic="nivel/actual"
-          ylabel="Nivel(cm)"
+          topic="SILO-101"
+          ylabel="Nivel [%]"
         />
         <Pesos title="Gráfico Tiempo Real - Pesos" topic="peso/actual" />{" "}
         {/* Reemplaza Chart con Pesos */}
