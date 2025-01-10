@@ -302,15 +302,27 @@ footer p {
 } /* Panel derecho */
 /* Panel derecho */
 .hmi-right {
-  display: grid; /* Usamos grid para la estructura */
-  grid-template-rows: auto 1fr auto; /* Tres filas: status, columnas y botones */
-  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: #f1f1f1;
   border: 1px solid #ccc;
-  padding: 10px;
   border-radius: 8px;
-  background-color: #f1f1f1;
-  overflow-y: auto;
-  max-height: 100%;
+}
+
+/* Contenedor de dos columnas */
+.two-columns-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  gap: 20px;
+}
+
+/* Contenedor para una columna con dos filas */
+.single-column-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* Texto de estado de conexión */
@@ -404,6 +416,251 @@ footer p {
 
 .button-stop:hover {
   background-color: #d32f2f;
+}
+
+.hmi-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 5px;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Contenedor de dos columnas */
+.two-columns-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  gap: 10px;
+}
+
+/* Contenedor del estado de máquinas */
+.machine-status-container {
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.machine-status-container h4 {
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: large;
+}
+
+.machine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  gap: 15px;
+}
+
+.machine-item {
+  background: #e6f2f8;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  padding: 10px;
+  width: 90px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.machine-item h3 {
+  font-size: 14px; /* Tamaño más pequeño */
+  font-weight: bold;
+  margin: 0;
+  text-transform: uppercase; /* Letra en mayúsculas para consistencia */
+}
+
+.machine-item img {
+  width: 25px; /* Tamaño ajustado del LED */
+  height: 25px;
+  margin-top: 8px;
+}
+
+.connection-status {
+  text-align: center;
+  padding: 10px;
+  background-color: #eaf4fc;
+  border-radius: 6px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones */
+.button-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.panel-graficas {
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.panel-graficas h4 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Organización en dos columnas */
+.two-columns-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  gap: 15px; /* Espacio entre filas */
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between; /* Nombre a la izquierda, valor/imagen a la derecha */
+  align-items: center;
+  padding: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.status-item h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: #555;
+}
+
+.status-item p {
+  font-size: 1rem;
+  margin: 0;
+  color: #222;
+}
+
+.status-item img {
+  width: 25px;
+  height: 25px;
+}
+
+/* Contenedor principal */
+.panel-graficas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado de conexión */
+.connection-status {
+  padding: 10px;
+  background-color: #eaf4fc;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor de las columnas */
+.columns-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  gap: 20px; /* Espaciado entre las columnas */
+}
+
+/* Cada columna */
+.column {
+  background: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.column h4 {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Contenedor para los elementos dentro de cada columna */
+.column-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado entre elementos */
+}
+
+/* Elementos individuales */
+.status-item {
+  display: flex;
+  justify-content: space-between; /* Alinear nombre y valor/imágenes */
+  align-items: center;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.status-item h3 {
+  font-size: 0.95rem;
+  margin: 0;
+  color: #555;
+}
+
+.status-item p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #222;
+  font-weight: bold;
+}
+
+.status-item img {
+  width: 25px;
+  height: 25px;
+}
+
+/* Botones */
+.button-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.button-start,
+.button-stop {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-start {
+  background-color: #28a745;
+}
+
+.button-start:hover {
+  background-color: #218838;
+}
+
+.button-stop {
+  background-color: #dc3545;
+}
+
+.button-stop:hover {
+  background-color: #c82333;
 }
 
 @keyframes grainMovement {
