@@ -9,8 +9,8 @@
 #define SERVO1_PIN 19
 #define SERVO1_CONTROL_PIN 23
 #define SERVO2_PIN 21
-#define SERVO2_CONTROL_PIN 22
-
+#define SERVO2_D0 22
+#define SERVO2_D1 14
 // Configuración DAC
 #define DAC_PIN 25 // Salida DAC para señal analógica
 
@@ -26,15 +26,16 @@ void setup() {
 
   // Configuración de servomotores
   servo1.attach(SERVO1_PIN,500,1800);
-  servo2.attach(SERVO2_PIN);
+  servo2.attach(SERVO2_PIN,500,2500);
 
   // Configuración de pines de control
   pinMode(SERVO1_CONTROL_PIN, INPUT);
-  pinMode(SERVO2_CONTROL_PIN, INPUT);
+  pinMode(SERVO2_D0, INPUT);
+  pinMode(SERVO2_D1, INPUT);
 
   // Inicialización
   servo1.write(0); // Servomotor 1 en posición inicial
-  servo2.write(0); // Servomotor 2 en posición inicial
+  servo2.write(90); // Servomotor 2 en posición inicial
 }
 
 float readUltrasonicDistance() {
@@ -70,10 +71,12 @@ void loop() {
   }
 
   // Servomotor 2
-  if (digitalRead(SERVO2_CONTROL_PIN) == HIGH) {
+  if (digitalRead(SERVO2_D0) == HIGH) {
     servo2.write(180); // Activa el servo2 a 180°
-  } else {
+  } else if(digitalRead(SERVO2_D1) == HIGH){
     servo2.write(0);   // Retorna a 0°
+  }else{
+    servo2.write(90);   // Retorna a 0°
   }
 
   // --- Lectura del sensor ultrasónico ---

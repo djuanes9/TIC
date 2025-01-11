@@ -28,6 +28,7 @@ export const MQTTProvider = ({ children }) => {
     "tiempos/actual": null,
     "calidad/actual": 0,
     "configuracion/salida": null,
+    "configuracion/entrada": null,
   });
 
   const [mqttClient, setMqttClient] = useState(null); // Estado para almacenar el cliente MQTT
@@ -75,6 +76,7 @@ export const MQTTProvider = ({ children }) => {
             "peso/actual",
             "calidad/actual",
             "tiempos/actual",
+            "configuracion/entrada",
             "configuracion/salida",
           ],
           (err) => {
