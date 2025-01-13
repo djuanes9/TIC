@@ -39,6 +39,7 @@ header h2 {
   font-family: "Manrope", sans-serif;
   font-weight: 400;
   font-size: 1.3rem; /* Tamaño ligeramente menor */
+  margin-left: -3px;
   margin-bottom: 3px; /* Reduce el espacio inferior */
 }
 
