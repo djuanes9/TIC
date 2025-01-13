@@ -1,8 +1,9 @@
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
+
 
 html {
   font-family: "Manrope", sans-serif;
@@ -51,6 +52,11 @@ header h3 {
   margin-top: 0; /* Elimina el margen superior */
   margin-bottom: 0; /* Elimina el margen inferior */
   line-height: 1.2; /* Reduce el espacio entre líneas si hay varias */
+}
+
+header div {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 footer {
