@@ -6,12 +6,13 @@ function Heading() {
   return (
     <header>
       <div>
-      <h1 contentEditable="false" spellCheck="false">
-        ESCUELA POLITÉCNICA NACIONAL
-      </h1>
-      <h2>Trabajo de integración Curricular</h2>
+        <h1 contentEditable="false" spellCheck="false">
+          ESCUELA POLITÉCNICA NACIONAL
+        </h1>
+        <h2>Manufacturing Execution System</h2>
+        <h3>Trabajo de Integración Curricular</h3> {/* Modificación aquí */}
       </div>
-      <img className="circle-img " alt="EP" src={imgEPN} />
+      <img className="circle-img" alt="EP" src={imgEPN} />
     </header>
   );
 }

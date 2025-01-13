@@ -1,90 +1,176 @@
 #include <Arduino.h>
+#include <AccelStepper.h>
 #include <ESP32_Servo.h>
 
+// Pines para el motor a pasos
+#define STEP_PIN 17   // Pin para el pulso de paso
+#define DIR_PIN 26    // Pin para la dirección del motor
+#define ENABLE_PIN 27 // Pin para habilitar el motor
+
+// Pines para los servomotores
+#define SERVO1_PIN 23
+#define SERVO2_PIN 15
+
+// Pines para entradas digitales de los servos
+#define S1_PIN 32        // Entrada para Servo 1
+#define S2_D0_PIN 33     // Entrada digital 0 para Servo 2
+#define S2_D1_PIN 35     // Entrada digital 1 para Servo 2
+
+// Pines de entradas digitales para el motor
+#define STEP_TRIGGER_PIN 34 // Activar motor con estado digital
+
 // Pines del sensor ultrasónico
-#define TRIG_PIN 5  // Pin TRIG del sensor ultrasónico
-#define ECHO_PIN 18 // Pin ECHO del sensor ultrasónico
+#define TRIG_PIN 12
+#define ECHO_PIN 13
 
-// Pines de los servomotores y sus controles
-#define SERVO1_PIN 19
-#define SERVO1_CONTROL_PIN 23
-#define SERVO2_PIN 21
-#define SERVO2_D0 22
-#define SERVO2_D1 14
-// Configuración DAC
-#define DAC_PIN 25 // Salida DAC para señal analógica
+// Pin ADC para velocidad del motor
+#define ADC_PIN 14 // Entrada analógica (GPIO36 / VP)
 
-// Objetos para los servomotores
-Servo servo1; //Servo Tapa Silo
-Servo servo2; //Servo Tamizadora
+// Crear instancia de AccelStepper
+AccelStepper stepper(AccelStepper::DRIVER, STEP_PIN, DIR_PIN);
 
-// Configuración inicial
+// Variables globales
+Servo servo1;
+Servo servo2;
+volatile bool stepMotorActive = false; // Estado del motor controlado por STEP_TRIGGER_PIN
+volatile float distance = 0.0;         // Distancia medida por el sensor ultrasónico
+
+// Variables para control de velocidad
+float currentSpeed = 0;   // Velocidad actual del motor
+float targetSpeed = 0;    // Velocidad deseada
+int lastAdcValue = -1;    // Último valor leído del ADC
+
+// Mutex para proteger acceso compartido al sensor ultrasónico
+SemaphoreHandle_t ultrasonicMutex;
+
+// Función para medir la distancia con el sensor ultrasónico
+void measureDistance() {
+  if (xSemaphoreTake(ultrasonicMutex, portMAX_DELAY)) {
+    digitalWrite(TRIG_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG_PIN, LOW);
+
+    long duration = pulseIn(ECHO_PIN, HIGH);
+    distance = (duration / 2.0) * 0.0343;
+    distance = constrain(distance, 0, 100);
+
+    xSemaphoreGive(ultrasonicMutex);
+  }
+}
+
+// Función para el control de servomotores (Core 0)
+void servoTask(void *parameter) {
+  servo1.attach(SERVO1_PIN, 500, 2500);
+  servo2.attach(SERVO2_PIN, 500, 2500);
+
+  servo1.write(0);
+  servo2.write(90);
+
+  pinMode(S1_PIN, INPUT_PULLDOWN);
+  pinMode(S2_D0_PIN, INPUT_PULLDOWN);
+  pinMode(S2_D1_PIN, INPUT_PULLDOWN);
+
+  for (;;) {
+    if (digitalRead(S1_PIN) == HIGH) {
+      servo1.write(180);
+    } else {
+      servo1.write(0);
+    }
+
+    if (digitalRead(S2_D0_PIN)) {
+      servo2.write(180);
+    } else if (digitalRead(S2_D1_PIN)) {
+      servo2.write(0);
+    } else {
+      servo2.write(90);
+    }
+
+    measureDistance();
+    delay(50);
+  }
+}
+
+// Función para calcular la velocidad basada en el ADC
+float getFixedSpeed(int adcValue) {
+  if (adcValue <= 1023) {
+    return 200;
+  } else if (adcValue <= 2047) {
+    return 400;
+  } else if (adcValue <= 3071) {
+    return 600;
+  } else {
+    return 800;
+  }
+}
+
+// Suavizar cambios de velocidad
+void updateSpeed() {
+  if (currentSpeed < targetSpeed) {
+    currentSpeed += 10; // Incremento gradual
+    if (currentSpeed > targetSpeed) {
+      currentSpeed = targetSpeed;
+    }
+  } else if (currentSpeed > targetSpeed) {
+    currentSpeed -= 10; // Decremento gradual
+    if (currentSpeed < targetSpeed) {
+      currentSpeed = targetSpeed;
+    }
+  }
+
+  stepper.setSpeed(currentSpeed);
+}
+
+// Función para el control del motor a pasos (Core 1)
+void stepperTask(void *parameter) {
+  pinMode(ENABLE_PIN, OUTPUT);
+  digitalWrite(ENABLE_PIN, HIGH);
+  pinMode(STEP_TRIGGER_PIN, INPUT_PULLDOWN);
+
+  stepper.setMaxSpeed(800);
+
+  for (;;) {
+    stepMotorActive = digitalRead(STEP_TRIGGER_PIN);
+
+    if (stepMotorActive) {
+      digitalWrite(ENABLE_PIN, LOW);
+
+      int adcValue = analogRead(ADC_PIN);
+
+      // Actualizar velocidad solo si el ADC cambia significativamente
+      if (abs(adcValue - lastAdcValue) > 50) {
+        targetSpeed = getFixedSpeed(adcValue);
+        lastAdcValue = adcValue;
+
+        Serial.print("ADC Value: ");
+        Serial.print(adcValue);
+        Serial.print(" | Target Speed: ");
+        Serial.println(targetSpeed);
+      }
+
+      updateSpeed(); // Suavizar cambios de velocidad
+      stepper.runSpeed();
+    } else {
+      digitalWrite(ENABLE_PIN, HIGH);
+    }
+
+    taskYIELD();
+  }
+}
+
 void setup() {
-  // Configuración de pines ultrasónico
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
-  // Configuración de servomotores
-  servo1.attach(SERVO1_PIN,500,1800);
-  servo2.attach(SERVO2_PIN,500,2500);
+  ultrasonicMutex = xSemaphoreCreateMutex();
 
-  // Configuración de pines de control
-  pinMode(SERVO1_CONTROL_PIN, INPUT);
-  pinMode(SERVO2_D0, INPUT);
-  pinMode(SERVO2_D1, INPUT);
+  Serial.begin(115200);
+  Serial.println("Sistema iniciado");
 
-  // Inicialización
-  servo1.write(0); // Servomotor 1 en posición inicial
-  servo2.write(90); // Servomotor 2 en posición inicial
-}
-
-float readUltrasonicDistance() {
-  // Generar pulso TRIG
-  digitalWrite(TRIG_PIN, LOW);
-  delayMicroseconds(2);
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
-
-  // Leer duración del pulso ECHO
-  long duration = pulseIn(ECHO_PIN, HIGH);
-
-  // Convertir a distancia en cm
-  float distance = duration * 0.034 / 2;
-  return distance;
-}
-
-void setAnalogOutput(float distance, float maxDistance) {
-  // Convertir distancia a rango de 0 a 3.3V (DAC admite 8 bits: 0 a 255)
-  int dacValue = map(distance, 0, maxDistance, 0, 255);
-  dacValue = constrain(dacValue, 0, 255); // Limitar a valores válidos
-  dacWrite(DAC_PIN, dacValue);
+  xTaskCreatePinnedToCore(servoTask, "Servo Task", 10000, NULL, 1, NULL, 0);
+  xTaskCreatePinnedToCore(stepperTask, "Stepper Task", 10000, NULL, 1, NULL, 1);
 }
 
 void loop() {
-  // --- Control de servomotores ---
-  // Servomotor 1
-  if (digitalRead(SERVO1_CONTROL_PIN) == HIGH) {
-    servo1.write(180); // Activa el servo1 a 180°
-  } else {
-    servo1.write(0);   // Retorna a 0°
-  }
-
-  // Servomotor 2
-  if (digitalRead(SERVO2_D0) == HIGH) {
-    servo2.write(180); // Activa el servo2 a 180°
-  } else if(digitalRead(SERVO2_D1) == HIGH){
-    servo2.write(0);   // Retorna a 0°
-  }else{
-    servo2.write(90);   // Retorna a 0°
-  }
-
-  // --- Lectura del sensor ultrasónico ---
-  float distance = readUltrasonicDistance();
-  distance = constrain(distance, 0, 16.0); // Limitar a 16 cm
-
-  // --- Salida DAC proporcional a la distancia ---
-  setAnalogOutput(distance, 16.0);
-
-  delay(50); // Breve retraso para estabilidad
 }

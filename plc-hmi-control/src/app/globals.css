@@ -12,6 +12,7 @@ body {
   background: #eee;
   padding: 0 1px;
 }
+
 header {
   background-color: #3961ee;
   padding: 12px 20px;
@@ -33,13 +34,22 @@ header h1 {
   font-size: 1.5rem;
   margin-right: 20px;
 }
-
 header h2 {
-  color: #fff;
+  color: #ffffff;
   font-family: "Manrope", sans-serif;
   font-weight: 400;
-  font-size: 1.2rem;
-  text-align: left;
+  font-size: 1.3rem; /* Tamaño ligeramente menor */
+  margin-bottom: 3px; /* Reduce el espacio inferior */
+}
+
+header h3 {
+  color: #dce4f0;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin-top: 0; /* Elimina el margen superior */
+  margin-bottom: 0; /* Elimina el margen inferior */
+  line-height: 1.2; /* Reduce el espacio entre líneas si hay varias */
 }
 
 footer {
@@ -250,7 +260,7 @@ footer p {
 /* Barra de llenado del SILO */
 .siloFill {
   position: absolute;
-  bottom: 20px; /* Llenado desde la parte inferior */
+  bottom: 0px; /* Llenado desde la parte inferior */
   width: 80px; /* Ocupa todo el ancho del contenedor */
   background-color: brown; /* Color del llenado */
   transition: height 0.3s ease; /* Transición suave */
