@@ -16,23 +16,25 @@ const Dashboard = () => {
     <div className="dashboard-container">
       {/* Columna de KPIs */}
       <div className="kpis-column">
+        <h2 className="section-title">KPIs</h2>
         <Gauge title="Disponibilidad" topic="nivel/actual" />
         <Gauge title="Calidad" topic="calidad/actual" />
       </div>
 
       {/* Columna de gráficos en tiempo real */}
       <div className="charts-column">
+        <h2 className="section-title">Gráficos en Tiempo Real</h2>
         <Chart
           title="Gráfico Tiempo Real - Nivel"
           topic="SILO-101"
           ylabel="Nivel [%]"
         />
-        <Pesos title="Gráfico Tiempo Real - Pesos" topic="peso/actual" />{" "}
-        {/* Reemplaza Chart con Pesos */}
+        <Pesos title="Gráfico Tiempo Real - Pesos" topic="peso/actual" />
       </div>
 
-      {/* Columna de histograma */}
+      {/* Columna de histogramas */}
       <div className="histogram-column">
+        <h2 className="section-title">Histogramas</h2>
         <div className="histogram-selector">
           <label>Seleccionar Histograma:</label>
           <select value={selectedHistograma} onChange={handleHistogramaChange}>
@@ -41,11 +43,13 @@ const Dashboard = () => {
           </select>
         </div>
         {/* Mostrar histograma según selección */}
-        {selectedHistograma === "nivel" ? (
-          <Histograma title="Histograma - Nivel" topic="histograma/nivel" />
-        ) : (
-          <Histograma title="Histograma - Peso" topic="histograma/peso" />
-        )}
+        <div className="histogram-item">
+          {selectedHistograma === "nivel" ? (
+            <Histograma title="Histograma - Nivel" topic="histograma/nivel" />
+          ) : (
+            <Histograma title="Histograma - Peso" topic="histograma/peso" />
+          )}
+        </div>
       </div>
     </div>
   );
