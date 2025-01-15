@@ -1,9 +1,8 @@
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
-
 
 html {
   font-family: "Manrope", sans-serif;
@@ -33,14 +32,15 @@ header h1 {
   font-family: "Manrope", sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
-  margin-right: 20px;
+  margin-right: 0px;
 }
 header h2 {
   color: #ffffff;
   font-family: "Manrope", sans-serif;
   font-weight: 400;
+  margin-left: -110px;
+  font-style: italic;
   font-size: 1.3rem; /* Tamaño ligeramente menor */
-  margin-left: -13px;
   margin-bottom: 3px; /* Reduce el espacio inferior */
 }
 
@@ -52,11 +52,6 @@ header h3 {
   margin-top: 0; /* Elimina el margen superior */
   margin-bottom: 0; /* Elimina el margen inferior */
   line-height: 1.2; /* Reduce el espacio entre líneas si hay varias */
-}
-
-header div {
-  margin: 0 !important;
-  padding: 0 !important;
 }
 
 footer {
@@ -771,6 +766,69 @@ footer p {
   background-color: #fff;
   overflow-y: auto;
   width: 400px;
+}
+.histograma-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f9f9f9; /* Fondo consistente */
+  padding: 20px; /* Espaciado interno */
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Asegurar altura uniforme */
+}
+
+.histograma-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.histograma-header h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #162a74; /* Azul oscuro */
+}
+
+.histograma-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.histograma-controls input[type="date"] {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.histograma-controls button {
+  padding: 6px 12px;
+  background-color: #3961ee;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.histograma-controls button:hover {
+  background-color: #274cb8;
+}
+
+.histograma-message {
+  font-size: 0.9rem;
+  text-align: center;
+  color: #666;
+}
+
+.histograma-chart {
+  width: 100%;
+  height: 240px; /* Altura fija para mantener consistencia */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* === Fin de los estilos para analisis.jsx === */

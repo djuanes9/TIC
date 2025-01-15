@@ -1,59 +1,128 @@
-/* Dashboard.css */
+/* Contenedor principal del dashboard */
 .dashboard-container {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  /* Estilos para la columna de KPIs */
-  .kpis-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 20%; /* Ajustar el ancho para que sea menor */
-  }
-  
-  .kpis-column .gauge-item {
-    height: 100px;
-  }
-  
-  /* Columna de gráficos en tiempo real */
-  .charts-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 40%; /* Ajustar el ancho */
-  }
-  
-  .chart-item {
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    height: 220px; /* Altura ajustada */
-  }
-  
-  /* Columna de histograma */
-  .histogram-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: #ffffff;
-    width: 40%; /* Ajustar el ancho */
-  }
-  
-  .histogram-selector {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .histogram-item {
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    height: 300px; /* Altura ajustada */
-  }
-  
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f1f5fa; /* Fondo suave */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos de las secciones */
+.section-title {
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #162a74; /* Azul oscuro */
+  margin-bottom: 15px;
+  text-align: center;
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+  border-bottom: 2px solid #3961ee; /* Línea decorativa */
+  padding-bottom: 5px;
+}
+
+/* Columna de KPIs */
+.kpis-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 20%;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Columna de gráficos en tiempo real */
+.charts-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 40%;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.chart-item {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  height: 220px;
+}
+
+/* Columna de histogramas */
+.histogram-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+
+  width: 40%;
+}
+
+/* Selector de histograma */
+.histogram-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+}
+
+.histogram-selector select {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+/* Histograma interno */
+.histogram-item {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  height: 320px;
+}
+
+/* Cabecera del histograma */
+.histogram-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.histogram-header h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #162a74;
+  margin: 0;
+}
+
+/* Input de fecha y botón */
+.histogram-header input[type="date"] {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.histogram-header button {
+  padding: 6px 12px;
+  background-color: #3961ee;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.histogram-header button:hover {
+  background-color: #274cb8;
+}
