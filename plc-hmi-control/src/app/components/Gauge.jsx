@@ -34,4 +34,6 @@ const Gauge = React.memo(({ title, topic }) => {
   );
 });
 
+Gauge.displayName = "Gauge";
+
 export default Gauge;
