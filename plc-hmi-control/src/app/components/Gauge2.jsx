@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import GaugeChart from "react-gauge-chart";
 import { MQTTContext } from "./MQTTCliente";
 
-const Gauge = React.memo(({ title, topic, maxRange }) => {
+const Gauge2 = React.memo(({ title, topic, maxRange }) => {
   const { statuses } = useContext(MQTTContext);
   const value = statuses[topic] || 0;
 
@@ -39,4 +39,4 @@ const Gauge = React.memo(({ title, topic, maxRange }) => {
 
 Gauge2.displayName = "Gauge2";
 
-export default Gauge;
+export default Gauge2;
