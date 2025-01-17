@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-import Chart from "./Chart";
 import Gauge from "./Gauge";
 import Histograma3 from "./Histograma3";
-import Pesos from "./Pesos";
 import Tiempos from "./Tiempos";
 import "./Dashboard.css";
 
 const Maquinaria = () => {
-  const [selectedHistograma, setSelectedHistograma] = useState("nivel"); // Estado para el histograma seleccionado
-  const [viewMode, setViewMode] = useState("realtime"); // Estado para alternar entre gráfico en tiempo real e histograma
-
-  const handleHistogramaChange = (event) => {
-    setSelectedHistograma(event.target.value); // Cambiar entre nivel y peso
-  };
+  const [setSelectedHistograma] = useState("nivel"); // Estado para el histograma seleccionado
 
   return (
     <div className="dashboard-container">
