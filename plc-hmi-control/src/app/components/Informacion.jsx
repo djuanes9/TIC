@@ -73,14 +73,6 @@ const Informacion = () => {
     setLoading(true);
     sendMessage("request/config", "Solicitar última configuración");
 
-    try {
-      await esperarDatos(10); // Espera hasta 5 segundos (10 intentos de 500 ms)
-      setLoading(false);
-      setShowModal(true);
-    } catch (error) {
-      setLoading(false);
-      alert("No se han recibido datos. Por favor, intente nuevamente.");
-    }
   };
 
   const handleCerrarModal = () => {
