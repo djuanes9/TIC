@@ -34,7 +34,7 @@ const Informacion = () => {
           setConfiguracionActual(null);
         }
       } catch (error) {
-        console.error("Error al procesar configuracion/salida:", error);
+        console.error("Error al procesar configuracion/salida:");
         setConfiguracionActual(null);
       }
     }
