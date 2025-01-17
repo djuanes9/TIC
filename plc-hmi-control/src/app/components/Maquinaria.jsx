@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Chart from "./Chart";
 import Gauge from "./Gauge";
-import Histograma from "./Histograma";
+import Histograma3 from "./Histograma3";
+import Pesos from "./Pesos";
 import Tiempos from "./Tiempos";
 import "./Dashboard.css";
 
@@ -13,67 +14,37 @@ const Maquinaria = () => {
     setSelectedHistograma(event.target.value); // Cambiar entre nivel y peso
   };
 
-  const toggleViewMode = () => {
-    setViewMode((prevMode) =>
-      prevMode === "realtime" ? "histogram" : "realtime"
-    ); // Alternar vista
-  };
-
   return (
     <div className="dashboard-container">
       {/* Columna de KPIs */}
       <div className="kpis-column">
         <h3 className="section-title">KPIs</h3>
-        <Gauge title="Disponibilidad" topic="nivel/actual" />
-        <Gauge title="OEE" topic="calidad/actual" />
+        <Gauge title="Disponibilidad Molino" topic="disp/mill" />
+        <Gauge title="Disponibilidad Screw" topic="disp/screw" />
+        {/* <Gauge title="OEE" topic="oee" /> */}
       </div>
 
       {/* Columna de gráficos en tiempo real */}
       <div className="charts-column">
-        <h3 className="section-title">Gráficos en Tiempo Real</h3>
-        <Chart
+        <h3 className="section-title"> Gráfico de Tiempos</h3>
+        <Tiempos
           title="Tiempos de operación Molino"
-          topic="nivel/actual"
-          ylabel="Velocidad (rpm)"
+          topic="tiempos/actual"
+          ylabel="Tiempo (seg)"
         />
-        <Tiempos title="Tiempos de la Máquina" topic="tiempos/actual" />
       </div>
 
-      {/* Columna de histograma o gráfico en tiempo real */}
+      {/* Columna de histogramas */}
       <div className="histogram-column">
-        <h3 className="section-title">Histograma / Gráfico</h3>
-        <div className="view-mode-selector">
-          <button className="toggle-button" onClick={toggleViewMode}>
-            {viewMode === "realtime"
-              ? "Ver Histograma"
-              : "Ver Gráfico en Tiempo Real"}
-          </button>
-        </div>
-        {viewMode === "realtime" ? (
-          <Chart
-            title="Gráfico en Tiempo Real - Molino"
-            topic="grafico/tiempo-real"
-            ylabel="Tiempo (segundos)"
+        <h2 className="section-title">Histogramas</h2>
+        <div className="histogram-selector"></div>
+        {/* Renderizar el histograma correspondiente */}
+        <div className="histogram-item">
+          <Histograma3
+            title="Tiempo de uso máquinas"
+            topic="histograma/tiempo"
           />
-        ) : (
-          <div>
-            <div className="histogram-selector">
-              <label>Seleccionar Histograma:</label>
-              <select
-                value={selectedHistograma}
-                onChange={handleHistogramaChange}
-              >
-                <option value="nivel">Nivel</option>
-                <option value="peso">Peso</option>
-              </select>
-            </div>
-            {selectedHistograma === "nivel" ? (
-              <Histograma title="Histograma - Nivel" topic="histograma/nivel" />
-            ) : (
-              <Histograma title="Histograma - Peso" topic="histograma/peso" />
-            )}
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

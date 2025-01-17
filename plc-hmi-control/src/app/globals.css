@@ -38,7 +38,7 @@ header h2 {
   color: #ffffff;
   font-family: "Manrope", sans-serif;
   font-weight: 400;
-  margin-left: -110px;
+  margin-left: 0px;
   font-style: italic;
   font-size: 1.3rem; /* Tamaño ligeramente menor */
   margin-bottom: 3px; /* Reduce el espacio inferior */
@@ -305,13 +305,15 @@ footer p {
   height: 3.8rem;
 }
 
+/* Panel derecho */
 .Mill-image {
   position: absolute;
   top: 282px; /* Ajusta según la posición deseada sobre el silo */
   left: 652px; /* Ajusta la posición horizontal de la válvula */
   width: 6rem; /* Tamaño de la válvula */
   height: 3rem;
-} /* Panel derecho */
+}
+
 /* Panel derecho */
 .hmi-right {
   display: flex;

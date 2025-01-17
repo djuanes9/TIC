@@ -9,11 +9,12 @@ import {
 } from "recharts";
 import { MQTTContext } from "./MQTTCliente";
 
-const COLORS = ["#00C49F", "#FF8042"];
+const COLORS = ["#00C49F", "#FF8042", "#0088FE"];
 
 const Tiempos = ({ topic }) => {
   const { statuses } = useContext(MQTTContext); // Obtener datos del contexto MQTT
   const [tiempoData, setTiempoData] = useState([]);
+  const [detalles, setDetalles] = useState({ screw: 0, mill: 0, others: 0 });
 
   // Suscribirse al tópico y actualizar los datos del gráfico
   useEffect(() => {
@@ -25,14 +26,28 @@ const Tiempos = ({ topic }) => {
         // Parsear el payload si es necesario
         const parsedData = typeof data === "string" ? JSON.parse(data) : data;
 
-        // Formatear los datos para el gráfico
+        // Formatear los datos para el gráfico con las nuevas variables
         setTiempoData([
           {
-            name: "Encendido",
-            value: parseFloat(parsedData.porcentajeEncendido),
+            name: "Screw",
+            value: parseFloat(parsedData.PorcentajeScrew),
           },
-          { name: "Apagado", value: parseFloat(parsedData.porcentajeApagado) },
+          {
+            name: "Mill",
+            value: parseFloat(parsedData.PorcentajeMill),
+          },
+          {
+            name: "Others",
+            value: parseFloat(parsedData.PorcentajeOthers),
+          },
         ]);
+
+        // Actualizar los detalles de tiempo
+        setDetalles({
+          screw: parsedData.TimeScrew,
+          mill: parsedData.TimeMill,
+          others: parsedData.TimeOthers,
+        });
       } catch (error) {
         console.error(`Error al procesar los datos (${topic}):`, error);
       }
@@ -64,6 +79,17 @@ const Tiempos = ({ topic }) => {
           <Legend />
         </PieChart>
       </ResponsiveContainer>
+      <div style={{ marginTop: "20px" }}>
+        <p>
+          <strong>Tiempo Screw:</strong> {detalles.screw} segundos
+        </p>
+        <p>
+          <strong>Tiempo Mill:</strong> {detalles.mill} segundos
+        </p>
+        <p>
+          <strong>Tiempo Others:</strong> {detalles.others} segundos
+        </p>
+      </div>
     </div>
   );
 };

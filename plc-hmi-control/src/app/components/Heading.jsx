@@ -9,7 +9,7 @@ function Heading() {
         <h1 contentEditable="false" spellCheck="false">
           ESCUELA POLITÉCNICA NACIONAL
         </h1>
-        <h2>Manufacturing Execution System</h2>
+        <h2>Sistema de Automatización y Control Industrial</h2>
         <h3>Trabajo de Integración Curricular</h3> {/* Modificación aquí */}
       </div>
       <img className="circle-img" alt="EP" src={imgEPN} />

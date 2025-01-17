@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   Brush,
   XAxis,
   YAxis,
@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { MQTTContext } from "./MQTTCliente";
 
-const Histograma = ({ title, topic }) => {
+const Histograma2 = ({ title, topic }) => {
   const { statuses, sendMessage } = useContext(MQTTContext);
   const [histogramData, setHistogramData] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
@@ -20,10 +20,7 @@ const Histograma = ({ title, topic }) => {
 
   const sendDateToNodeRed = () => {
     if (selectedDate && topic) {
-      sendMessage(
-        "fecha/seleccionada",
-        JSON.stringify({ date: selectedDate, topic })
-      );
+      sendMessage("fecha/pesos", JSON.stringify({ date: selectedDate, topic }));
     }
   };
 
@@ -35,15 +32,17 @@ const Histograma = ({ title, topic }) => {
     if (statuses[topic]) {
       try {
         const data = statuses[topic];
-        if (Array.isArray(data) && data.length === 0) {
-          setHistogramData([]);
-          setHasData(false);
-        } else if (data) {
-          const parsedData = typeof data === "object" ? data : JSON.parse(data);
+        const parsedData = typeof data === "string" ? JSON.parse(data) : data;
+
+        if (Array.isArray(parsedData) && parsedData.length > 0) {
           setHistogramData(parsedData);
           setHasData(true);
+        } else {
+          setHistogramData([]);
+          setHasData(false);
         }
-      } catch {
+      } catch (error) {
+        console.error("Error parsing data:", error);
         setHistogramData([]);
         setHasData(false);
       }
@@ -70,25 +69,20 @@ const Histograma = ({ title, topic }) => {
 
       <div className="histograma-chart">
         <ResponsiveContainer>
-          <LineChart data={histogramData}>
+          <BarChart data={histogramData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="x" />
             <YAxis />
             <Tooltip />
             <Legend />
             <Brush dataKey="x" height={30} stroke="#3961ee" />
-            <Line
-              dataKey="Nivel"
-              fill="#3961ee"
-              stroke="#3961ee"
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
+            <Bar dataKey="peso1" fill="#3961ee" />
+            <Bar dataKey="peso2" fill="#FFBB28" />
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </div>
   );
 };
 
-export default Histograma;
+export default Histograma2;

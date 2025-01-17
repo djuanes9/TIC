@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import Chart from "./Chart";
 import Gauge from "./Gauge";
+import Gauge2 from "./Gauge2";
 import Histograma from "./Histograma";
-import Pesos from "./Pesos"; // Importa el componente Pesos
+import Histograma2 from "./Histograma2"; // Nuevo componente para múltiples variables
+import Pesos from "./Pesos";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const [selectedHistograma, setSelectedHistograma] = useState("nivel"); // Estado para el histograma seleccionado
+  const [selectedHistograma, setSelectedHistograma] = useState("nivel"); // Estado para la selección
 
   const handleHistogramaChange = (event) => {
-    setSelectedHistograma(event.target.value); // Cambiar entre nivel y peso
+    setSelectedHistograma(event.target.value);
   };
 
   return (
@@ -17,7 +19,7 @@ const Dashboard = () => {
       {/* Columna de KPIs */}
       <div className="kpis-column">
         <h2 className="section-title">KPIs</h2>
-        <Gauge title="Disponibilidad" topic="nivel/actual" />
+        <Gauge2 title="Rendimiento" topic="rendimiento" maxRange={20} />
         <Gauge title="Calidad" topic="calidad/actual" />
       </div>
 
@@ -42,12 +44,12 @@ const Dashboard = () => {
             <option value="peso">Peso</option>
           </select>
         </div>
-        {/* Mostrar histograma según selección */}
+        {/* Renderizar el histograma correspondiente */}
         <div className="histogram-item">
           {selectedHistograma === "nivel" ? (
             <Histograma title="Histograma - Nivel" topic="histograma/nivel" />
           ) : (
-            <Histograma title="Histograma - Peso" topic="histograma/peso" />
+            <Histograma2 title="Histograma - Pesos" topic="histograma/pesos" />
           )}
         </div>
       </div>

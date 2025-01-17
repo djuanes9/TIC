@@ -10,13 +10,13 @@ const Informacion = () => {
     NameProdFinal: "Grano Molido",
     NivelSiloMin: 10,
     NivelSiloMax: 90,
-    CalidadIdeal: 90,
-    TiempoPlanificado: 60,
-    VelocidadOperacion: 20,
+    CalidadIdeal: 50,
+    TiempoPlanificado: 6,
   });
 
   const [configuracionActual, setConfiguracionActual] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (statuses["configuracion/salida"]) {
@@ -38,7 +38,7 @@ const Informacion = () => {
         setConfiguracionActual(null);
       }
     }
-  }, [statuses]);
+  }, [statuses["configuracion/salida"]]);
 
   const obtenerFechaYHora = () => {
     const now = new Date();
@@ -50,16 +50,33 @@ const Informacion = () => {
     };
   };
 
-  const handleSolicitarUltimaConfig = () => {
+  const esperarDatos = (reintentos = 10) => {
+    return new Promise((resolve, reject) => {
+      const intervalo = setInterval(() => {
+        if (statuses["configuracion/salida"] && configuracionActual) {
+          clearInterval(intervalo);
+          resolve(true);
+        } else if (reintentos <= 0) {
+          clearInterval(intervalo);
+          reject(new Error("No se han recibido datos en el tiempo esperado."));
+        }
+        reintentos -= 1;
+      }, 500); // Verifica cada 500 ms
+    });
+  };
+
+  const handleSolicitarUltimaConfig = async () => {
+    setLoading(true);
     sendMessage("request/config", "Solicitar última configuración");
 
-    setTimeout(() => {
-      if (statuses["configuracion/salida"] && configuracionActual) {
-        setShowModal(true);
-      } else {
-        alert("No se han recibido datos. Por favor, intente nuevamente.");
-      }
-    }, 1200);
+    try {
+      await esperarDatos(10); // Espera hasta 5 segundos (10 intentos de 500 ms)
+      setLoading(false);
+      setShowModal(true);
+    } catch (error) {
+      setLoading(false);
+      alert("No se han recibido datos. Por favor, intente nuevamente.");
+    }
   };
 
   const handleCerrarModal = () => {
@@ -121,7 +138,7 @@ const Informacion = () => {
           />
         </div>
         <div className="form-group">
-          <label>Nivel Silo Mínimo:</label>
+          <label>Nivel Silo Mínimo (%):</label>
           <input
             type="number"
             name="NivelSiloMin"
@@ -130,7 +147,7 @@ const Informacion = () => {
           />
         </div>
         <div className="form-group">
-          <label>Nivel Silo Máximo:</label>
+          <label>Nivel Silo Máximo (%):</label>
           <input
             type="number"
             name="NivelSiloMax"
@@ -139,7 +156,7 @@ const Informacion = () => {
           />
         </div>
         <div className="form-group">
-          <label>Calidad Ideal:</label>
+          <label>Calidad Ideal (%):</label>
           <input
             type="number"
             name="CalidadIdeal"
@@ -148,20 +165,11 @@ const Informacion = () => {
           />
         </div>
         <div className="form-group">
-          <label>Tiempo Planificado (minutos):</label>
+          <label>Tiempo Molino (segundos):</label>
           <input
             type="number"
             name="TiempoPlanificado"
             value={configuracion.TiempoPlanificado}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Velocidad de Operación (gramos/min):</label>
-          <input
-            type="number"
-            name="VelocidadOperacion"
-            value={configuracion.VelocidadOperacion}
             onChange={handleChange}
           />
         </div>
@@ -172,6 +180,8 @@ const Informacion = () => {
       <button className="btn-request" onClick={handleSolicitarUltimaConfig}>
         Ver Configuración Actual
       </button>
+
+      {loading && <p>Cargando configuración...</p>}
 
       {showModal && configuracionActual && (
         <div className="modal-overlay">

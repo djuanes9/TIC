@@ -21,9 +21,16 @@ export const MQTTProvider = ({ children }) => {
     NIVEL: "OFF",
     "status/node-red": null,
     "histograma/nivel": null,
+    "histograma/pesos": null,
+    "histograma/tiempo": null,
     "nivel/actual": 0,
     "wt1/actual": 0,
     "wt2/actual": 0,
+    "disp/mill": 0,
+    rendimiento: 0,
+    "time/mill": 0,
+    "time/screw": 0,
+    "disp/screw": 0,
     "peso/actual": null,
     "tiempos/actual": null,
     "calidad/actual": 0,
@@ -70,9 +77,16 @@ export const MQTTProvider = ({ children }) => {
             "VALV-101",
             "status/node-red",
             "histograma/nivel",
+            "histograma/pesos",
+            "histograma/tiempo",
             "nivel/actual",
             "wt1/actual",
             "wt2/actual",
+            "disp/mill",
+            "disp/screw",
+            "time/screw",
+            "rendimiento",
+            "time/mill",
             "peso/actual",
             "calidad/actual",
             "tiempos/actual",
@@ -161,6 +175,34 @@ export const MQTTProvider = ({ children }) => {
             }
           }
 
+          if (topic === "histograma/tiempo") {
+            try {
+              // Intentamos parsear el mensaje como JSON
+              const parsedMsg = JSON.parse(msg);
+              return {
+                ...prevStatuses,
+                [topic]: parsedMsg, // Asignamos el objeto parseado al estado
+              };
+            } catch (error) {
+              console.error(`Error al parsear el mensaje en ${topic}:`, error);
+              return prevStatuses; // Si falla, no modificar el estado
+            }
+          }
+
+          if (topic === "histograma/pesos") {
+            try {
+              // Intentamos parsear el mensaje como JSON
+              const parsedMsg = JSON.parse(msg);
+              return {
+                ...prevStatuses,
+                [topic]: parsedMsg, // Asignamos el objeto parseado al estado
+              };
+            } catch (error) {
+              console.error(`Error al parsear el mensaje en ${topic}:`, error);
+              return prevStatuses; // Si falla, no modificar el estado
+            }
+          }
+
           // Para otros tópicos, tratarlos como valores simples
           return {
             ...prevStatuses,
@@ -169,9 +211,19 @@ export const MQTTProvider = ({ children }) => {
                 ? Number(msg) // Para "SILO-101", convertir a número
                 : topic === "nivel/actual"
                 ? Number(msg) // Para "SILO-101", convertir a número
+                : topic === "time/screw"
+                ? Number(msg) // Para "SILO-101", convertir a número
+                : topic === "rendimiento"
+                ? Number(msg) // Para "SILO-101", convertir a número
+                : topic === "time/mill"
+                ? Number(msg) // Para "SILO-101", convertir a número
                 : topic === "wt1/actual"
                 ? Number(msg) // Para "SILO-101", convertir a número
                 : topic === "wt2/actual"
+                ? Number(msg) // Para "SILO-101", convertir a número
+                : topic === "disp/mill"
+                ? Number(msg) // Para "SILO-101", convertir a número
+                : topic === "disp/screw"
                 ? Number(msg) // Para "SILO-101", convertir a número
                 : topic === "calidad/actual"
                 ? Number(msg) // Para "SILO-101", convertir a número

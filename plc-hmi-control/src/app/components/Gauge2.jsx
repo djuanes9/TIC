@@ -1,13 +1,14 @@
+
 import React, { useContext } from "react";
 import GaugeChart from "react-gauge-chart";
 import { MQTTContext } from "./MQTTCliente";
 
-const Gauge = React.memo(({ title, topic }) => {
+const Gauge = React.memo(({ title, topic, maxRange }) => {
   const { statuses } = useContext(MQTTContext);
   const value = statuses[topic] || 0;
 
-  // Convertir el valor a un rango entre 0 y 1 para el gauge
-  const normalizedValue = value / 100;
+  // Normalizar el valor al rango 0-1 basado en el rango máximo
+  const normalizedValue = Math.min(value / maxRange, 1);
 
   // Configuración de colores
   const colors = ["#FF4848", "#FFBB28", "#00C49F"]; // Rojo, Amarillo, Verde
@@ -29,7 +30,9 @@ const Gauge = React.memo(({ title, topic }) => {
         cornerRadius={3}
         hideText={true}
       />
-      <p style={{ fontSize: "24px", marginTop: "-10px" }}>{value}%</p>
+      <p style={{ fontSize: "24px", marginTop: "-10px" }}>
+        {value} granos/seg
+      </p>
     </div>
   );
 });
