@@ -19,9 +19,11 @@ const Informacion = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (statuses["configuracion/salida"]) {
+    const configuracionSalida = statuses["configuracion/salida"];
+
+    if (configuracionSalida) {
       try {
-        let data = statuses["configuracion/salida"];
+        let data = configuracionSalida;
 
         if (typeof data === "string") {
           data = JSON.parse(data);
@@ -30,15 +32,19 @@ const Informacion = () => {
         if (Array.isArray(data) && data.length > 0) {
           setConfiguracionActual(data[0]);
         } else {
-          console.warn("El JSON recibido está vacío o no es un array válido.");
+          if (process.env.NODE_ENV === "development") {
+            console.warn("El JSON recibido está vacío o no es un array válido.");
+          }
           setConfiguracionActual(null);
         }
       } catch (error) {
-        console.error("Error al procesar configuracion/salida:");
+        if (process.env.NODE_ENV === "development") {
+          console.error("Error al procesar configuracion/salida:", error);
+        }
         setConfiguracionActual(null);
       }
     }
-  }, [statuses["configuracion/salida"]]);
+  }, [statuses]);
 
   const obtenerFechaYHora = () => {
     const now = new Date();
@@ -58,6 +64,7 @@ const Informacion = () => {
           resolve(true);
         } else if (reintentos <= 0) {
           clearInterval(intervalo);
+          reject(new Error("No se han recibido datos en el tiempo esperado."));
         }
         reintentos -= 1;
       }, 500); // Verifica cada 500 ms
