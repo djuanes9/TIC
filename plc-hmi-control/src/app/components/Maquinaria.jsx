@@ -5,7 +5,7 @@ import Tiempos from "./Tiempos";
 import "./Dashboard.css";
 
 const Maquinaria = () => {
-  const [setSelectedHistograma] = useState("nivel"); // Estado para el histograma seleccionado
+
 
   return (
     <div className="dashboard-container">
