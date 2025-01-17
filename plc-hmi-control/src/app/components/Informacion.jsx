@@ -58,7 +58,6 @@ const Informacion = () => {
           resolve(true);
         } else if (reintentos <= 0) {
           clearInterval(intervalo);
-          reject(new Error("No se han recibido datos en el tiempo esperado."));
         }
         reintentos -= 1;
       }, 500); // Verifica cada 500 ms
