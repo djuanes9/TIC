@@ -37,7 +37,7 @@ const Informacion = () => {
           }
           setConfiguracionActual(null);
         }
-      } catch (error) {
+      } catch{
         
         setConfiguracionActual(null);
       }
