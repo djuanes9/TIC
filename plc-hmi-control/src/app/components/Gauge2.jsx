@@ -37,4 +37,6 @@ const Gauge = React.memo(({ title, topic, maxRange }) => {
   );
 });
 
+Gauge2.displayName = "Gauge2";
+
 export default Gauge;
