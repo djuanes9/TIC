@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Gauge from "./Gauge";
 import Histograma3 from "./Histograma3";
 import Tiempos from "./Tiempos";
