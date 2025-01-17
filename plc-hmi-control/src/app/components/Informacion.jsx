@@ -38,9 +38,7 @@ const Informacion = () => {
           setConfiguracionActual(null);
         }
       } catch (error) {
-        if (process.env.NODE_ENV === "development") {
-          console.error("Error al procesar configuracion/salida:", error);
-        }
+        
         setConfiguracionActual(null);
       }
     }
