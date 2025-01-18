@@ -116,7 +116,7 @@ footer p {
   height: 540px;
   flex: 0 0 80%;
   overflow-x: auto;
-  width: 970px; /* Asegura que el padding se incluya en el ancho total */
+  width: 990px; /* Asegura que el padding se incluya en el ancho total */
 }
 
 .hmi-container {
@@ -165,7 +165,7 @@ footer p {
   border: 1px solid #ccc;
   padding: 20px;
   height: 100%; /* Ajustado */
-  max-width: 950px; /* Limita el tamaño máximo */
+  max-width: 1050px; /* Limita el tamaño máximo */
   border-radius: 4px;
   background-color: #f9f9f9;
 }
@@ -254,8 +254,8 @@ footer p {
 
 /* Imagen del silo */
 .siloImage {
-  width: 910px; /* Ancho de la imagen del silo */
-  height: 450px; /* Alto de la imagen del silo */
+  width: 950px; /* Ancho de la imagen del silo */
+  height: 470px; /* Alto de la imagen del silo */
   object-fit: fill;
 }
 
@@ -271,8 +271,8 @@ footer p {
 
 .siloFillContainer {
   position: absolute;
-  bottom: 188px; /* Ajusta según el espacio que quieres desde la parte inferior */
-  left: 61px; /* Ajusta según la posición horizontal deseada */
+  bottom: 178px; /* Ajusta según el espacio que quieres desde la parte inferior */
+  left: 65px; /* Ajusta según la posición horizontal deseada */
   width: 70px; /* Ajusta para que abarque el ancho deseado dentro del silo */
   height: 100px; /* Ajusta para que abarque solo la parte específica del silo */
   background-color: white; /* Puede ser transparente para no bloquear la imagen */
@@ -281,8 +281,8 @@ footer p {
 
 .valve-image {
   position: absolute;
-  top: 333px; /* Ajusta según la posición deseada sobre el silo */
-  left: 83px; /* Ajusta la posición horizontal de la válvula */
+  top: 348px; /* Ajusta según la posición deseada sobre el silo */
+  left: 88px; /* Ajusta la posición horizontal de la válvula */
   width: 45px; /* Tamaño de la válvula */
   height: 45px;
   transform: rotate(90deg);
@@ -290,8 +290,8 @@ footer p {
 
 .M1-image {
   position: absolute;
-  top: 265px; /* Ajusta según la posición deseada sobre el silo */
-  left: 218px; /* Ajusta la posición horizontal de la válvula */
+  top: 282px; /* Ajusta según la posición deseada sobre el silo */
+  left: 229px; /* Ajusta la posición horizontal de la válvula */
   width: 20.5rem; /* Tamaño de la válvula */
   height: 2.5rem;
   rotate: -38deg;
@@ -299,8 +299,8 @@ footer p {
 
 .M2-image {
   position: absolute;
-  top: 319px; /* Ajusta según la posición deseada sobre el silo */
-  left: 566px; /* Ajusta la posición horizontal de la válvula */
+  top: 335px; /* Ajusta según la posición deseada sobre el silo */
+  left: 592px; /* Ajusta la posición horizontal de la válvula */
   width: 4rem; /* Tamaño de la válvula */
   height: 3.8rem;
 }
@@ -308,8 +308,8 @@ footer p {
 /* Panel derecho */
 .Mill-image {
   position: absolute;
-  top: 282px; /* Ajusta según la posición deseada sobre el silo */
-  left: 652px; /* Ajusta la posición horizontal de la válvula */
+  top: 299px; /* Ajusta según la posición deseada sobre el silo */
+  left: 681px; /* Ajusta la posición horizontal de la válvula */
   width: 6rem; /* Tamaño de la válvula */
   height: 3rem;
 }
