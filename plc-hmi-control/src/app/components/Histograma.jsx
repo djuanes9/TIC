@@ -52,12 +52,11 @@ const Histograma = ({ title, topic }) => {
 
   return (
     <div className="histograma-container">
-      <div className="histograma-header">
-        <h3>{title}</h3>
-        <div className="histograma-controls">
-          <input type="date" value={selectedDate} onChange={handleDateChange} />
-          <button onClick={sendDateToNodeRed}>Consultar datos</button>
-        </div>
+      {/* Título encima de los controles */}
+      <h3 className="histograma-title">{title}</h3>
+      <div className="histograma-controls">
+        <input type="date" value={selectedDate} onChange={handleDateChange} />
+        <button onClick={sendDateToNodeRed}>Consultar datos</button>
       </div>
 
       <div className="histograma-message">
