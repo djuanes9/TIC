@@ -75,8 +75,8 @@ const Histograma2 = ({ title, topic }) => {
             <Tooltip />
             <Legend />
             <Brush dataKey="x" height={30} stroke="#3961ee" />
-            <Bar dataKey="peso1" fill="#3961ee" />
-            <Bar dataKey="peso2" fill="#FFBB28" />
+            <Bar dataKey="Peso1" fill="#3961ee" />
+            <Bar dataKey="Peso2" fill="#FFBB28" />
           </BarChart>
         </ResponsiveContainer>
       </div>
