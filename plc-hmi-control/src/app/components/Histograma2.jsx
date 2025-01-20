@@ -67,7 +67,7 @@ const Histograma2 = ({ title, topic }) => {
       </div>
 
       <div className="histograma-chart">
-        <ResponsiveContainer>
+        <ResponsiveContainer height={200}>
           <BarChart data={histogramData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="x" />

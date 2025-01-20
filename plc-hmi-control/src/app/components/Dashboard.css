@@ -58,7 +58,6 @@
   gap: 20px;
   padding: 20px;
   border-radius: 8px;
-
   width: 40%;
 }
 
@@ -87,7 +86,8 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  height: 320px;
+  height: 420px;
+  width: 380px;
 }
 
 /* Cabecera del histograma */
@@ -125,4 +125,9 @@
 
 .histogram-header button:hover {
   background-color: #274cb8;
+}
+
+.histograma-chart {
+  width: 290px;
+  height: 350px;
 }
