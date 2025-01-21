@@ -31,7 +31,7 @@ const Gauge2 = React.memo(({ title, topic, maxRange }) => {
         hideText={true}
       />
       <p style={{ fontSize: "24px", marginTop: "-10px" }}>
-        {value} granos/seg
+        {value} granos/min
       </p>
     </div>
   );
