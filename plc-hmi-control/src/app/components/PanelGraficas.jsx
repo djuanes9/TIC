@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { MQTTContext } from "./MQTTCliente";
 
-const PanelGraficas = () => {
+const PanelGraficas = ({ userRole }) => {
   const { statuses, isConnected, sendMessage, isNodeRedConnected } =
     useContext(MQTTContext);
   const [bandaValue] = useState(50);
@@ -125,21 +125,23 @@ const PanelGraficas = () => {
         </div>
       </div>
 
-      {/* Botones al final */}
-      <div className="button-section">
-        <button
-          onClick={() => handleButtonPress("start")}
-          className="button-start"
-        >
-          START
-        </button>
-        <button
-          onClick={() => handleButtonPress("stop")}
-          className="button-stop"
-        >
-          STOP
-        </button>
-      </div>
+      {/* Botones de control (solo visibles para admin) */}
+      {userRole === "admin" && (
+        <div className="button-section">
+          <button
+            onClick={() => handleButtonPress("start")}
+            className="button-start"
+          >
+            START
+          </button>
+          <button
+            onClick={() => handleButtonPress("stop")}
+            className="button-stop"
+          >
+            STOP
+          </button>
+        </div>
+      )}
     </div>
   );
 };

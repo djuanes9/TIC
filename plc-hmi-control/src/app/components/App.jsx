@@ -77,19 +77,14 @@ function App() {
         <div>
           <MQTTProvider>
             <TabsBar
-              tabs={[
-                "HMI",
-                "Información",
-                "Máquinaria",
-                "Producción",
-              ]}
+              tabs={["HMI", "Información", "Máquinaria", "Producción"]}
               onSelect={handleTabSelect}
               user={userName} // Pasar el nombre del usuario
               role={userRole} // Pasar el nivel de acceso
               onLogout={handleLogout} // Función de cerrar sesión
             />
             <div className="main-container">
-              {selectedTab === "HMI" && <InterfazHMI />}
+              {selectedTab === "HMI" && <InterfazHMI userRole={userRole} />}
               {selectedTab === "Información" && <Informacion />}
               {selectedTab === "Histograma" && <Histograma />}
               {selectedTab === "Máquinaria" && <Maquinaria />}

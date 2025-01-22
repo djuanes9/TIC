@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import PanelGraficas from "./PanelGraficas";
 import { MQTTContext } from "./MQTTCliente"; // Importar el contexto global de MQTT
 
-const HMI = () => {
+const HMI = ({ userRole }) => {
   const { statuses } = useContext(MQTTContext); // Extraer los estados de los tópicos desde el contexto
+
+  // Rol del usuario (puedes obtenerlo de una autenticación real)
 
   // Obtener el porcentaje de llenado del silo (de 0 a 100)
   const siloFillLevel = statuses["SILO-101"] || 0;
@@ -12,7 +14,6 @@ const HMI = () => {
   return (
     <div className="hmi-container">
       {/* Sección del SILO */}
-
       <div className="hmi-left">
         <div className="siloWrapper">
           <img src="/HMI.png" alt="SILO-101" className="siloImage" />
@@ -57,7 +58,8 @@ const HMI = () => {
         </div>
       </div>
       <div className="hmi-right">
-        <PanelGraficas />
+        {/* Pasar el rol al componente PanelGraficas */}
+        <PanelGraficas userRole={userRole} />
       </div>
     </div>
   );
