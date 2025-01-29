@@ -47,9 +47,9 @@ export const MQTTProvider = ({ children }) => {
     if (!mqttClient) {
       console.log("Intentando conectar al broker MQTT...");
       const client = mqtt.connect(
-        "wss://2467cd533de642cd852c4b0e3426dd9e.s1.eu.hivemq.cloud:8884/mqtt",
+        "wss://8624b492419e49889c3ae45df6f03eea.s1.eu.hivemq.cloud:8884/mqtt",
         {
-          username: "djuanes7",
+          username: "djuanes9",
           password: "Jeagdrose9", // Actualiza con los credenciales correctos
           reconnectPeriod: 5000, // Intentar reconectar cada 5 segundos si se pierde la conexión
           connectTimeout: 30 * 1000, // Tiempo de espera para la conexión
